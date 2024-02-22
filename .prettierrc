@@ -1,0 +1,22 @@
+{
+  "plugins": ["prettier-plugin-astro"],
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrder": [
+    "^react(.*)$", // All react imports first
+    "<THIRD_PARTY_MODULES>', // Then node modules
+    "^src/(.*)$", // All local files from src
+    "^(.*)/(?!generated)(.*)/(.*)$", // Everything not generated
+    "^(.*)/generated/(.*)$", // Everything generated
+    "^[./]", // Absolute path imports
+  ],
+}

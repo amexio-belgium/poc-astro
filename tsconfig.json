@@ -1,0 +1,15 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@pages/*": ["src/pages/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@trpc-api/*": ["src/api/server/*"],
+      "@trpc-client/*": ["src/api/client/*"],
+      "@trpc-procedures/*": ["src/api/procedures/*"]
+    }
+  }
+}
