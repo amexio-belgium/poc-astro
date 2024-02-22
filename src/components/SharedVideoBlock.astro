@@ -1,0 +1,24 @@
+---
+import type {SharedVideoBlock} from 'src/api/interfaces/CMSInterfaces';
+interface Props {
+    props: SharedVideoBlock;
+}
+
+const {props} = Astro.props;
+
+function getId(url) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+---
+
+<article class="grid grid-cols-2 h-[425px] w-full bg-gray-200">
+    <div class="py-10 px-[90px] my-auto">
+        <h3 class="text-2xl mb-2">{props.title}</h3>
+        <Fragment set:html={props.description}></Fragment>
+    </div>
+    <iframe title={props.title} src={`//www.youtube.com/embed/${getId(props.url)}`} class="h-full w-full"></iframe>
+</article>
+

@@ -1,0 +1,14 @@
+---
+import type {PageTitle} from 'src/api/interfaces/CMSInterfaces';
+interface Props {
+    pageTitle: PageTitle;
+}
+
+const {pageTitle} = Astro.props;
+
+---
+
+<article class="w-full h-20 bg-gray-200">
+    <p>{pageTitle.title}</p>
+</article>
+

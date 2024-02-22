@@ -1,0 +1,31 @@
+---
+
+import {getPages} from 'src/api/procedures/cms';
+import type {Page} from 'src/api/interfaces/CMSInterfaces';
+import SharedVideoBlock from '@components/SharedVideoBlock.astro';
+import PageTitle from '@components/PageTitle.astro';
+export async function getStaticPaths() {
+    const pages = await getPages<Page[]>();
+    return pages.map((page) => ({
+        params: { slug: page.title },
+        props: page,
+    }));
+}
+
+type Props = Page;
+const page: Page = Astro.props;
+const components = {SharedVideoBlock, PageTitle}
+---
+
+<main class="p-8">
+    <h1>Hallo</h1>
+    <h1>{page.title}</h1>
+    {page.components.map((component)=>{
+        const tempComp = component as any;
+        const Component = components[tempComp.componentName];
+        return <Component props={component} />
+    })}
+    
+</main>
+<script>
+</script>
