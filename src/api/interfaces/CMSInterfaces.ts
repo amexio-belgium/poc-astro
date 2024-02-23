@@ -1,20 +1,22 @@
 export interface Page {
     title: string,
-    components: (SharedVideoBlock|PageTitle)[]
+    components: (ISharedVideoBlock|IPageTitle)[]
 }
 
 export enum Components {
-    SharedVideoBlock = 'SharedVideoBlock'
+    SharedVideoBlock = 'SharedVideoBlock',
+    PageTitle = 'PageTitle'
 }
 
-export interface SharedVideoBlock {
+export interface ISharedVideoBlock {
     componentName: Components.SharedVideoBlock,
     title: string,
     description: string,
     url: string
 }
 
-export interface PageTitle {
+export interface IPageTitle {
+    componentName: Components.PageTitle,
     title: string
 }
 

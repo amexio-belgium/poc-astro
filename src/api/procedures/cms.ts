@@ -5,12 +5,20 @@ import {
     type ContentEntity,
     type GetPagesResult,
     type Page,
-    type SharedVideoBlock,
+    type ISharedVideoBlock,
 } from 'src/api/interfaces/CMSInterfaces.ts';
+
+
+export function getComponentNameFromString(component: ContentEntity){
+    if(component.__component === 'shared.video-block'){
+        return 'SharedVideoBlock'
+    }
+    return null;
+}
 
 function getComponentFromString(component: ContentEntity){
     if(component.__component === 'shared.video-block'){
-        return {componentName: Components.SharedVideoBlock, title: component.title, description: component.description, url: component.video} as SharedVideoBlock;
+        return {componentName: Components.SharedVideoBlock, title: component.title, description: component.description, url: component.video} as ISharedVideoBlock;
     }
     return null;
 }

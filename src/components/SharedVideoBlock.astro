@@ -1,12 +1,12 @@
 ---
-import type {SharedVideoBlock} from 'src/api/interfaces/CMSInterfaces';
+import type {ISharedVideoBlock} from 'src/api/interfaces/CMSInterfaces';
 interface Props {
-    props: SharedVideoBlock;
+    sharedVideoBlock: ISharedVideoBlock;
 }
 
-const {props} = Astro.props;
+const {sharedVideoBlock} = Astro.props;
 
-function getId(url) {
+function getId(url:string) {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
 
@@ -16,9 +16,9 @@ function getId(url) {
 
 <article class="grid grid-cols-2 h-[425px] w-full bg-gray-200">
     <div class="py-10 px-[90px] my-auto">
-        <h3 class="text-2xl mb-2">{props.title}</h3>
-        <Fragment set:html={props.description}></Fragment>
+        <h3 class="text-2xl mb-2">{sharedVideoBlock.title}</h3>
+        <Fragment set:html={sharedVideoBlock.description}></Fragment>
     </div>
-    <iframe title={props.title} src={`//www.youtube.com/embed/${getId(props.url)}`} class="h-full w-full"></iframe>
+    <iframe title={sharedVideoBlock.title} src={`//www.youtube.com/embed/${getId(sharedVideoBlock.url)}`} class="h-full w-full"></iframe>
 </article>
 
