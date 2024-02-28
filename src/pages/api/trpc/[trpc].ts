@@ -5,7 +5,7 @@ import {
 import type { APIRoute } from 'astro';
 import { createContext } from '@trpc-api/context';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import {CMSRouter} from '@trpc-procedures/cms.ts';
+import {CMSRouter} from '@trpc-procedures/cms';
 
 const appRouter = router({
     cms: CMSRouter
