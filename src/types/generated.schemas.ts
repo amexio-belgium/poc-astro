@@ -1863,7 +1863,6 @@ export type PageCreatedByData = {
   id?: number;
 };
 
-
 export type PageCreatedBy = {
   data?: PageCreatedByData;
 };
