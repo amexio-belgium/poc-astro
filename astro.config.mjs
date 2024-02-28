@@ -7,5 +7,7 @@ import netlify from "@astrojs/netlify";
 export default defineConfig({
   output: 'server',
   integrations: [tailwind(), sitemap()],
-  adapter: netlify()
+  adapter: netlify({
+    edgeMiddleware: true
+  })
 });
