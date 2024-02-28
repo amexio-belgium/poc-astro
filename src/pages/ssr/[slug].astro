@@ -2,7 +2,10 @@
 import {getPage} from 'src/api/procedures/cms';
 import ComponentWrapper from 'src/components/ComponentWrapper.astro';
 const { slug } = Astro.params;
-const page = await getPage(slug);
+if(!slug){
+    return Astro.redirect('/404')
+}
+const page = await getPage(slug!);
 
 ---
 <main class="p-8">
