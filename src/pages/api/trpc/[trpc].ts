@@ -5,11 +5,9 @@ import {
 import type { APIRoute } from 'astro';
 import { createContext } from '@trpc-api/context';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import { PokemonRouter } from 'src/api/procedures/pokemons';
 import {CMSRouter} from '@trpc-procedures/cms.ts';
 
 const appRouter = router({
-    pokemons: PokemonRouter,
     cms: CMSRouter
 });
 

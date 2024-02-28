@@ -18,8 +18,6 @@ export const customInstance = <T>(
     promise.cancel = () => {
         source.cancel('Query was cancelled');
     };
-    
-    console.log('queried');
 
     return promise;
 };

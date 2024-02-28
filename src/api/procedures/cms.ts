@@ -4,25 +4,16 @@ import {
     Components,
     type IBannerVideo,
     type IButton, IButtonColors, IButtonTypes,
-    type IHeader, type Image,
+    type Image,
     type IPage,
 } from 'src/types/CMSInterfaces.ts';
 import type {
     GetPagesParams, Page,
-    PageContentItem, PageListResponseDataItem,
+    PageContentItem,
     SharedBannerVideoComponent,
     SharedHeaderComponent
 } from 'src/types/generated.schemas.ts';
 import {getPages} from 'src/types/page.ts';
-import type {ContentEntity} from 'dist/src/api/interfaces/CMSInterfaces';
-
-
-export function getComponentNameFromString(component: ContentEntity){
-    if(component.__component === 'shared.video-block'){
-        return 'SharedVideoBlock'
-    }
-    return null;
-}
 
 function isSharedBannerVideo(component: PageContentItem){
     return (component as SharedBannerVideoComponent).__component === 'shared.banner-video';
@@ -95,11 +86,30 @@ function getComponentFromString(component: PageContentItem){
             } as Image
         } as any;
     }
-    // if(component.__component === 'shared.video-block'){
-    //     return {componentName: Components.SharedVideoBlock, title: component.title, description: component.description, url: component.video} as ISharedVideoBlock;
-    // }
-    // return null;
     return null;
+}
+
+export async function getPage(pageSlug: string): Promise<IPage|null>{
+    const params: GetPagesParams = {populate:'deep,10', filters: {
+            slug: {
+                $eq: pageSlug
+            }
+        }};
+    const response = await getPages(params).catch((err)=>{console.log(err);})
+    
+
+    if(response && response.data && response.data[0]){
+        const dataObject = response.data[0];
+        let page:IPage = {title: dataObject.attributes!.slug, components: []}
+        dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
+            const astroComponent = getComponentFromString(component);
+            if(astroComponent){
+                page.components.push(astroComponent);
+            }
+        })
+        return page;
+    }
+    return null
 }
 
 export async function getAllPages(): Promise<IPage[]> {

@@ -1,0 +1,21 @@
+---
+import {getPage} from 'src/api/procedures/cms';
+import ComponentWrapper from 'src/components/ComponentWrapper.astro';
+const { slug } = Astro.params;
+const page = await getPage(slug);
+
+---
+<main class="p-8">
+    {page && page.components &&
+            <Fragment>
+                <h1>Slug: {slug}</h1>
+                <h1>Pagina: {page.title}</h1>
+                {page.components.map((component)=>{
+                return <ComponentWrapper component={component}></ComponentWrapper>
+            })}
+            </Fragment>
+
+    }
+
+
+</main>

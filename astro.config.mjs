@@ -6,8 +6,6 @@ import axios from "axios";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
+  output: 'server',
   integrations: [tailwind(), sitemap()]
 });
-
-axios.defaults.baseURL = 'http://localhost:1337/api';

@@ -1,0 +1,15 @@
+---
+import type {IHeader} from 'src/types/CMSInterfaces';
+interface Props {
+    header: IHeader;
+}
+const api = import.meta.env.STRAPI_URL;
+const {header} = Astro.props;
+
+---
+
+<article class="w-full h-[200px] bg-red-500">
+    <h1>Header</h1>
+    {header.title}
+</article>
+
