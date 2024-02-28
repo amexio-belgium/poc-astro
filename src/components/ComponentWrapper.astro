@@ -1,15 +1,15 @@
 ---
-import type {ISharedVideoBlock, IPageTitle} from 'src/api/interfaces/CMSInterfaces';
-import {Components} from 'src/api/interfaces/CMSInterfaces';
-import SharedVideoBlock from '@components/SharedVideoBlock.astro';
+import type {IBannerVideo, IPageTitle} from 'src/types/CMSInterfaces';
+import {Components} from 'src/types/CMSInterfaces';
 import PageTitle from '@components/PageTitle.astro';
+import BannerVideo from 'src/components/BannerVideo.astro';
 interface Props {
-    component: (ISharedVideoBlock|IPageTitle);
+    component: (IBannerVideo|IPageTitle);
 }
 
 const {component} = Astro.props;
 
 ---
 
-{component.componentName === Components.SharedVideoBlock && <SharedVideoBlock sharedVideoBlock={component}></SharedVideoBlock>}
+{component.componentName === Components.BannerVideo && <BannerVideo bannerVideo={component}></BannerVideo>}
 {component.componentName === Components.PageTitle && <PageTitle pageTitle={component}></PageTitle>}

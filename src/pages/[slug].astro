@@ -1,16 +1,16 @@
 ---
-import {getPages} from 'src/api/procedures/cms';
-import type {Page} from 'src/api/interfaces/CMSInterfaces';
+import {getAllPages} from 'src/api/procedures/cms';
+import type {IPage} from 'src/types/CMSInterfaces';
 import ComponentWrapper from 'src/components/ComponentWrapper.astro';
 export async function getStaticPaths() {
-    const pages = await getPages();
+    const pages = await getAllPages();
     return pages.map((page) => ({
         params: { slug: page.title },
         props: page,
     }));
 }
 
-const page: Page = Astro.props;
+const page: IPage = Astro.props;
 ---
 
 <main class="p-8">

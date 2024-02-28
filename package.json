@@ -10,13 +10,15 @@
     "astro": "astro",
     "lint": "eslint . --ext .js,.ts,.astro",
     "lint:fix": "eslint . --ext .js,.ts,.astro --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "generate-types": "orval"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.1.0",
     "@trpc/client": "^10.45.1",
     "@trpc/server": "^10.45.1",
     "astro": "^4.4.1",
+    "axios": "^1.6.7",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -25,6 +27,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@typescript-eslint/parser": "^7.0.2",
     "eslint-plugin-astro": "^0.31.4",
+    "orval": "^6.25.0",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
     "tailwindcss": "^3.4.1",
