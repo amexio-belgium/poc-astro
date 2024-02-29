@@ -4,14 +4,14 @@ import type {
     PageContentItem,
     SharedBannerVideoComponent,
     SharedHeaderComponent
-} from 'src/types/generated.schemas.ts';
-import {getPages} from 'src/types/page.ts';
+} from 'src/types/strapi/generated.schemas.ts';
+import {getPages} from 'src/types/strapi/page.ts';
 import {isSharedBannerVideo, isSharedHeader} from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideo} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createHeader} from '@trpc-procedures/cms/creators/header.ts';
 import type {GetPageInput} from '@trpc-procedures/cms/index.ts';
 
-function getComponentFromString(component: PageContentItem){
+export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerVideo(component)){
         const sharedBannerVideo = component as SharedBannerVideoComponent;
         return createBannerVideo(sharedBannerVideo);
@@ -23,9 +23,30 @@ function getComponentFromString(component: PageContentItem){
     return null;
 }
 
+export async function getPageStrapi({input}: { input: GetPageInput; }): Promise<Page|null>{
+    const params: GetPagesParams = {populate:'deep,10', filters: {
+            slug: {
+                $eq: input
+            }
+        }};
+    const response = await getPages(params).catch((err)=>{console.log(err);})
+
+    if(response && response.data && response.data[0]){
+        const dataObject = response.data[0];
+        let page:Page = {title: dataObject.attributes!.slug, components: []}
+        dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
+            const astroComponent = getComponentFromStringStrapi(component);
+            if(astroComponent){
+                page.components.push(astroComponent);
+            }
+        })
+        return page;
+    }
+    return null
+}
 
 
-export async function getAllPages(): Promise<Page[]> {
+export async function getAllPagesStrapi(): Promise<Page[]> {
     const params: GetPagesParams = {populate:'deep,10'};
     const response = await getPages(params).catch((err)=>{console.log(err);})
 
@@ -34,7 +55,7 @@ export async function getAllPages(): Promise<Page[]> {
     data?.forEach((dataObject)=>{
         let page:Page = {title: dataObject.attributes!.slug, components: []}
         dataObject.attributes?.content?.forEach((component)=>{
-            const astroComponent = getComponentFromString(component);
+            const astroComponent = getComponentFromStringStrapi(component);
             if(astroComponent){
                 page.components.push(astroComponent);
             }
@@ -42,4 +63,14 @@ export async function getAllPages(): Promise<Page[]> {
         pages.push(page);
     })
     return pages;
+}
+
+export async function getPageDrupal({input}: { input: GetPageInput; }): Promise<Page|null>{
+    // TODO Write code for fetching Drupal page
+    return null
+}
+
+export async function getAllPagesDrupal(): Promise<Page[]> {
+    // TODO Write code for fetching Drupal pages
+    return [];
 }

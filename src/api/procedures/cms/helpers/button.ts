@@ -1,5 +1,5 @@
 import {type Button, ButtonColors, ButtonTypes, type Image} from '@trpc-procedures/cms/types.ts';
-import type {Page, SharedHeaderComponent} from 'src/types/generated.schemas.ts';
+import type {Page, SharedHeaderComponent} from 'src/types/strapi/generated.schemas.ts';
 
 export function getButtonType(type: string|undefined){
     switch (type){

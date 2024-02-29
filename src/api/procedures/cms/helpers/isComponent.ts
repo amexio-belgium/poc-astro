@@ -1,4 +1,4 @@
-import type {PageContentItem, SharedBannerVideoComponent, SharedHeaderComponent} from 'src/types/generated.schemas.ts';
+import type {PageContentItem, SharedBannerVideoComponent, SharedHeaderComponent} from 'src/types/strapi/generated.schemas.ts';
 
 export function isSharedBannerVideo(component: PageContentItem){
     return (component as SharedBannerVideoComponent).__component === 'shared.banner-video';

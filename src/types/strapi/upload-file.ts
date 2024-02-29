@@ -10,8 +10,8 @@ import type {
   PostUploadididParams,
   UploadFile
 } from './generated.schemas'
-import { customInstance } from '../api/orval/custom-instance';
-import type { BodyType } from '../api/orval/custom-instance';
+import { strapiInstance } from '../../api/orval/strapi-instance';
+import type { BodyType } from '../../api/orval/strapi-instance';
 
 
 
@@ -23,7 +23,7 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
  */
 export const postUpload = (
     postUploadBody: BodyType<PostUploadBody>,
- options?: SecondParameter<typeof customInstance>,) => {const formData = new FormData();
+ options?: SecondParameter<typeof strapiInstance>,) => {const formData = new FormData();
 if(postUploadBody.path !== undefined) {
  formData.append('path', postUploadBody.path)
  }
@@ -38,7 +38,7 @@ if(postUploadBody.field !== undefined) {
  }
 postUploadBody.files.forEach(value => formData.append('files', value));
 
-      return customInstance<UploadFile[]>(
+      return strapiInstance<UploadFile[]>(
       {url: `/upload`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData
@@ -52,7 +52,7 @@ export const postUploadidid = (
     id: string,
     postUploadididBody: BodyType<PostUploadididBody>,
     params: PostUploadididParams,
- options?: SecondParameter<typeof customInstance>,) => {const formData = new FormData();
+ options?: SecondParameter<typeof strapiInstance>,) => {const formData = new FormData();
 if(postUploadididBody.fileInfo !== undefined) {
  formData.append('fileInfo', JSON.stringify(postUploadididBody.fileInfo));
  }
@@ -60,7 +60,7 @@ if(postUploadididBody.files !== undefined) {
  formData.append('files', postUploadididBody.files)
  }
 
-      return customInstance<UploadFile[]>(
+      return strapiInstance<UploadFile[]>(
       {url: `/upload?id=${id}`, method: 'POST',
       headers: {'Content-Type': 'multipart/form-data', },
        data: formData,
@@ -70,24 +70,24 @@ if(postUploadididBody.files !== undefined) {
     }
   export const getUploadFiles = (
     
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UploadFile[]>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UploadFile[]>(
       {url: `/upload/files`, method: 'GET'
     },
       options);
     }
   export const getUploadFilesId = (
     id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UploadFile>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UploadFile>(
       {url: `/upload/files/${id}`, method: 'GET'
     },
       options);
     }
   export const deleteUploadFilesId = (
     id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UploadFile>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UploadFile>(
       {url: `/upload/files/${id}`, method: 'DELETE'
     },
       options);

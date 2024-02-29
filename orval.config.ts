@@ -1,17 +1,32 @@
 import { defineConfig } from 'orval';
 
 export default defineConfig({
-    'app-name': {
+    'strapi': {
         input: {
-            target: 'swagger/documentation.json'
+            target: 'swagger/strapi.json'
         },
         output: {
             mode: 'tags',
-            target: 'src/types/generated.ts',
+            target: 'src/types/strapi/generated.ts',
             override: {
                 mutator: {
-                    path: 'src/api/orval/custom-instance.ts',
-                    name: 'customInstance',
+                    path: 'src/api/orval/strapi-instance.ts',
+                    name: 'strapiInstance',
+                },
+            },
+        },
+    },
+    'drupal': {
+        input: {
+            target: 'swagger/drupal.json'
+        },
+        output: {
+            mode: 'tags',
+            target: 'src/types/drupal/generated.ts',
+            override: {
+                mutator: {
+                    path: 'src/api/orval/drupal-instance.ts',
+                    name: 'drupalInstance',
                 },
             },
         },

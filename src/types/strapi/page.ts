@@ -12,8 +12,8 @@ import type {
   PageRequest,
   PageResponse
 } from './generated.schemas'
-import { customInstance } from '../api/orval/custom-instance';
-import type { BodyType } from '../api/orval/custom-instance';
+import { strapiInstance } from '../../api/orval/strapi-instance';
+import type { BodyType } from '../../api/orval/strapi-instance';
 
 
 
@@ -22,8 +22,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
   export const getPages = (
     params?: GetPagesParams,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PageListResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PageListResponse>(
       {url: `/pages`, method: 'GET',
         params
     },
@@ -31,8 +31,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
     }
   export const postPages = (
     pageRequest: BodyType<PageRequest>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PageResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PageResponse>(
       {url: `/pages`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: pageRequest
@@ -41,8 +41,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
     }
   export const getPagesId = (
     id: number,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PageResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PageResponse>(
       {url: `/pages/${id}`, method: 'GET'
     },
       options);
@@ -50,8 +50,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
   export const putPagesId = (
     id: number,
     pageRequest: BodyType<PageRequest>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PageResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PageResponse>(
       {url: `/pages/${id}`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: pageRequest
@@ -60,8 +60,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
     }
   export const deletePagesId = (
     id: number,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<number>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<number>(
       {url: `/pages/${id}`, method: 'DELETE'
     },
       options);
@@ -69,8 +69,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
   export const postPagesIdLocalizations = (
     id: number,
     pageLocalizationRequest: BodyType<PageLocalizationRequest>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PageLocalizationResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PageLocalizationResponse>(
       {url: `/pages/${id}/localizations`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: pageLocalizationRequest

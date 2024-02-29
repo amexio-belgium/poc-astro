@@ -1,17 +1,18 @@
 ---
-import type {IBannerVideo, IHeader, IPageTitle} from 'src/api/procedures/cms/types';
-import {Components} from 'src/api/procedures/cms/types';
-import PageTitle from '@components/PageTitle.astro';
-import BannerVideo from 'src/components/BannerVideo.astro';
-import Header from 'src/components/Header.astro';
+import type {BannerVideo, Header, PageTitle} from 'src/api/procedures/cms/types';
+import {Components} from 'src/api/procedures/cms/types'
+import HeaderComponent from 'src/components/HeaderComponent.astro';
+import BannerVideoComponent from 'src/components/BannerVideoComponent.astro';
+import PageTitleComponent from 'src/components/PageTitleComponent.astro';
+
 interface Props {
-    component: (IBannerVideo|IPageTitle|IHeader);
+    component: (Header|BannerVideo|PageTitle);
 }
 
 const {component} = Astro.props;
 
 ---
 
-{component.componentName === Components.Header && <Header header={component}></Header>}
-{component.componentName === Components.BannerVideo && <BannerVideo bannerVideo={component}></BannerVideo>}
-{component.componentName === Components.PageTitle && <PageTitle pageTitle={component}></PageTitle>}
+{component.componentName === Components.Header && <HeaderComponent header={component}></HeaderComponent>}
+{component.componentName === Components.BannerVideo && <BannerVideoComponent bannerVideo={component}></BannerVideoComponent>}
+{component.componentName === Components.PageTitle && <PageTitleComponent pageTitle={component}></PageTitleComponent>}

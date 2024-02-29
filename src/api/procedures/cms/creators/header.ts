@@ -1,4 +1,4 @@
-import type {SharedHeaderComponent} from 'src/types/generated.schemas.ts';
+import type {SharedHeaderComponent} from 'src/types/strapi/generated.schemas.ts';
 import {getButtons} from '@trpc-procedures/cms/helpers/button.ts';
 import {Components, type Header, type Image} from '@trpc-procedures/cms/types.ts';
 

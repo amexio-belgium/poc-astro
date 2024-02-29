@@ -1,5 +1,5 @@
 import {Components, type BannerVideo} from '@trpc-procedures/cms/types.ts';
-import type {SharedBannerVideoComponent} from 'src/types/generated.schemas.ts';
+import type {SharedBannerVideoComponent} from 'src/types/strapi/generated.schemas.ts';
 
 export function createBannerVideo(component: SharedBannerVideoComponent) {
     return {

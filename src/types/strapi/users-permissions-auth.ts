@@ -17,8 +17,8 @@ import type {
   PostAuthSendEmailConfirmationBody,
   UsersPermissionsUserRegistration
 } from './generated.schemas'
-import { customInstance } from '../api/orval/custom-instance';
-import type { BodyType } from '../api/orval/custom-instance';
+import { strapiInstance } from '../../api/orval/strapi-instance';
+import type { BodyType } from '../../api/orval/strapi-instance';
 
 
 
@@ -31,8 +31,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
  */
 export const getConnectProvider = (
     provider: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<Error>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<Error>(
       {url: `/connect/${provider}`, method: 'GET'
     },
       options);
@@ -43,8 +43,8 @@ export const getConnectProvider = (
  */
 export const postAuthLocal = (
     postAuthLocalBody: BodyType<PostAuthLocalBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUserRegistration>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUserRegistration>(
       {url: `/auth/local`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthLocalBody
@@ -57,8 +57,8 @@ export const postAuthLocal = (
  */
 export const postAuthLocalRegister = (
     postAuthLocalRegisterBody: BodyType<PostAuthLocalRegisterBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUserRegistration>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUserRegistration>(
       {url: `/auth/local/register`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthLocalRegisterBody
@@ -70,8 +70,8 @@ export const postAuthLocalRegister = (
  */
 export const getAuthProviderCallback = (
     provider: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUserRegistration>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUserRegistration>(
       {url: `/auth/${provider}/callback`, method: 'GET'
     },
       options);
@@ -81,8 +81,8 @@ export const getAuthProviderCallback = (
  */
 export const postAuthForgotPassword = (
     postAuthForgotPasswordBody: BodyType<PostAuthForgotPasswordBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PostAuthForgotPassword200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PostAuthForgotPassword200>(
       {url: `/auth/forgot-password`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthForgotPasswordBody
@@ -94,8 +94,8 @@ export const postAuthForgotPassword = (
  */
 export const postAuthResetPassword = (
     postAuthResetPasswordBody: BodyType<PostAuthResetPasswordBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUserRegistration>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUserRegistration>(
       {url: `/auth/reset-password`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthResetPasswordBody
@@ -107,8 +107,8 @@ export const postAuthResetPassword = (
  */
 export const postAuthChangePassword = (
     postAuthChangePasswordBody: BodyType<PostAuthChangePasswordBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUserRegistration>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUserRegistration>(
       {url: `/auth/change-password`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthChangePasswordBody
@@ -120,8 +120,8 @@ export const postAuthChangePassword = (
  */
 export const getAuthEmailConfirmation = (
     params?: GetAuthEmailConfirmationParams,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<Error>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<Error>(
       {url: `/auth/email-confirmation`, method: 'GET',
         params
     },
@@ -132,8 +132,8 @@ export const getAuthEmailConfirmation = (
  */
 export const postAuthSendEmailConfirmation = (
     postAuthSendEmailConfirmationBody: BodyType<PostAuthSendEmailConfirmationBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PostAuthSendEmailConfirmation200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PostAuthSendEmailConfirmation200>(
       {url: `/auth/send-email-confirmation`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthSendEmailConfirmationBody
