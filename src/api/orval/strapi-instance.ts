@@ -1,14 +1,14 @@
 import Axios, {type AxiosError, type AxiosRequestConfig} from 'axios';
 
-export const AXIOS_INSTANCE = Axios.create({ baseURL: `${import.meta.env.STRAPI_URL}/api` }); // use your own URL here or environment variable
+export const STRAPI_AXIOS_INSTANCE = Axios.create({ baseURL: `${import.meta.env.STRAPI_URL}/api` }); // use your own URL here or environment variable
 
 // add a second `options` argument here if you want to pass extra options to each generated query
-export const customInstance = <T>(
+export const strapiInstance = <T>(
     config: AxiosRequestConfig,
     options?: AxiosRequestConfig,
 ): Promise<T> => {
     const source = Axios.CancelToken.source();
-    const promise = AXIOS_INSTANCE({
+    const promise = STRAPI_AXIOS_INSTANCE({
         ...config,
         ...options,
         cancelToken: source.token,
