@@ -9,7 +9,7 @@ import {getPages} from 'src/types/strapi/page.ts';
 import {isSharedBannerVideo, isSharedHeader} from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideo} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createHeader} from '@trpc-procedures/cms/creators/header.ts';
-import type {GetPageInput} from '@trpc-procedures/cms/index.ts';
+import type {GetPageInput} from '@trpc-procedures/cms';
 
 export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerVideo(component)){

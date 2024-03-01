@@ -1,7 +1,7 @@
 ---
 import {getAllPages} from 'src/api/procedures/cms';
 export const prerender = true;
-import ComponentWrapper from 'src/components/ComponentWrapper.astro';
+import ComponentWrapper from 'src/components/Wrapper.astro';
 import {type Page} from 'src/api/procedures/cms/types';
 export async function getStaticPaths() {
     const pages = await getAllPages();
