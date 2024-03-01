@@ -1,8 +1,8 @@
 ---
-export const prerender = true;
 import {getAllPages} from 'src/api/procedures/cms';
-import type {IPage} from 'src/types/CMSInterfaces';
-import ComponentWrapper from 'src/components/ComponentWrapper.astro';
+export const prerender = true;
+import ComponentWrapper from 'src/components/Wrapper.astro';
+import {type Page} from 'src/api/procedures/cms/types';
 export async function getStaticPaths() {
     const pages = await getAllPages();
     return pages.map((page) => ({
@@ -11,7 +11,7 @@ export async function getStaticPaths() {
     }));
 }
 
-const page: IPage = Astro.props;
+const page: Page = Astro.props;
 ---
 
 <main class="p-8">

@@ -1,6 +1,6 @@
-export type IPage = {
+export type Page = {
     title: string,
-    components: (IBannerVideo|IPageTitle|IHeader)[]
+    components: (BannerVideo|PageTitle|Header)[]
 }
 
 export enum Components {
@@ -9,10 +9,10 @@ export enum Components {
     Header = 'Header'
 }
 
-export type IHeader = {
+export type Header = {
     componentName: Components.Header,
     title: string,
-    buttons: IButton[],
+    buttons: Button[],
     image: Image
 }
 
@@ -21,34 +21,34 @@ export type Image ={
     url: string
 }
 
-export type IButton = {
+export type Button = {
     title: string,
     url: string,
     description?: string,
-    type: IButtonTypes,
-    color: IButtonColors,
+    type: ButtonTypes,
+    color: ButtonColors,
     image: Image
 }
 
-export enum IButtonColors {
+export enum ButtonColors {
     DEFAULT = 'default',
     MARKED = 'marked'
 }
 
-export enum IButtonTypes {
+export enum ButtonTypes {
     CARD = 'card',
     TILE = 'tile',
     ICON = 'icon'
 }
 
-export type IBannerVideo = {
+export type BannerVideo = {
     componentName: Components.BannerVideo,
     title: string,
     description: string,
     url: string
 }
 
-export type IPageTitle = {
+export type PageTitle = {
     componentName: Components.PageTitle,
     title: string
 }

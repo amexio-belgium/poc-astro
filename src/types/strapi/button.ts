@@ -10,8 +10,8 @@ import type {
   ButtonResponse,
   GetButtonsParams
 } from './generated.schemas'
-import { customInstance } from '../api/orval/custom-instance';
-import type { BodyType } from '../api/orval/custom-instance';
+import { strapiInstance } from '../../api/orval/strapi-instance';
+import type { BodyType } from '../../api/orval/strapi-instance';
 
 
 
@@ -20,8 +20,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
 
   export const getButtons = (
     params?: GetButtonsParams,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<ButtonListResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<ButtonListResponse>(
       {url: `/buttons`, method: 'GET',
         params
     },
@@ -29,8 +29,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
     }
   export const postButtons = (
     buttonRequest: BodyType<ButtonRequest>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<ButtonResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<ButtonResponse>(
       {url: `/buttons`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: buttonRequest
@@ -39,8 +39,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
     }
   export const getButtonsId = (
     id: number,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<ButtonResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<ButtonResponse>(
       {url: `/buttons/${id}`, method: 'GET'
     },
       options);
@@ -48,8 +48,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
   export const putButtonsId = (
     id: number,
     buttonRequest: BodyType<ButtonRequest>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<ButtonResponse>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<ButtonResponse>(
       {url: `/buttons/${id}`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: buttonRequest
@@ -58,8 +58,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
     }
   export const deleteButtonsId = (
     id: number,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<number>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<number>(
       {url: `/buttons/${id}`, method: 'DELETE'
     },
       options);

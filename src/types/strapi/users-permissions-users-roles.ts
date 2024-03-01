@@ -18,8 +18,8 @@ import type {
   UsersPermissionsRoleRequestBody,
   UsersPermissionsUser
 } from './generated.schemas'
-import { customInstance } from '../api/orval/custom-instance';
-import type { BodyType } from '../api/orval/custom-instance';
+import { strapiInstance } from '../../api/orval/strapi-instance';
+import type { BodyType } from '../../api/orval/strapi-instance';
 
 
 
@@ -31,8 +31,8 @@ type SecondParameter<T extends (...args: any) => any> = Parameters<T>[1];
  */
 export const getUsersPermissionsPermissions = (
     
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<GetUsersPermissionsPermissions200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<GetUsersPermissionsPermissions200>(
       {url: `/users-permissions/permissions`, method: 'GET'
     },
       options);
@@ -42,8 +42,8 @@ export const getUsersPermissionsPermissions = (
  */
 export const getUsersPermissionsRoles = (
     
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<GetUsersPermissionsRoles200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<GetUsersPermissionsRoles200>(
       {url: `/users-permissions/roles`, method: 'GET'
     },
       options);
@@ -53,8 +53,8 @@ export const getUsersPermissionsRoles = (
  */
 export const postUsersPermissionsRoles = (
     usersPermissionsRoleRequestBody: BodyType<UsersPermissionsRoleRequestBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PostUsersPermissionsRoles200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PostUsersPermissionsRoles200>(
       {url: `/users-permissions/roles`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: usersPermissionsRoleRequestBody
@@ -66,8 +66,8 @@ export const postUsersPermissionsRoles = (
  */
 export const getUsersPermissionsRolesId = (
     id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<GetUsersPermissionsRolesId200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<GetUsersPermissionsRolesId200>(
       {url: `/users-permissions/roles/${id}`, method: 'GET'
     },
       options);
@@ -78,8 +78,8 @@ export const getUsersPermissionsRolesId = (
 export const putUsersPermissionsRolesRole = (
     role: string,
     usersPermissionsRoleRequestBody: BodyType<UsersPermissionsRoleRequestBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PutUsersPermissionsRolesRole200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PutUsersPermissionsRolesRole200>(
       {url: `/users-permissions/roles/${role}`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: usersPermissionsRoleRequestBody
@@ -91,8 +91,8 @@ export const putUsersPermissionsRolesRole = (
  */
 export const deleteUsersPermissionsRolesRole = (
     role: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<DeleteUsersPermissionsRolesRole200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<DeleteUsersPermissionsRolesRole200>(
       {url: `/users-permissions/roles/${role}`, method: 'DELETE'
     },
       options);
@@ -102,8 +102,8 @@ export const deleteUsersPermissionsRolesRole = (
  */
 export const getUsers = (
     
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUser[]>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUser[]>(
       {url: `/users`, method: 'GET'
     },
       options);
@@ -113,8 +113,8 @@ export const getUsers = (
  */
 export const postUsers = (
     postUsersBody: BodyType<PostUsersBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PostUsers201>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PostUsers201>(
       {url: `/users`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postUsersBody
@@ -126,8 +126,8 @@ export const postUsers = (
  */
 export const getUsersId = (
     id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUser>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUser>(
       {url: `/users/${id}`, method: 'GET'
     },
       options);
@@ -138,8 +138,8 @@ export const getUsersId = (
 export const putUsersId = (
     id: string,
     putUsersIdBody: BodyType<PutUsersIdBody>,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<PutUsersId200>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<PutUsersId200>(
       {url: `/users/${id}`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: putUsersIdBody
@@ -151,8 +151,8 @@ export const putUsersId = (
  */
 export const deleteUsersId = (
     id: string,
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUser>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUser>(
       {url: `/users/${id}`, method: 'DELETE'
     },
       options);
@@ -162,8 +162,8 @@ export const deleteUsersId = (
  */
 export const getUsersMe = (
     
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<UsersPermissionsUser>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<UsersPermissionsUser>(
       {url: `/users/me`, method: 'GET'
     },
       options);
@@ -173,8 +173,8 @@ export const getUsersMe = (
  */
 export const getUsersCount = (
     
- options?: SecondParameter<typeof customInstance>,) => {
-      return customInstance<number>(
+ options?: SecondParameter<typeof strapiInstance>,) => {
+      return strapiInstance<number>(
       {url: `/users/count`, method: 'GET'
     },
       options);
