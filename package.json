@@ -15,10 +15,13 @@
     "generate-types": "orval"
   },
   "dependencies": {
+    "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/netlify": "^5.1.3",
     "@astrojs/sitemap": "^3.1.0",
     "@trpc/client": "^10.45.1",
     "@trpc/server": "^10.45.1",
+    "@types/alpinejs": "^3.13.6",
+    "alpinejs": "^3.13.5",
     "astro": "^4.4.1",
     "axios": "^1.6.7",
     "jsona": "^1.12.1",

@@ -7,15 +7,29 @@ if(!slug){
 }
 const page = await getPage({input: slug!});
 ---
-<main class="p-8">
+<html>
+<head>
+    <title>{page.title}</title>
+    <meta charset="UTF-8"> 
+</head>
+<body>
+<main>
     {page && page.components &&
             <Fragment>
-                <h1>Slug: {slug}</h1>
-                <h1>Pagina: {page.title}</h1>
                 {page.components.map((component)=>{
                 return <ComponentWrapper component={component}></ComponentWrapper>
             })}
             </Fragment>
-
     }
 </main>
+</body>
+</html>
+
+<style is:global>
+    article:nth-child(odd){
+        background-color: white;
+    }
+    article:nth-child(even){
+        background-color: #EFEFEF;
+    }
+</style>

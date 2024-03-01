@@ -7,3 +7,7 @@ export function isSharedBannerVideo(component: PageContentItem){
 export function isSharedHeader(component: PageContentItem){
     return (component as SharedHeaderComponent).__component === 'shared.header';
 }
+
+export function isSharedBannerCards(component: PageContentItem){
+    return (component as SharedHeaderComponent).__component === 'shared.banner-cards';
+}

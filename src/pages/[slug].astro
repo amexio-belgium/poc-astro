@@ -6,20 +6,32 @@ import {type Page} from 'src/api/procedures/cms/types';
 export async function getStaticPaths() {
     const pages = await getAllPages();
     return pages.map((page) => ({
-        params: { slug: page.title },
+        params: { slug: page.slug },
         props: page,
     }));
 }
 
 const page: Page = Astro.props;
 ---
+<html>
+    <head>
+        <title>{page.title}</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <main>
+            {page.components.map((component)=>{
+                return <ComponentWrapper component={component}></ComponentWrapper>
+            })}
+        </main>
+    </body>
+</html>
 
-<main class="p-8">
-    <h1>Pagina: {page.title}</h1>
-    {page.components.map((component)=>{
-        return <ComponentWrapper component={component}></ComponentWrapper>
-    })}
-    
-</main>
-<script>
-</script>
+<style is:global>
+    article:nth-child(odd){
+        background-color:black;
+    }
+    article:nth-child(even){
+        background-color:white;
+    }
+</style>
