@@ -7,23 +7,26 @@ if(!slug){
 }
 const page = await getPage({input: slug!});
 ---
+{page &&
 <html>
-<head>
-    <title>{page.title}</title>
-    <meta charset="UTF-8"> 
-</head>
-<body>
-<main>
-    {page && page.components &&
-            <Fragment>
-                {page.components.map((component)=>{
-                return <ComponentWrapper component={component}></ComponentWrapper>
-            })}
-            </Fragment>
-    }
-</main>
-</body>
+    <head>
+        <title>{page.title!}</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <main>
+            { page.components &&
+                    <Fragment>
+                        {page.components.map((component)=>{
+                            return <ComponentWrapper component={component}></ComponentWrapper>
+                        })}
+                    </Fragment>
+            }
+        </main>
+    </body>
 </html>
+    }
+
 
 <style is:global>
     article:nth-child(odd){
