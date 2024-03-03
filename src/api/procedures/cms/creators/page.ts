@@ -1,13 +1,13 @@
 import type {Page} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
-    PageContentItem, SharedBannerCardsComponent,
+    PageContentItem, SharedBannerCardsComponent, SharedBannerTilesComponent,
     SharedBannerVideoComponent,
     SharedHeaderComponent
 } from 'src/types/strapi/generated.schemas.ts';
 import {getPages} from 'src/types/strapi/page.ts';
 import {
-    isSharedBannerCards,
+    isSharedBannerCards, isSharedBannerTiles,
     isSharedBannerVideo,
     isSharedHeader
 } from '@trpc-procedures/cms/helpers/isComponent.ts';
@@ -15,6 +15,7 @@ import {createBannerVideo} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createHeader} from '@trpc-procedures/cms/creators/header.ts';
 import type {GetPageInput} from '@trpc-procedures/cms';
 import {createBannerCards} from '@trpc-procedures/cms/creators/bannerCards.ts';
+import {createBannerTiles} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 
 export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerVideo(component)){
@@ -28,6 +29,10 @@ export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerCards(component)){
         const sharedBannerCards = component as SharedBannerCardsComponent;
         return createBannerCards(sharedBannerCards)
+    }
+    if(isSharedBannerTiles(component)){
+        const sharedBannerTiles = component as SharedBannerTilesComponent;
+        return createBannerTiles(sharedBannerTiles)
     }
     return null;
 }

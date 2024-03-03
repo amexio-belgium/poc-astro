@@ -6,6 +6,9 @@ if(!slug){
     return Astro.redirect('/404')
 }
 const page = await getPage({input: slug!});
+if(!page){
+    return Astro.redirect('/404')
+}
 ---
 {page &&
 <html>
@@ -28,11 +31,13 @@ const page = await getPage({input: slug!});
     }
 
 
-<style is:global>
-    article:nth-child(odd){
-        background-color: white;
+<style is:global lang="scss">
+  article {
+    &:nth-of-type(odd){
+      background: #EFEFEF;
     }
-    article:nth-child(even){
-        background-color: #EFEFEF;
+    &:nth-of-type(even){
+      background: white;
     }
+  }
 </style>

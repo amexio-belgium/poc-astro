@@ -27,11 +27,13 @@ const page: Page = Astro.props;
     </body>
 </html>
 
-<style is:global>
-    article:nth-child(odd){
-        background-color:black;
+<style is:global lang="scss">
+  article {
+    &:nth-of-type(odd){
+      background: #EFEFEF;
     }
-    article:nth-child(even){
-        background-color:white;
+    &:nth-of-type(even){
+      background: white;
     }
+  }
 </style>
