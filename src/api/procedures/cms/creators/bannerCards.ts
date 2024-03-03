@@ -1,5 +1,5 @@
-import type {SharedBannerCardsComponent, SharedBannerVideoComponent} from 'src/types/strapi/generated.schemas.ts';
-import {type BannerCards, type BannerVideo, type Button, Components} from '@trpc-procedures/cms/types.ts';
+import type {SharedBannerCardsComponent} from 'src/types/strapi/generated.schemas.ts';
+import {type BannerCards, type Button, Components} from '@trpc-procedures/cms/types.ts';
 import {getButtonsFromTeaser} from '@trpc-procedures/cms/helpers/button.ts';
 
 export function createBannerCards(component: SharedBannerCardsComponent) {
