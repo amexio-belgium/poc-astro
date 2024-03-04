@@ -6,16 +6,38 @@ if(!slug){
     return Astro.redirect('/404')
 }
 const page = await getPage({input: slug!});
+if(!page){
+    return Astro.redirect('/404')
+}
 ---
-<main class="p-8">
-    {page && page.components &&
-            <Fragment>
-                <h1>Slug: {slug}</h1>
-                <h1>Pagina: {page.title}</h1>
-                {page.components.map((component)=>{
-                return <ComponentWrapper component={component}></ComponentWrapper>
-            })}
-            </Fragment>
-
+{page &&
+<html>
+    <head>
+        <title>{page.title!}</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <main>
+            { page.components &&
+                    <Fragment>
+                        {page.components.map((component)=>{
+                            return <ComponentWrapper component={component}></ComponentWrapper>
+                        })}
+                    </Fragment>
+            }
+        </main>
+    </body>
+</html>
     }
-</main>
+
+
+<style is:global lang="scss">
+  article {
+    &:nth-of-type(odd){
+      background: #EFEFEF;
+    }
+    &:nth-of-type(even){
+      background: white;
+    }
+  }
+</style>

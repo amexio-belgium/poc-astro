@@ -1,5 +1,5 @@
 import {type Button, ButtonColors, ButtonTypes, type Image} from '@trpc-procedures/cms/types.ts';
-import type {Page, SharedHeaderComponent} from 'src/types/strapi/generated.schemas.ts';
+import type {Page, PrivatePageRelationComponent, SharedHeaderComponent} from 'src/types/strapi/generated.schemas.ts';
 
 export function getButtonType(type: string|undefined){
     switch (type){
@@ -27,7 +27,6 @@ export function getButtons(component: SharedHeaderComponent){
     const buttons: Button[] = [];
     component.buttons?.forEach((button)=>{
         const buttonLinkPage = button.link?.data?.attributes as Page;
-        buttonLinkPage.slug
         buttons.push(
             {
                 title: button.title,
@@ -43,5 +42,25 @@ export function getButtons(component: SharedHeaderComponent){
         )
     })
     
+    return buttons;
+}
+
+export function getButtonsFromTeaser(component: PrivatePageRelationComponent[]){
+    const buttons: Button[] = [];
+    component.forEach((teaser)=>{
+        const teaserLinkPage = teaser.page?.data?.attributes as Page;
+        buttons.push(
+            {
+                title: teaserLinkPage.title,
+                description: teaserLinkPage.description,
+                url: teaserLinkPage.slug,
+                image: {
+                    name: teaserLinkPage.teaserImage.data?.attributes?.name,
+                    url: teaserLinkPage.teaserImage.data?.attributes?.url
+                } as Image
+            } as Button
+        )
+    })
+
     return buttons;
 }

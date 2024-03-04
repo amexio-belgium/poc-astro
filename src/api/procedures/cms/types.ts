@@ -1,12 +1,15 @@
 export type Page = {
     title: string,
-    components: (BannerVideo|PageTitle|Header)[]
+    slug: string,
+    components: (BannerCards|BannerTiles|BannerVideo|Header|PageTitle)[]
 }
 
 export enum Components {
+    BannerCards = 'BannerCards',
+    BannerTiles = 'BannerTiles',
     BannerVideo = 'BannerVideo',
+    Header = 'Header',
     PageTitle = 'PageTitle',
-    Header = 'Header'
 }
 
 export type Header = {
@@ -46,6 +49,16 @@ export type BannerVideo = {
     title: string,
     description: string,
     url: string
+}
+
+export type BannerCards = {
+    componentName: Components.BannerCards,
+    cards: Button[]
+}
+
+export type BannerTiles = {
+    componentName: Components.BannerTiles,
+    tiles: Button[]
 }
 
 export type PageTitle = {

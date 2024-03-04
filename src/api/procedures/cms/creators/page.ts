@@ -1,15 +1,21 @@
 import type {Page} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
-    PageContentItem,
+    PageContentItem, SharedBannerCardsComponent, SharedBannerTilesComponent,
     SharedBannerVideoComponent,
     SharedHeaderComponent
 } from 'src/types/strapi/generated.schemas.ts';
 import {getPages} from 'src/types/strapi/page.ts';
-import {isSharedBannerVideo, isSharedHeader} from '@trpc-procedures/cms/helpers/isComponent.ts';
+import {
+    isSharedBannerCards, isSharedBannerTiles,
+    isSharedBannerVideo,
+    isSharedHeader
+} from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideo} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createHeader} from '@trpc-procedures/cms/creators/header.ts';
 import type {GetPageInput} from '@trpc-procedures/cms';
+import {createBannerCards} from '@trpc-procedures/cms/creators/bannerCards.ts';
+import {createBannerTiles} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 
 export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerVideo(component)){
@@ -19,6 +25,14 @@ export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedHeader(component)){
         const sharedHeader = component as SharedHeaderComponent;
         return createHeader(sharedHeader)
+    }
+    if(isSharedBannerCards(component)){
+        const sharedBannerCards = component as SharedBannerCardsComponent;
+        return createBannerCards(sharedBannerCards)
+    }
+    if(isSharedBannerTiles(component)){
+        const sharedBannerTiles = component as SharedBannerTilesComponent;
+        return createBannerTiles(sharedBannerTiles)
     }
     return null;
 }
@@ -33,7 +47,7 @@ export async function getPageStrapi({input}: { input: GetPageInput; }): Promise<
 
     if(response && response.data && response.data[0]){
         const dataObject = response.data[0];
-        let page:Page = {title: dataObject.attributes!.slug, components: []}
+        let page:Page = {title: dataObject.attributes?.title!, slug: dataObject.attributes!.slug, components: []}
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
             const astroComponent = getComponentFromStringStrapi(component);
             if(astroComponent){
@@ -53,7 +67,7 @@ export async function getAllPagesStrapi(): Promise<Page[]> {
     let pages: Page[]  = [];
     const data = response?.data;
     data?.forEach((dataObject)=>{
-        let page:Page = {title: dataObject.attributes!.slug, components: []}
+        let page:Page = {title: dataObject.attributes!.title,slug: dataObject.attributes!.slug, components: []}
         dataObject.attributes?.content?.forEach((component)=>{
             const astroComponent = getComponentFromStringStrapi(component);
             if(astroComponent){

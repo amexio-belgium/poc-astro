@@ -5,11 +5,47 @@ interface Props {
 }
 const api = import.meta.env.STRAPI_URL;
 const {header} = Astro.props;
-
+const imageUrl = `url(${api.concat(header.image.url)})`
 ---
 
-<article class="w-full h-[200px] bg-red-500">
-    <h1>Header</h1>
-    {header.title}
+<article class="!bg-white">
+    <div class:list={`bg-[url('${imageUrl}')] w-full h-[480px] header`}>
+        <div class="py-[50px] px-[90px]">
+            <h1 class="text-[50px] text-white 
+                   after:relative after:-left-[50px] after:h-[2px] after:w-[150px] after:bg-[#4bb8f4] after:my-[40px] after:content-[''] after:block">
+                {header.title}
+            </h1>
+        </div>
+    </div>
+    <div class="relative flex mx-[90px] gap-[12px] justify-center -top-[81px]">
+        {header.buttons.map((button)=>{
+            return  <button data-header-redirect-url={button.url} class="w-[230px] h-[162px] py-0 my-0 rounded-lg bg-[#0a1336] text-white text-[16px]">
+                <img class="w-[60px] mx-auto h-[60px] mb-[16px]" src={api.concat(button.image.url)}/>
+                <p class="text-center w-full font-semibold">{button.title}</p>
+            </button>
+        })}
+    </div>
 </article>
 
+<style define:vars={{ imageUrl }}>
+    .header {
+        background: var(--imageUrl);
+    }
+</style>
+
+<script is:inline define:vars={{ header }}>
+    window.code = code;
+</script>
+
+<script>
+    const buttons = document.querySelectorAll(
+        "[data-header-redirect-url]"
+    ) as NodeListOf<HTMLElement>;
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const url = button.getAttribute("data-header-redirect-url") as string;
+            location.href = url;
+        });
+    });
+</script>
