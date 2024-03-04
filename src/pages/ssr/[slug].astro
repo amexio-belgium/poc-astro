@@ -2,6 +2,7 @@
 import {getPage} from 'src/api/procedures/cms';
 import ComponentWrapper from 'src/components/Wrapper.astro';
 const { slug } = Astro.params;
+import MainHeader from 'src/components/MainHeader.astro';
 if(!slug){
     return Astro.redirect('/404')
 }
@@ -9,6 +10,7 @@ const page = await getPage({input: slug!});
 if(!page){
     return Astro.redirect('/404')
 }
+
 ---
 {page &&
 <html>
@@ -17,7 +19,8 @@ if(!page){
         <meta charset="UTF-8">
     </head>
     <body>
-        <main>
+        <MainHeader></MainHeader>
+        <main class="mt-[144px]">
             { page.components &&
                     <Fragment>
                         {page.components.map((component)=>{
@@ -27,6 +30,7 @@ if(!page){
             }
         </main>
     </body>
+
 </html>
     }
 
