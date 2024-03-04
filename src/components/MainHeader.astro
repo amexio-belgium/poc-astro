@@ -1,0 +1,568 @@
+---
+import {getHeaderDrupal} from 'src/api/procedures/cms/creators/page';
+const header = await getHeaderDrupal();
+
+function capitalizeFirstLetter(string) {
+    const decap = string.toLowerCase();
+    return decap.charAt(0).toUpperCase() + string.slice(1);
+}
+---
+
+<header class="flex flex-col" role="banner">
+    <div class="h-[81px] flex flex-row justify-between py-[12px] px-[30px] w-full">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0" y="0" viewBox="0 0 465 340.1" xml:space="preserve" class="w-[72px] h-[52.6px] svg menu_block--logo-svg replaced-svg"><style>.st0{clip-path:url(#SVGID_2_)}</style><defs><path id="SVGID_1_" d="M2.7 3.2h460.4V338H2.7z"></path></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" overflow="visible"></use></clipPath><path class="st0" d="M66.9 305.6L60.6 287H26.2l-6.3 18.6H2.3l31.8-90.8h19.8l32.4 90.8H66.9zm-19.4-56.3c-1.7-5-3.1-9.4-4.2-14.5h-.1c-1.1 4.7-2.6 10-4.3 15.2l-8.2 23.1H56l-8.5-23.8zm88.9 88.7v-30.3c0-3.6.1-8.6.9-12.9l-.3-.1c-3.5 7.7-10.9 12.4-19.8 12.4-16 0-24.8-10.8-24.8-31.4 0-22.6 12.9-38.2 36.5-38.2 9.4 0 17.2.8 24.5 2V338h-17zm0-86c-2.8-.5-5.7-.9-9-.9-9.8 0-16.8 6.2-16.8 22.7 0 12.5 3.6 19 11.3 19 9 0 14.5-10.5 14.5-22.2V252zm76.7 53.6c0-3.1.1-8.3.8-11.8l-.1-.1c-4 7.9-11.7 13.5-22.7 13.5-15.1 0-19.9-9.7-19.9-21.4v-47h17.1v42.8c0 7 1.9 11.2 8.3 11.2 8.7 0 15.5-10 15.5-21.7v-32.3h17.2v66.9h-16.2z"></path><path d="M378.3 230.1c-5.9 0-10.6-4.7-10.6-10.5 0-5.7 4.7-10.4 10.6-10.4 5.9 0 10.8 4.6 10.8 10.4 0 5.8-4.9 10.5-10.8 10.5m-8.6 8.6h17.2v66.9h-17.2v-66.9z" clip-path="url(#SVGID_2_)" fill="#0069b4"></path><path class="st0" d="M446.5 305.6v-42.8c0-7-1.9-11.2-8.2-11.2-8.7 0-15.6 10-15.6 21.7v32.3h-17.2v-66.9h16.3c0 3.1-.3 8.3-.9 11.8l.1.1c4-7.9 11.8-13.5 22.7-13.5 15.1 0 19.9 9.7 19.9 21.4v47h-17.1zm-162.1-.4c0-3.9.1-7.7.7-11.2l-.1-.1c-3.2 7.5-11.3 12.7-21.2 12.7-12 0-18.9-6.8-18.9-17.4 0-15.9 15.7-24.3 38.2-24.3v-3.6c0-6.9-4.4-10.7-12.6-10.7-5 0-10.9.7-18.5 2.7l-1.8-13.4c9.6-1.7 15-2.3 22.6-2.3 21.3 0 27.3 8.7 27.3 23.1v27.6c0 5.3.1 11.6.4 17.1h-16.1zm-1.3-29.3c-18 0-22 5.2-22 10.5 0 4.3 2.9 7.1 7.9 7.1 8.4 0 14.1-8 14.1-16v-1.6zm75.2-55.8c-1.6-.1-3.7-.2-6.3-.2-7.5 0-10.9 4.3-10.9 13.2v5.6h15.6V252h-15.6v53.5H324V252h-11.7v-13.3H324v-5.4c0-18.1 8.3-27 26.6-27 3.6 0 6.9.1 10.5.5l-2.8 13.3zm20 10c-5.9 0-10.6-4.7-10.6-10.5 0-5.6 4.7-10.4 10.6-10.4 5.9 0 10.7 4.6 10.7 10.4 0 5.8-4.8 10.5-10.7 10.5m-8.6 8.6h17.2v66.8h-17.2v-66.8z"></path><path d="M156.8 189.6c2.3-4.9 5.7-9.9 11-15.3 26-26 45.4-6.6 71.5-32.6s6.5-45.5 32.5-71.5 45.5-6.5 71.5-32.5c5.3-5.2 8.7-10.2 11-15.1L334.8 3.2c-2.3 4.8-5.7 9.8-11 15.1-26 26-45.5 6.5-71.5 32.5s-6.4 45.6-32.4 71.7c-26 26-46.6 7.3-71.7 32.4-5.3 5.3-8.7 10.4-10.9 15.4l19.5 19.3z" clip-path="url(#SVGID_2_)" fill="#009fe3"></path><path d="M188 220.8c2.3-4.9 5.7-9.9 11-15.3 26-26 45.4-6.6 71.4-32.6 26-26 6.5-45.5 32.5-71.5s45.5-6.5 71.5-32.5c5.3-5.2 8.7-10.2 11-15.1L366 34.4c-2.3 4.9-5.7 9.8-11 15.1-26 26-45.5 6.5-71.5 32.5s-6.4 45.6-32.4 71.7c-26 26-46.6 7.3-71.7 32.4-5.3 5.3-8.7 10.5-10.9 15.4l19.5 19.3z" clip-path="url(#SVGID_2_)" fill="#3abff0"></path><path d="M314.2 112.7c-5.2 5.2-8.6 10.1-10.8 14.9l19.5 19.5c2.3-4.8 5.7-9.7 10.9-14.9 26-26 45.5-6.5 71.5-32.5 5.3-5.3 8.7-10.2 11-15.1l-19.5-19.5c-2.3 4.8-5.7 9.8-11 15.1-26.1 26-45.6 6.5-71.6 32.5" clip-path="url(#SVGID_2_)" fill="#b4e1fa"></path></svg>
+        <div class="flex items-center">
+            <nav role="navigation" aria-labelledby="block-dutchinfomenu-menu" id="block-dutchinfomenu">
+                <ul block="block-dutchinfomenu" class="menu">
+                    <li class="menu-item menu-item--collapsed">
+                        <a href="/nl-be/contacteer-ons" data-drupal-link-system-path="node/11287">Contact</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/nl-be/jobbeurzen-2024" title="overzicht jobbeurzen 2024" data-drupal-link-system-path="node/26693">Jobbeurzen Aquafin</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/nl-be/zo-wil-aquafin-riolering-en-waterzuivering-betaalbaar-houden" title="Lees hier onze prioriteiten voor de komende jaren" data-drupal-link-system-path="node/36527">Memorandum</a>
+                    </li>
+                    <li class="menu-item">
+                        <div class="dropdown">
+                            <a class="flex items-center" href="#"><span>NL</span> <i class="arrow down mb-1 ml-2"></i></a>
+                            <div class="dropdown-content">
+                                <a href="#">FR</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="menu_block">
+        <div class="menu_block--main">
+            <div>
+                <nav role="navigation" id="block-dutchtargetaudiencemenu" aria-labelledby="block-dutchtargetaudiencemenu-menu">
+                    <ul class="mega-menu">
+                        {header.tree.map((item,index)=>{
+                            return (
+                                <li id={`linkitem-${index}`} class="level-0 py-[20px]">
+                                    {header.tree.map((item,index)=>{
+                                        return(
+                                                <div id={`dropdown-${index}`} class="hidden absolute pb-[30px] border border-b-2 border-[#4bb8f4] flex flex-col top-[63px] w-full bg-white">
+                                                    <div class="flex flex-col justify-between h-[80px] px-[30px] pt-[30px]">
+                                                        <span id="mega-menu-root-link">
+                                                            <a class="text-[#4bb8f4] hover:underline" href={item.link.href}>{item.title}</a>
+                                                        </span>
+                                                        <div class="bottom-0 w-full h-[1.5px] bg-[#4bb8f4]"></div>
+                                                    </div>
+                                                    <div class="flex flex-row gap-14 px-[30px] pt-[30px]">
+                                                        {item.children.map((child)=>{
+                                                            return (
+                                                                    <div>
+                                                                        <a href="#" class="font-bold text-black">{capitalizeFirstLetter(child.title)}</a>
+                                                                        <ul class="mt-4 space-y-3 text-[#0a1336]">
+                                                                            {child.children.map((childChildren)=>{
+                                                                                return (
+                                                                                        <li><a href={childChildren.link.href}>{capitalizeFirstLetter(childChildren.title)}</a></li>
+                                                                                )
+                                                                            })}
+                                                                        </ul>
+                                                                    </div>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                </div>
+                                        )
+                                    })}
+                                    <span class="link">
+                                        <a href={item.link.href}>{item.title}</a>
+                                    </span>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script define:vars={{header}}>
+    header.elements.forEach((element,index)=>{
+        const linkItem = document.getElementById(`linkitem-${index}`);
+        const headerEl = document.getElementById(`dropdown-${index}`);
+        linkItem.addEventListener("mouseover", ()=>{
+            headerEl.classList.remove('hidden');
+        })
+        linkItem.addEventListener("mouseleave", ()=>{
+            headerEl.classList.add('hidden');
+        })
+    })
+</script>
+
+
+<style lang="scss">
+  header{
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    font-family: 'Source Sans Pro',sans-serif;
+    font-weight: 400;
+    color: #4a4a4a;
+    font-size: 16px;
+    line-height: normal;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 3px 5px 0 rgba(0,0,0,0.15);
+    width: 100%;
+    z-index: 1000;
+    position: absolute;
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    top: 0;
+  }
+    .menu_block{
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 400;
+      color: #4a4a4a;
+      font-size: 16px;
+      line-height: normal;
+      box-sizing: border-box;
+      width: 100%;
+      
+      &--main{
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-weight: 400;
+        color: #4a4a4a;
+        font-size: 16px;
+        line-height: normal;
+        box-sizing: border-box;
+      }
+      > div {
+        display: block;
+      }
+      
+      nav {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-weight: 400;
+        color: #4a4a4a;
+        font-size: 16px;
+        line-height: normal;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        background: #fff;
+        visibility: visible;
+        opacity: 1;
+        position: relative;
+        top: 0;
+        overflow: visible;
+        
+        .mega-menu{
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+          -webkit-text-size-adjust: 100%;
+          font-family: 'Source Sans Pro',sans-serif;
+          font-weight: 400;
+          color: #4a4a4a;
+          font-size: 16px;
+          line-height: normal;
+          visibility: visible;
+          box-sizing: border-box;
+          list-style: none;
+          position: relative;
+          display: flex;
+          flex-wrap: nowrap;
+          background: #0a1336;
+          align-items: center;
+          margin: 0;
+          
+          .level-0{
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -webkit-text-size-adjust: 100%;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: 400;
+            color: #4a4a4a;
+            font-size: 16px;
+            line-height: normal;
+            visibility: visible;
+            list-style: none;
+            box-sizing: border-box;
+            margin: 0;
+            text-transform: uppercase;
+            margin-right: 20px;
+            
+            .link{
+              -webkit-font-smoothing: antialiased;
+              text-rendering: optimizeLegibility;
+              -webkit-text-size-adjust: 100%;
+              font-family: 'Source Sans Pro',sans-serif;
+              font-weight: 400;
+              color: #4a4a4a;
+              font-size: 16px;
+              line-height: normal;
+              visibility: visible;
+              list-style: none;
+              text-transform: uppercase;
+              box-sizing: border-box;
+              position: relative;
+              width: 100%;
+              
+              > a{
+                -webkit-font-smoothing: antialiased;
+                text-rendering: optimizeLegibility;
+                -webkit-text-size-adjust: 100%;
+                font-family: 'Source Sans Pro',sans-serif;
+                line-height: normal;
+                visibility: visible;
+                list-style: none;
+                text-transform: uppercase;
+                box-sizing: border-box;
+                text-decoration: none;
+                padding: 0 20px;
+                font-size: 15px;
+                font-weight: 400;
+                white-space: nowrap;
+                color: #D8D8D8;
+                border: none;
+                
+                &::before{
+                  position: absolute;
+                  top: 50%;
+                  right: 0;
+                  content: '';
+                  width: 16px;
+                  height: 16px;
+                  border-radius: 10px;
+                  background-color: transparent;
+                  -webkit-transform: translateY(-50%);
+                  transform: translateY(-50%);
+                  transition: background-color 0.5s linear;
+                }
+                &::after{
+                  position: absolute;
+                  top: calc(50% - 1px);
+                  right: 4px;
+                  width: 5px;
+                  height: 5px;
+                  content: '';
+                  border: solid #4bb8f4;
+                  border-width: 0 2px 2px 0;
+                  display: inline-block;
+                  -webkit-transform: translateY(-50%) rotate(45deg);
+                  transform: translateY(-50%) rotate(45deg);
+                  transition: border-color 0.5s linear;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .submenu-wrapper{
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 400;
+      color: #4a4a4a;
+      font-size: 16px;
+      line-height: normal;
+      visibility: visible;
+      list-style: none;
+      box-sizing: border-box;
+      padding-top: 100px;
+      border-bottom: 2px solid #4bb8f4;
+      display: flex;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      opacity: 0;
+      animation-name: fadeIn;
+      animation-duration: 1s;
+      animation-iteration-count: 1;
+      animation-direction: normal;
+      animation-timing-function: cubic-bezier(0.16,1,0.3,1);
+      animation-fill-mode: forwards;
+      animation-delay: 0s;
+      animation-play-state: running;
+      height: 458px;
+    }
+    
+    .mega-menu-root-link{
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 400;
+      color: #4a4a4a;
+      font-size: 16px;
+      line-height: normal;
+      visibility: visible;
+      list-style: none;
+      box-sizing: border-box;
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      display: block;
+      padding: 0;
+      white-space: nowrap;
+      
+      >a{
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-size: 16px;
+        line-height: normal;
+        visibility: visible;
+        list-style: none;
+        white-space: nowrap;
+        box-sizing: border-box;
+        display: block;
+        position: static;
+        font-weight: 700;
+        text-decoration: none;
+        color: #4bb8f4;
+        border: none;
+        width: 116px;
+        
+        &::after{
+          display: block;
+          content: '';
+          border-bottom: solid 2px #4bb8f4;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          width: calc(100% - 35px);
+          transition: -webkit-transform 250ms ease-in-out;
+          transition: transform 250ms ease-in-out;
+          transition: transform 250ms ease-in-out, -webkit-transform 250ms ease-in-out;
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+        }
+      }
+    }
+    
+    #mega-menu-root-link{
+      >a{
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-size: 16px;
+        line-height: normal;
+        visibility: visible;
+        list-style: none;
+        white-space: nowrap;
+        box-sizing: border-box;
+        display: block;
+        position: static;
+        font-weight: 700;
+        text-decoration: none;
+        color: #4bb8f4;
+        border: none;
+        width: 140px;
+      }
+      
+      &::after{
+        display: block;
+        content: '';
+        border-bottom: solid 2px #4bb8f4;
+        -webkit-transform: scaleX(0);
+        transform: scaleX(0);
+        width: calc(100% - 35px);
+        transition: -webkit-transform 250ms ease-in-out;
+        transition: transform 250ms ease-in-out;
+        transition: transform 250ms ease-in-out, -webkit-transform 250ms ease-in-out;
+        -webkit-transform-origin: 0 50%;
+        transform-origin: 0 50%;
+      }
+    }
+    
+    #block-dutchinfomenu{
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 400;
+      color: #4a4a4a;
+      font-size: 16px;
+      line-height: normal;
+      box-sizing: border-box;
+    }
+    
+    #block-dutchinfomenu-menu{
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      box-sizing: border-box;
+      margin: 0;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 700;
+      color: #0a1336;
+      padding: 0 0 20px;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      line-height: 2.875rem;
+      position: absolute !important;
+      overflow: hidden;
+      clip: rect(1px,1px,1px,1px);
+      width: 1px;
+      height: 1px;
+      word-wrap: normal;
+    }
+    #block-dutchinfomenu .menu{
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 400;
+      color: #4a4a4a;
+      font-size: 16px;
+      line-height: normal;
+      box-sizing: border-box;
+      margin: 0;
+        
+      > li{
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-weight: 400;
+        color: #4a4a4a;
+        font-size: 16px;
+        line-height: normal;
+        box-sizing: border-box;
+        display: inline-block;
+        
+        >a {
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+          -webkit-text-size-adjust: 100%;
+          box-sizing: border-box;
+          font-family: 'Source Sans Pro',sans-serif;
+          font-weight: 300;
+          color: #0a1336;
+          font-size: 0.875rem;
+          line-height: 1.5rem;
+          margin: 0;
+          text-decoration: none;
+          
+          &::after{
+            border-right: 2px solid #efefef;
+            color: #efefef;
+            content: '';
+            margin-left: 24px;
+            margin-right: 20px;
+            position: relative;
+          }
+        }
+      }
+    }
+    
+    #block-aquafinlanguage{
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 400;
+      color: #4a4a4a;
+      font-size: 16px;
+      line-height: normal;
+      box-sizing: border-box;
+      display: flex;
+      
+      >a{
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        box-sizing: border-box;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-weight: 600;
+        color: #9b9b9b;
+        display: none;
+        font-size: 0.875rem;
+        line-height: 1.5rem;
+        text-decoration: none;
+        text-transform: uppercase;
+        align-items: center;
+      }
+      
+    }
+
+  .current-language{
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro',sans-serif;
+    font-weight: 600;
+    color: #9b9b9b;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    align-items: center;
+    display: block;
+    position: static;
+    padding: 8px;
+    
+    &::after{
+      border: 4px solid transparent;
+      border-top-color: #9b9b9b;
+      content: ' ';
+      height: 0;
+      pointer-events: none;
+      position: relative;
+      right: -8px;
+      top: 10px;
+    }
+  }
+
+
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 2px 12px;
+    z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .arrow {
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+  }
+
+  .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+</style>

@@ -1,13 +1,16 @@
 import type {Page} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
-    PageContentItem, SharedBannerCardsComponent, SharedBannerTilesComponent,
+    PageContentItem,
+    SharedBannerCardsComponent,
+    SharedBannerTilesComponent,
     SharedBannerVideoComponent,
     SharedHeaderComponent
 } from 'src/types/strapi/generated.schemas.ts';
 import {getPages} from 'src/types/strapi/page.ts';
 import {
-    isSharedBannerCards, isSharedBannerTiles,
+    isSharedBannerCards,
+    isSharedBannerTiles,
     isSharedBannerVideo,
     isSharedHeader
 } from '@trpc-procedures/cms/helpers/isComponent.ts';
@@ -16,6 +19,9 @@ import {createHeader} from '@trpc-procedures/cms/creators/header.ts';
 import type {GetPageInput} from '@trpc-procedures/cms';
 import {createBannerCards} from '@trpc-procedures/cms/creators/bannerCards.ts';
 import {createBannerTiles} from '@trpc-procedures/cms/creators/bannerTiles.ts';
+import {denormalize} from '@drupal/decoupled-menu-parser';
+import axios from 'axios';
+import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
 
 export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerVideo(component)){
@@ -35,6 +41,13 @@ export function getComponentFromStringStrapi(component: PageContentItem){
         return createBannerTiles(sharedBannerTiles)
     }
     return null;
+}
+
+export async function getHeaderDrupal(){
+    const menuResponse = await axios.get('https://develop-sr3snxi-2j664gzulfclu.fr-4.platformsh.site/system/menu/main/linkset')
+    const menu = denormalize(menuResponse.data) as Menu[];
+    
+    return menu[0]
 }
 
 export async function getPageStrapi({input}: { input: GetPageInput; }): Promise<Page|null>{
@@ -81,6 +94,7 @@ export async function getAllPagesStrapi(): Promise<Page[]> {
 
 export async function getPageDrupal({input}: { input: GetPageInput; }): Promise<Page|null>{
     // TODO Write code for fetching Drupal page
+
     return null
 }
 

@@ -18,6 +18,8 @@
     "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/netlify": "^5.1.3",
     "@astrojs/sitemap": "^3.1.0",
+    "@drupal/decoupled-menu-parser": "^1.0.0",
+    "@gdwc/components": "^4.3.1",
     "@trpc/client": "^10.45.1",
     "@trpc/server": "^10.45.1",
     "@types/alpinejs": "^3.13.6",
