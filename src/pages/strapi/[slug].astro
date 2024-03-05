@@ -1,4 +1,5 @@
 ---
+import MainHeader from 'src/components/MainHeader.astro';
 export const prerender = true;
 import ComponentWrapper from 'src/components/Wrapper.astro';
 import {type Page} from 'src/api/procedures/cms/types';
@@ -19,7 +20,8 @@ const page: Page = Astro.props;
         <meta charset="UTF-8">
     </head>
     <body>
-        <main>
+        <MainHeader></MainHeader>
+        <main class="mt-[144px]">
             {page.components.map((component)=>{
                 return <ComponentWrapper component={component}></ComponentWrapper>
             })}

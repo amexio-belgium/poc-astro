@@ -14,6 +14,9 @@ dependencies:
   '@astrojs/sitemap':
     specifier: ^3.1.0
     version: 3.1.0
+  '@drupal/decoupled-menu-parser':
+    specifier: ^1.0.0
+    version: 1.0.0
   '@graphql-codegen/cli':
     specifier: ^5.0.2
     version: 5.0.2(graphql@16.8.1)(typescript@5.3.3)
@@ -948,6 +951,16 @@ packages:
       '@babel/helper-string-parser': 7.23.4
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
+
+  /@drupal/decoupled-menu-parser@1.0.0:
+    resolution: {integrity: sha512-0kjyhbvTQV6AKQ1WgPymrk2CpB9gwihoRiU7iDxv/1CVdKlk3EWDaP1qsN2k/srSIUxIACCWwr93vkBlYXI5Gg==}
+    dependencies:
+      '@drupal/linkset': 1.0.3
+    dev: false
+
+  /@drupal/linkset@1.0.3:
+    resolution: {integrity: sha512-BMusbcNKAVV7v8vhOP1cfM0wkAL8iwARc9zU1R2VxEn85f8F08hHY4IbFB5axTgfMEED4QJJCiXrOGZwN3HMLQ==}
+    dev: false
 
   /@emmetio/abbreviation@2.3.3:
     resolution: {integrity: sha512-mgv58UrU3rh4YgbE/TzgLQwJ3pFsHHhCLqY20aJq+9comytTXUDNGG/SMtSeMJdkpxgXSXunBGLD8Boka3JyVA==}

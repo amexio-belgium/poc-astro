@@ -1,9 +1,10 @@
 ---
 import ComponentWrapper from 'src/components/Wrapper.astro';
 import {getPageDrupal} from 'src/api/procedures/cms/creators/page';
+import MainHeader from 'src/components/MainHeader.astro';
 const { slug } = Astro.params;
 const { lang } = Astro.params;
-if(!slug | !lang){
+if(!slug || !lang){
     return Astro.redirect('/404')
 }
 const page = await getPageDrupal({input: `/${lang}/${slug}`});
@@ -18,7 +19,8 @@ if(!page){
         <meta charset="UTF-8">
     </head>
     <body>
-        <main>
+        <MainHeader></MainHeader>
+        <main class="mt-[144px]">
             { page.components &&
                     <Fragment>
                         {page.components.map((component)=>{
