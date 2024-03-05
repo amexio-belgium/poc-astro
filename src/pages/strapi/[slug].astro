@@ -1,11 +1,10 @@
 ---
-import {getAllPages} from 'src/api/procedures/cms';
 export const prerender = true;
 import ComponentWrapper from 'src/components/Wrapper.astro';
 import {type Page} from 'src/api/procedures/cms/types';
-import MainHeader from 'src/components/MainHeader.astro';
+import {getAllPagesStrapi} from 'src/api/procedures/cms/creators/page';
 export async function getStaticPaths() {
-    const pages = await getAllPages();
+    const pages = await getAllPagesStrapi();
     return pages.map((page) => ({
         params: { slug: page.slug },
         props: page,
@@ -20,7 +19,6 @@ const page: Page = Astro.props;
         <meta charset="UTF-8">
     </head>
     <body>
-        <MainHeader></MainHeader>
         <main>
             {page.components.map((component)=>{
                 return <ComponentWrapper component={component}></ComponentWrapper>

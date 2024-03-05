@@ -12,6 +12,11 @@ export enum Components {
     PageTitle = 'PageTitle',
 }
 
+export enum CMSType {
+    DRUPAL= 'DRUPAL',
+    STRAPI = 'STRAPI'
+}
+
 export type Header = {
     componentName: Components.Header,
     title: string,
@@ -52,11 +57,13 @@ export type BannerVideo = {
 }
 
 export type BannerCards = {
+    CMSType: CMSType,
     componentName: Components.BannerCards,
     cards: Button[]
 }
 
 export type BannerTiles = {
+    CMSType: CMSType,
     componentName: Components.BannerTiles,
     tiles: Button[]
 }

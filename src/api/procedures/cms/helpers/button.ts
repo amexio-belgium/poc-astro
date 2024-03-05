@@ -1,5 +1,6 @@
 import {type Button, ButtonColors, ButtonTypes, type Image} from '@trpc-procedures/cms/types.ts';
 import type {Page, PrivatePageRelationComponent, SharedHeaderComponent} from 'src/types/strapi/generated.schemas.ts';
+import type {MediaImage, NodePage} from 'src/types/drupal/resolvers-types.ts';
 
 export function getButtonType(type: string|undefined){
     switch (type){
@@ -57,6 +58,27 @@ export function getButtonsFromTeaser(component: PrivatePageRelationComponent[]){
                 image: {
                     name: teaserLinkPage.teaserImage.data?.attributes?.name,
                     url: teaserLinkPage.teaserImage.data?.attributes?.url
+                } as Image
+            } as Button
+        )
+    })
+
+    return buttons;
+}
+
+export function getButtonsFromReference(component: NodePage[]){
+    const buttons: Button[] = [];
+    component.forEach((reference)=>{
+        const image = reference.mediaImage as MediaImage;
+        
+        buttons.push(
+            {
+                title: reference.title,
+                description: reference.body?.value?.replace(/<\/?[^>]+(>|$)/g, ""),
+                url: reference.path,
+                image: {
+                    name: image?.mediaImage?.title,
+                    url: image?.mediaImage?.url
                 } as Image
             } as Button
         )

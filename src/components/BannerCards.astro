@@ -1,12 +1,17 @@
 ---
-import type {BannerCards} from 'src/api/procedures/cms/types';
+import {BannerCards, CMSType} from 'src/api/procedures/cms/types';
 interface Props {
     bannerCards: BannerCards;
 }
 
 const {bannerCards} = Astro.props;
 function getImageUrl(url: string){
-    return import.meta.env.STRAPI_URL.concat(url)
+    if(bannerCards.CMSType === CMSType.STRAPI){
+        return import.meta.env.STRAPI_URL.concat(url);
+    }
+    else{
+        return url;
+    }
 }
 ---
 

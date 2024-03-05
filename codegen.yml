@@ -1,0 +1,6 @@
+schema: './schemas/drupal.json'
+generates:
+  ./src/types/drupal/resolvers-types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers

@@ -14,28 +14,16 @@ export const getPageInputSchema = z.string({
 
 export type GetPageInput = z.infer<typeof getPageInputSchema>;
 
-export async function getAllPages(): Promise<Page[]>{
-    const strapiPages = await getAllPagesStrapi();
-    const drupalPages = await getAllPagesDrupal();
-    return strapiPages.concat(drupalPages);
-}
-
-export async function getPage({input}: { input: GetPageInput; }): Promise<Page|null|undefined>{
-    const strapiPage = await getPageStrapi({input});
-    const drupalPage = await  getPageDrupal({input})
-    if(!strapiPage && !drupalPage){
-        return null;
-    }
-    else{
-        if(strapiPage) return strapiPage;
-        if(drupalPage) return drupalPage;
-    }
-}
 
 export const CMSRouter = router({
-    getPages: publicProcedure
-        .query(() => getAllPages()),
-    getPage: publicProcedure
+    getAllPagesDrupal: publicProcedure
+        .query(() => getAllPagesDrupal()),
+    getAllPagesStrapi: publicProcedure
+        .query(() => getAllPagesStrapi()),
+    getPageDrupal: publicProcedure
         .input(getPageInputSchema)
-        .query(({input}) => getPage({ input }))
+        .query(({input}) => getPageDrupal({ input })),
+    getPageStrapi: publicProcedure
+        .input(getPageInputSchema)
+        .query(({input}) => getPageStrapi({ input }))
 });
