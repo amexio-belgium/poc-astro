@@ -18,6 +18,8 @@ import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures
 import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 import axios from 'axios'
 import type {NodePage, ParagraphTeaser, ParagraphUnion, Query} from 'src/types/drupal/resolvers-types.ts';
+import {denormalize} from '@drupal/decoupled-menu-parser';
+import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
 export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerVideo(component)){
         const sharedBannerVideo = component as SharedBannerVideoComponent;
@@ -51,6 +53,12 @@ function getComponentFromStringDrupal(paragraph: ParagraphUnion){
     }
 }
 
+export async function getHeaderDrupal(){
+    const menuResponse = await axios.get('https://develop-sr3snxi-2j664gzulfclu.fr-4.platformsh.site/system/menu/main/linkset')
+    const menu = denormalize(menuResponse.data) as Menu[];
+
+    return menu[0]
+}
 
 export async function getPageStrapi({input}: { input: GetPageInput; }): Promise<Page|null>{
     const params: GetPagesParams = {populate:'deep,10', filters: {
