@@ -9,14 +9,15 @@ import {getPages} from 'src/types/strapi/page.ts';
 import {
     isSharedBannerCards, isSharedBannerTiles,
     isSharedBannerVideo,
-    isSharedHeader
+    isSharedHeader,
 } from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideo} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createHeader} from '@trpc-procedures/cms/creators/header.ts';
 import type {GetPageInput} from '@trpc-procedures/cms';
-import {createBannerCards} from '@trpc-procedures/cms/creators/bannerCards.ts';
-import {createBannerTiles} from '@trpc-procedures/cms/creators/bannerTiles.ts';
-
+import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures/cms/creators/bannerCards.ts';
+import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
+import axios from 'axios'
+import type {NodePage, ParagraphTeaser, ParagraphUnion, Query} from 'src/types/drupal/resolvers-types.ts';
 export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerVideo(component)){
         const sharedBannerVideo = component as SharedBannerVideoComponent;
@@ -28,14 +29,28 @@ export function getComponentFromStringStrapi(component: PageContentItem){
     }
     if(isSharedBannerCards(component)){
         const sharedBannerCards = component as SharedBannerCardsComponent;
-        return createBannerCards(sharedBannerCards)
+        return createBannerCardsStrapi(sharedBannerCards)
     }
     if(isSharedBannerTiles(component)){
         const sharedBannerTiles = component as SharedBannerTilesComponent;
-        return createBannerTiles(sharedBannerTiles)
+        return createBannerTilesStrapi(sharedBannerTiles)
     }
     return null;
 }
+
+
+function getComponentFromStringDrupal(paragraph: ParagraphUnion){
+    if(paragraph.__typename === 'ParagraphTeaser'){
+        const paragraphTeaser = paragraph as ParagraphTeaser;
+        if(paragraphTeaser.type === 'card'){
+            return createBannerCardsDrupal(paragraphTeaser)
+        }
+        if(paragraphTeaser.type === 'tile'){
+            return createBannerTilesDrupal(paragraphTeaser)
+        }
+    }
+}
+
 
 export async function getPageStrapi({input}: { input: GetPageInput; }): Promise<Page|null>{
     const params: GetPagesParams = {populate:'deep,10', filters: {
@@ -79,12 +94,92 @@ export async function getAllPagesStrapi(): Promise<Page[]> {
     return pages;
 }
 
+async function getDrupalPageId(title: string) {
+    const query = axios<{data: Query}>({
+        url: `${import.meta.env.DRUPAL_URL}/graphql`,
+        method: 'post',
+        data: {
+            query: `
+query MyQuery {
+  nodePages(first: 100) {
+    nodes {
+      __typename
+      id
+      path
+      uuid
+    }
+  }
+}
+      `
+        }
+    })
+    const data = await query;
+    const pageId = data.data.data.nodePages.nodes.find((node: NodePage)=> node.path === title);
+    if(pageId) return pageId.uuid;
+    return null;
+}
+
 export async function getPageDrupal({input}: { input: GetPageInput; }): Promise<Page|null>{
-    // TODO Write code for fetching Drupal page
-    return null
+    const pageId = await getDrupalPageId(input);
+    if(!pageId) return null;
+    const query = axios<{data: Query}>({
+        url: `${import.meta.env.DRUPAL_URL}/graphql`,
+        method: 'post',
+        data: {
+            query: `
+query MyQuery {
+  node(id: "${pageId}") {
+    ... on NodePage {
+      __typename
+      paragraphs {
+        __typename
+        ... on ParagraphTeaser {
+          id
+          __typename
+          reference {
+            __typename
+            ... on NodePage {
+              id
+              title
+              path
+              mediaImage {
+                ... on MediaImage {
+                  id
+                  name
+                  mediaImage {
+                    url
+                  }
+                }
+              }
+              body {
+                value
+              }
+            }
+          }
+          type
+        }
+      }
+      title
+    }
+  }
+}
+
+      `
+        }
+    })
+    const data = await query;
+    const pageNode = data.data.data.node;
+    let page:Page = {title: pageNode!.title, slug: pageNode!.path, components: []}
+    pageNode?.paragraphs?.forEach((paragraphUnion)=>{
+        const component = getComponentFromStringDrupal(paragraphUnion);
+        if(component) page.components.push(component);
+    })
+    return page;
 }
 
 export async function getAllPagesDrupal(): Promise<Page[]> {
+
+
     // TODO Write code for fetching Drupal pages
     return [];
 }

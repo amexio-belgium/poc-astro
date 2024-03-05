@@ -3,7 +3,7 @@ import { defineConfig } from 'orval';
 export default defineConfig({
     'strapi': {
         input: {
-            target: 'swagger/strapi.json'
+            target: 'schemas/strapi.json'
         },
         output: {
             mode: 'tags',
@@ -15,20 +15,5 @@ export default defineConfig({
                 },
             },
         },
-    },
-    'drupal': {
-        input: {
-            target: 'swagger/drupal.json'
-        },
-        output: {
-            mode: 'tags',
-            target: 'src/types/drupal/generated.ts',
-            override: {
-                mutator: {
-                    path: 'src/api/orval/drupal-instance.ts',
-                    name: 'drupalInstance',
-                },
-            },
-        },
-    },
+    }
 })

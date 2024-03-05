@@ -1,0 +1,39 @@
+---
+export const prerender = true;
+import ComponentWrapper from 'src/components/Wrapper.astro';
+import {type Page} from 'src/api/procedures/cms/types';
+import {getAllPagesDrupal} from 'src/api/procedures/cms/creators/page';
+export async function getStaticPaths() {
+    const pages = await getAllPagesDrupal();
+    return pages.map((page) => ({
+        params: { slug: page.slug },
+        props: page,
+    }));
+}
+
+const page: Page = Astro.props;
+---
+<html>
+    <head>
+        <title>{page.title}</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <main>
+            {page.components.map((component)=>{
+                return <ComponentWrapper component={component}></ComponentWrapper>
+            })}
+        </main>
+    </body>
+</html>
+
+<style is:global lang="scss">
+  article {
+    &:nth-of-type(odd){
+      background: #EFEFEF;
+    }
+    &:nth-of-type(even){
+      background: white;
+    }
+  }
+</style>

@@ -1,11 +1,11 @@
 ---
-import {getPage} from 'src/api/procedures/cms';
 import ComponentWrapper from 'src/components/Wrapper.astro';
+import {getPageStrapi} from 'src/api/procedures/cms/creators/page';
 const { slug } = Astro.params;
 if(!slug){
     return Astro.redirect('/404')
 }
-const page = await getPage({input: slug!});
+const page = await getPageStrapi({input: slug!});
 if(!page){
     return Astro.redirect('/404')
 }
