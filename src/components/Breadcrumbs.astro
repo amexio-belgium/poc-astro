@@ -1,5 +1,8 @@
 ---
-
+import {type BreadcrumbItem} from 'src/api/procedures/cms/helpers/global';
+interface Props {
+    breadCrumbs: BreadcrumbItem[];
+}
 const { breadCrumbs } = Astro.props;
 ---
 
