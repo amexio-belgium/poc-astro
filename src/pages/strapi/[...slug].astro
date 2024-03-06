@@ -6,6 +6,7 @@ import {type Page} from 'src/api/procedures/cms/types';
 import {getAllPagesStrapi} from 'src/api/procedures/cms/creators/page';
 export async function getStaticPaths() {
     const pages = await getAllPagesStrapi();
+    console.log(pages);
     return pages.map((page) => ({
         params: { slug: page.slug },
         props: page,

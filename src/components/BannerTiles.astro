@@ -5,14 +5,6 @@ interface Props {
 }
 
 const {bannerTiles} = Astro.props;
-function getImageUrl(url: string){
-    if(bannerTiles.CMSType === CMSType.STRAPI){
-        return import.meta.env.STRAPI_URL.concat(url);
-    }
-    else{
-        return url;
-    }
-}
 
 
 ---
@@ -22,7 +14,7 @@ function getImageUrl(url: string){
         {bannerTiles.tiles.map((tile)=>{
             return  <div class="teaser teaser--with-title ">
                         <div class="teaser--blog-image-container">
-                            <img src={getImageUrl(tile.image.url)} width="900" height="500">
+                            <img src={tile.image.url} width="900" height="500">
                         </div>
                         <div class="teaser--title">
                             <h3>{tile.title}</h3>

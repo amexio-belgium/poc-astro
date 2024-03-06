@@ -1,16 +1,22 @@
 ---
 import ComponentWrapper from 'src/components/Wrapper.astro';
-import {getPageStrapi} from 'src/api/procedures/cms/creators/page';
-const { slug } = Astro.params;
+import {getPageDrupal} from 'src/api/procedures/cms/creators/page';
 import MainHeader from 'src/components/MainHeader.astro';
+import {Page} from 'src/api/procedures/cms/types';
+const { slug } = Astro.params;
+let page: Page|null = null;
 if(!slug){
     return Astro.redirect('/404')
 }
-const page = await getPageStrapi({input: slug!});
+if(slug.startsWith('nl/') || slug.startsWith('en/')){
+    page = await getPageDrupal({slug: slug, lang: slug.split("/")[0]});
+}
+else{
+    page = await getPageDrupal({slug: slug, lang: ''});
+}
 if(!page){
     return Astro.redirect('/404')
 }
-
 ---
 {page &&
 <html>
@@ -30,7 +36,6 @@ if(!page){
             }
         </main>
     </body>
-
 </html>
     }
 

@@ -5,14 +5,6 @@ interface Props {
 }
 
 const {bannerCards} = Astro.props;
-function getImageUrl(url: string){
-    if(bannerCards.CMSType === CMSType.STRAPI){
-        return import.meta.env.STRAPI_URL.concat(url);
-    }
-    else{
-        return url;
-    }
-}
 ---
 
 <article class="flex gap-[20px] flex-row justify-between px-[90px] py-[40px]">
@@ -20,7 +12,7 @@ function getImageUrl(url: string){
         return  <div class="flex flex-col justify-between w-full shadow-sm">
                     <div class="text-[#4A4A4A]">
                         <div class="h-[350px] w-full overflow-hidden">
-                            <img class="h-full object-cover object-left" src={getImageUrl(card.image.url)}>
+                            <img class="h-full object-cover object-left" src={card.image.url}>
                         </div>
 
                         <h3 class="font-semibold text-[24px] px-[24px] pt-[24px] mb-[10px]">{card.title}</h3>
