@@ -7,16 +7,14 @@ export type BreadcrumbItem = {
 
 export async function getBreadCrumbsDrupal(slug: string, ssr:boolean){
     // Remove first slash if not SSR slug
-    let fullSlug = ssr ? slug : slug.substring(1);
-    console.log(slug)
+    let fullSlug = ssr? `/${slug}` : slug;
     const header = await getHeaderDrupal();
     let breadCrumbs: BreadcrumbItem[] = [];
     
     let foundAll = false;
-
     while(!foundAll){
         const element = header.elements.find(
-            (element)=>element.href === `/${fullSlug}`
+            (element)=> element.href === `${fullSlug}`
         )
         if(!element){
             foundAll = true;
