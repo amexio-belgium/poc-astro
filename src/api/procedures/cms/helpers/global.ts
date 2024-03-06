@@ -6,7 +6,8 @@ export type BreadcrumbItem = {
 }
 
 export async function getBreadCrumbsDrupal(slug: string, ssr:boolean){
-    let fullSlug = slug;
+    // Remove first slash if not SSR slug
+    let fullSlug = ssr ? slug : slug.substring(1);
     console.log(slug)
     const header = await getHeaderDrupal();
     let breadCrumbs: BreadcrumbItem[] = [];
@@ -15,7 +16,7 @@ export async function getBreadCrumbsDrupal(slug: string, ssr:boolean){
 
     while(!foundAll){
         const element = header.elements.find(
-            (element)=>element.href === `${ssr? '/':''}${fullSlug}`
+            (element)=>element.href === `/${fullSlug}`
         )
         if(!element){
             foundAll = true;
@@ -23,7 +24,7 @@ export async function getBreadCrumbsDrupal(slug: string, ssr:boolean){
             breadCrumbs.push(
                 {
                     text: element.attributes.title!,
-                    href: `/drupal/${ssr ? '/ssr':''}${element.href}`,
+                    href: `/drupal${ssr ? '/ssr':''}${element.href}`,
                 }
             );
             let lastIndex = fullSlug.lastIndexOf("/");
