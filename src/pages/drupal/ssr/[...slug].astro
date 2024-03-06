@@ -2,7 +2,7 @@
 import ComponentWrapper from 'src/components/Wrapper.astro';
 import {getPageDrupal} from 'src/api/procedures/cms/creators/page';
 import MainHeader from 'src/components/MainHeader.astro';
-import {Page} from 'src/api/procedures/cms/types';
+import {type Page} from 'src/api/procedures/cms/types';
 const { slug } = Astro.params;
 let page: Page|null = null;
 if(!slug){
