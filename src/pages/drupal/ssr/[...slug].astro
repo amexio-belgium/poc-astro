@@ -2,12 +2,18 @@
 import ComponentWrapper from 'src/components/Wrapper.astro';
 import {getPageDrupal} from 'src/api/procedures/cms/creators/page';
 import MainHeader from 'src/components/MainHeader.astro';
+import {type Page} from 'src/api/procedures/cms/types';
 const { slug } = Astro.params;
-const { lang } = Astro.params;
-if(!slug || !lang){
+let page: Page|null = null;
+if(!slug){
     return Astro.redirect('/404')
 }
-const page = await getPageDrupal({input: `/${lang}/${slug}`});
+if(slug.startsWith('nl/') || slug.startsWith('en/')){
+    page = await getPageDrupal({slug: slug, lang: slug.split("/")[0]});
+}
+else{
+    page = await getPageDrupal({slug: slug, lang: ''});
+}
 if(!page){
     return Astro.redirect('/404')
 }

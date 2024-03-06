@@ -14,6 +14,13 @@ export const getPageInputSchema = z.string({
 
 export type GetPageInput = z.infer<typeof getPageInputSchema>;
 
+export const getPageLangSchema = z.string({
+    required_error: "Name is required",
+    invalid_type_error: "Name must be a string",
+});
+
+export type GetPageLang = z.infer<typeof getPageLangSchema>;
+
 
 export const CMSRouter = router({
     getAllPagesDrupal: publicProcedure
@@ -21,9 +28,15 @@ export const CMSRouter = router({
     getAllPagesStrapi: publicProcedure
         .query(() => getAllPagesStrapi()),
     getPageDrupal: publicProcedure
-        .input(getPageInputSchema)
-        .query(({input}) => getPageDrupal({ input })),
+        .input(z.object({
+            slug: getPageInputSchema,
+            lang: getPageLangSchema,
+        }))
+        .query((opts) => getPageDrupal({slug: opts.input.slug, lang: opts.input.lang})),
     getPageStrapi: publicProcedure
-        .input(getPageInputSchema)
-        .query(({input}) => getPageStrapi({ input }))
+        .input(z.object({
+            slug: getPageInputSchema,
+            lang: getPageLangSchema,
+        }))
+        .query((opts) => getPageStrapi({input: opts.input.slug, lang: opts.input.lang})),
 });
