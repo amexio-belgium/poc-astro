@@ -1,22 +1,26 @@
 ---
 import ComponentWrapper from 'src/components/Wrapper.astro';
-import {getPageDrupal} from 'src/api/procedures/cms/creators/page';
+import {getHeaderDrupal, getPageDrupal} from 'src/api/procedures/cms/creators/page';
 import MainHeader from 'src/components/MainHeader.astro';
-import {type Page} from 'src/api/procedures/cms/types';
+import Breadcrumbs from 'src/components/Breadcrumbs.astro';
+import {getBreadCrumbsDrupal} from 'src/api/procedures/cms/helpers/global';
+
+
 const { slug } = Astro.params;
-let page: Page|null = null;
+
+let lang = '';
 if(!slug){
     return Astro.redirect('/404')
 }
 if(slug.startsWith('nl/') || slug.startsWith('en/')){
-    page = await getPageDrupal({slug: slug, lang: slug.split("/")[0]});
+    lang = slug.split("/")[0]
 }
-else{
-    page = await getPageDrupal({slug: slug, lang: ''});
-}
+const page = await getPageDrupal({slug: slug, lang: lang});
 if(!page){
     return Astro.redirect('/404')
 }
+
+const breadCrumbs = await getBreadCrumbsDrupal(slug, true);
 ---
 {page &&
 <html>
@@ -27,6 +31,7 @@ if(!page){
     <body>
         <MainHeader></MainHeader>
         <main class="mt-[144px]">
+            <Breadcrumbs breadCrumbs={breadCrumbs}></Breadcrumbs>
             { page.components &&
                     <Fragment>
                         {page.components.map((component)=>{

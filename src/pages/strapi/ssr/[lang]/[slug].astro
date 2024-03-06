@@ -1,9 +1,10 @@
 ---
 import ComponentWrapper from 'src/components/Wrapper.astro';
-import {getPageStrapi} from 'src/api/procedures/cms/creators/page';
+import {getHeaderDrupal, getPageStrapi} from 'src/api/procedures/cms/creators/page';
 const { slug } = Astro.params;
 const { lang } = Astro.params;
 import MainHeader from 'src/components/MainHeader.astro';
+
 if(!slug || !lang){
     return Astro.redirect('/404')
 }
