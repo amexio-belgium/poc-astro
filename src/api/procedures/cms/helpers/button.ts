@@ -50,7 +50,6 @@ export function getButtonsDrupal(component: ParagraphButton[]){
     const buttons: Button[] = [];
     component.forEach((button)=>{
         const image = button.image as MediaImage;
-        console.log(button);
         buttons.push(
             {
                 title: button.title,

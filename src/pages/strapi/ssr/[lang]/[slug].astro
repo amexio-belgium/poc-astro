@@ -8,7 +8,6 @@ if(!slug || !lang){
     return Astro.redirect('/404')
 }
 const page = await getPageStrapi({input: slug!, lang: lang!});
-console.log(page);
 if(!page){
     return Astro.redirect('/404')
 }
