@@ -6,7 +6,6 @@ import {
     getPageDrupal, 
     getPageStrapi
 } from '@trpc-procedures/cms/creators/page.ts';
-import type {Page} from '@trpc-procedures/cms/types.ts';
 export const getPageInputSchema = z.string({
     required_error: "Name is required",
     invalid_type_error: "Name must be a string",
