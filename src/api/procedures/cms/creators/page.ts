@@ -12,7 +12,7 @@ import {
     isSharedHeader,
 } from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideoDrupal, createBannerVideoStrapi} from '@trpc-procedures/cms/creators/bannerVideo.ts';
-import {createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
+import {createDefaultHeader, createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
 import type {GetPageInput, GetPageLang} from '@trpc-procedures/cms';
 import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures/cms/creators/bannerCards.ts';
 import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
@@ -121,6 +121,10 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
             hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
             components: []
         }
+        if(!page.hideDefaultHeader){
+            const defaultHeader = createDefaultHeader(page.title, dataObject.attributes!.description)
+            page.components.push(defaultHeader)
+        }
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
             const astroComponent = getComponentFromStringStrapi(component);
             if(astroComponent){
@@ -148,7 +152,12 @@ export async function getAllPagesStrapi(): Promise<Page[]> {
                 lang: lang,
                 hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
                 slug: `${lang}/${dataObject.attributes!.slug}`, 
-                components: []}
+                components: []
+            }
+            if(!page.hideDefaultHeader){
+                const defaultHeader = createDefaultHeader(page.title, dataObject.attributes!.description)
+                page.components.push(defaultHeader)
+            }
             dataObject.attributes?.content?.forEach((component)=>{
                 const astroComponent = getComponentFromStringStrapi(component);
                 if(astroComponent){
@@ -281,7 +290,7 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
         }
     })
     const data = await query;
-    const pageNode = data.data.data.node;
+    const pageNode: NodePage = data.data.data.node!;
     let page:Page = {
         title: pageNode!.title, 
         lang: lang,
@@ -289,6 +298,12 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
         slug: pageNode!.path, 
         components: []
     }
+
+    if(!page.hideDefaultHeader){
+        const defaultHeader = createDefaultHeader(page.title, pageNode.body?.value?.replace(/<\/?[^>]+(>|$)/g, ""))
+        page.components.push(defaultHeader)
+    }
+    
     pageNode?.paragraphs?.forEach((paragraphUnion)=>{
         const component = getComponentFromStringDrupal(paragraphUnion);
         if(component) page.components.push(component);
@@ -398,6 +413,12 @@ query MyQuery {
                 slug: nodePage.path, 
                 components: []
             }
+
+            if(!page.hideDefaultHeader){
+                const defaultHeader = createDefaultHeader(page.title, nodePage.body?.value?.replace(/<\/?[^>]+(>|$)/g, ""))
+                page.components.push(defaultHeader)
+            }
+            
             nodePage?.paragraphs?.forEach((paragraphUnion)=>{
                 const component = getComponentFromStringDrupal(paragraphUnion);
                 if(component) page.components.push(component);

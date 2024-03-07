@@ -3,7 +3,7 @@ export type Page = {
     slug: string,
     lang: string,
     hideDefaultHeader: boolean,
-    components: (BannerCards|BannerTiles|BannerVideo|Header|PageTitle)[]
+    components: (BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle)[]
 }
 
 
@@ -12,6 +12,7 @@ export enum Components {
     BannerTiles = 'BannerTiles',
     BannerVideo = 'BannerVideo',
     Header = 'Header',
+    DefaultHeader = 'DefaultHeader',
     PageTitle = 'PageTitle',
 }
 
@@ -25,6 +26,12 @@ export type Header = {
     title: string,
     buttons: Button[],
     image: Image
+}
+
+export type DefaultHeader = {
+    componentName: Components.DefaultHeader,
+    title: string,
+    description: string
 }
 
 export type Image ={

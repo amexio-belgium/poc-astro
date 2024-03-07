@@ -1,6 +1,6 @@
 import type {SharedHeaderComponent} from 'src/types/strapi/generated.schemas.ts';
 import {getButtonsDrupal, getButtonsStrapi} from '@trpc-procedures/cms/helpers/button.ts';
-import {Components, type Header, type Image} from '@trpc-procedures/cms/types.ts';
+import {Components, type DefaultHeader, type Header, type Image} from '@trpc-procedures/cms/types.ts';
 import type {MediaImage, ParagraphButton, ParagraphHeader} from 'src/types/drupal/resolvers-types.ts';
 
 export function createHeaderStrapi(component: SharedHeaderComponent){
@@ -30,4 +30,12 @@ export function createHeaderDrupal(component: ParagraphHeader){
             url: image.mediaImage.url
         } as Image
     } as Header;
+}
+
+export function createDefaultHeader(title: string, description: string|undefined|null){
+    return {
+        componentName: Components.DefaultHeader,
+        title: title,
+        description: description ? description : ''
+    } as DefaultHeader;
 }
