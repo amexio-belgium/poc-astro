@@ -118,6 +118,7 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
             title: dataObject.attributes?.title!, 
             lang: lang, 
             slug: dataObject.attributes!.slug, 
+            hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
             components: []
         }
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
@@ -145,6 +146,7 @@ export async function getAllPagesStrapi(): Promise<Page[]> {
             let page:Page = {
                 title: dataObject.attributes!.title, 
                 lang: lang,
+                hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
                 slug: `${lang}/${dataObject.attributes!.slug}`, 
                 components: []}
             dataObject.attributes?.content?.forEach((component)=>{
@@ -216,6 +218,9 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                                       }
                                     }
                                   }
+                                  body {
+                                    value
+                                  }
                                 }
                               }
                               type
@@ -280,6 +285,7 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
     let page:Page = {
         title: pageNode!.title, 
         lang: lang,
+        hideDefaultHeader: pageNode?.verbergStandaardHeader === true,
         slug: pageNode!.path, 
         components: []
     }
@@ -321,6 +327,9 @@ query MyQuery {
                         url
                       }
                     }
+                  }
+                  body {
+                    value
                   }
                 }
               }
@@ -385,6 +394,7 @@ query MyQuery {
             let page:Page = {
                 title: nodePage.title, 
                 lang: lang,
+                hideDefaultHeader: nodePage?.verbergStandaardHeader === true,
                 slug: nodePage.path, 
                 components: []
             }
@@ -396,6 +406,5 @@ query MyQuery {
         })
         
     }
-    // TODO Write code for fetching Drupal pages
     return pages;
 }

@@ -15,11 +15,11 @@ export function getButtonType(type: string|undefined){
 }
 
 export function getButtonColor(type: string|undefined){
-    switch (type){
-        case 'Default':
+    switch (type?.toLowerCase()){
+        case 'default':
             return ButtonColors.DEFAULT
-        case 'Marked':
-            return ButtonColors.MARKED
+        case 'highlight':
+            return ButtonColors.HIGHLIGHT
     }
     return null;
 }
@@ -33,8 +33,6 @@ export function getButtonsStrapi(component: SharedHeaderComponent){
                 title: button.title,
                 description: button.description,
                 url: button.externalUrl? button.externalUrl : buttonLinkPage.slug,
-                type: getButtonType(button.type),
-                color: getButtonColor(button.color),
                 image: {
                     name: button.image?.data?.attributes?.name,
                     url: import.meta.env.STRAPI_URL.concat(button.image?.data?.attributes?.url!)
@@ -55,8 +53,6 @@ export function getButtonsDrupal(component: ParagraphButton[]){
                 title: button.title,
                 description: button.description,
                 url: button.link.url,
-                type: ButtonTypes.ICON,
-                color: ButtonColors.DEFAULT,
                 image: {
                     name: image.name,
                     url: image.mediaImage.url,
@@ -77,6 +73,7 @@ export function getButtonsFromTeaser(component: PrivatePageRelationComponent[]){
                 title: teaserLinkPage.title,
                 description: teaserLinkPage.description,
                 url: teaserLinkPage.slug,
+                color: getButtonColor(teaser.Color),
                 image: {
                     name: teaserLinkPage.teaserImage.data?.attributes?.name,
                     url: import.meta.env.STRAPI_URL.concat(teaserLinkPage.teaserImage.data?.attributes?.url!)
@@ -90,9 +87,8 @@ export function getButtonsFromTeaser(component: PrivatePageRelationComponent[]){
 
 export function getButtonsFromReference(component: NodePage[]){
     const buttons: Button[] = [];
-    component.forEach((reference)=>{
+    component.forEach((reference    )=>{
         const image = reference.mediaImage as MediaImage;
-        
         buttons.push(
             {
                 title: reference.title,

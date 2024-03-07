@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-03-03T13:48:04.751Z"
+    "x-generation-date": "2024-03-07T15:00:40.298Z"
   },
   "x-strapi-config": {
     "plugins": [],
@@ -101,12 +101,6 @@
                   "$ref": "#/components/schemas/SharedBannerFullComponent"
                 },
                 {
-                  "$ref": "#/components/schemas/SharedBannerComponent"
-                },
-                {
-                  "$ref": "#/components/schemas/SharedButtonComponent"
-                },
-                {
                   "$ref": "#/components/schemas/SharedHeaderComponent"
                 },
                 {
@@ -174,12 +168,6 @@
                   "anyOf": [
                     {
                       "$ref": "#/components/schemas/SharedBannerFullComponent"
-                    },
-                    {
-                      "$ref": "#/components/schemas/SharedBannerComponent"
-                    },
-                    {
-                      "$ref": "#/components/schemas/SharedButtonComponent"
                     },
                     {
                       "$ref": "#/components/schemas/SharedHeaderComponent"
@@ -359,12 +347,6 @@
               "anyOf": [
                 {
                   "$ref": "#/components/schemas/SharedBannerFullComponent"
-                },
-                {
-                  "$ref": "#/components/schemas/SharedBannerComponent"
-                },
-                {
-                  "$ref": "#/components/schemas/SharedButtonComponent"
                 },
                 {
                   "$ref": "#/components/schemas/SharedHeaderComponent"
@@ -1477,246 +1459,7 @@
                                 "__component": {
                                   "type": "string"
                                 },
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "Card",
-                                    "Tile",
-                                    "Icon",
-                                    "Half-Half"
-                                  ]
-                                },
-                                "content": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "number"
-                                      },
-                                      "type": {
-                                        "type": "string",
-                                        "enum": [
-                                          "card",
-                                          "tile",
-                                          "icon"
-                                        ]
-                                      },
-                                      "title": {
-                                        "type": "string"
-                                      },
-                                      "link": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {}
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "externalUrl": {
-                                        "type": "string"
-                                      },
-                                      "image": {
-                                        "type": "object",
-                                        "properties": {
-                                          "data": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "attributes": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "alternativeText": {
-                                                    "type": "string"
-                                                  },
-                                                  "caption": {
-                                                    "type": "string"
-                                                  },
-                                                  "width": {
-                                                    "type": "integer"
-                                                  },
-                                                  "height": {
-                                                    "type": "integer"
-                                                  },
-                                                  "formats": {},
-                                                  "hash": {
-                                                    "type": "string"
-                                                  },
-                                                  "ext": {
-                                                    "type": "string"
-                                                  },
-                                                  "mime": {
-                                                    "type": "string"
-                                                  },
-                                                  "size": {
-                                                    "type": "number",
-                                                    "format": "float"
-                                                  },
-                                                  "url": {
-                                                    "type": "string"
-                                                  },
-                                                  "previewUrl": {
-                                                    "type": "string"
-                                                  },
-                                                  "provider": {
-                                                    "type": "string"
-                                                  },
-                                                  "provider_metadata": {},
-                                                  "related": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "data": {
-                                                        "type": "array",
-                                                        "items": {
-                                                          "type": "object",
-                                                          "properties": {
-                                                            "id": {
-                                                              "type": "number"
-                                                            },
-                                                            "attributes": {
-                                                              "type": "object",
-                                                              "properties": {}
-                                                            }
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  },
-                                                  "folder": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "data": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                          "id": {
-                                                            "type": "number"
-                                                          },
-                                                          "attributes": {
-                                                            "type": "object",
-                                                            "properties": {}
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  },
-                                                  "folderPath": {
-                                                    "type": "string"
-                                                  },
-                                                  "createdAt": {
-                                                    "type": "string",
-                                                    "format": "date-time"
-                                                  },
-                                                  "updatedAt": {
-                                                    "type": "string",
-                                                    "format": "date-time"
-                                                  },
-                                                  "createdBy": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "data": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                          "id": {
-                                                            "type": "number"
-                                                          },
-                                                          "attributes": {
-                                                            "type": "object",
-                                                            "properties": {}
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  },
-                                                  "updatedBy": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "data": {
-                                                        "type": "object",
-                                                        "properties": {
-                                                          "id": {
-                                                            "type": "number"
-                                                          },
-                                                          "attributes": {
-                                                            "type": "object",
-                                                            "properties": {}
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "description": {
-                                        "type": "string"
-                                      },
-                                      "color": {
-                                        "type": "string",
-                                        "enum": [
-                                          "Default",
-                                          "Marked"
-                                        ]
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "__component": {
-                                  "type": "string"
-                                },
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "card",
-                                    "tile",
-                                    "icon"
-                                  ]
-                                },
                                 "title": {
-                                  "type": "string"
-                                },
-                                "link": {
-                                  "type": "object",
-                                  "properties": {
-                                    "data": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "attributes": {
-                                          "type": "object",
-                                          "properties": {}
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "externalUrl": {
                                   "type": "string"
                                 },
                                 "image": {
@@ -1857,30 +1600,6 @@
                                       }
                                     }
                                   }
-                                },
-                                "description": {
-                                  "type": "string"
-                                },
-                                "color": {
-                                  "type": "string",
-                                  "enum": [
-                                    "Default",
-                                    "Marked"
-                                  ]
-                                }
-                              }
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "__component": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
                                 },
                                 "buttons": {
                                   "type": "array",
@@ -1890,14 +1609,6 @@
                                       "id": {
                                         "type": "number"
                                       },
-                                      "type": {
-                                        "type": "string",
-                                        "enum": [
-                                          "card",
-                                          "tile",
-                                          "icon"
-                                        ]
-                                      },
                                       "title": {
                                         "type": "string"
                                       },
@@ -2062,152 +1773,6 @@
                                       },
                                       "description": {
                                         "type": "string"
-                                      },
-                                      "color": {
-                                        "type": "string",
-                                        "enum": [
-                                          "Default",
-                                          "Marked"
-                                        ]
-                                      }
-                                    }
-                                  }
-                                },
-                                "image": {
-                                  "type": "object",
-                                  "properties": {
-                                    "data": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "attributes": {
-                                          "type": "object",
-                                          "properties": {
-                                            "name": {
-                                              "type": "string"
-                                            },
-                                            "alternativeText": {
-                                              "type": "string"
-                                            },
-                                            "caption": {
-                                              "type": "string"
-                                            },
-                                            "width": {
-                                              "type": "integer"
-                                            },
-                                            "height": {
-                                              "type": "integer"
-                                            },
-                                            "formats": {},
-                                            "hash": {
-                                              "type": "string"
-                                            },
-                                            "ext": {
-                                              "type": "string"
-                                            },
-                                            "mime": {
-                                              "type": "string"
-                                            },
-                                            "size": {
-                                              "type": "number",
-                                              "format": "float"
-                                            },
-                                            "url": {
-                                              "type": "string"
-                                            },
-                                            "previewUrl": {
-                                              "type": "string"
-                                            },
-                                            "provider": {
-                                              "type": "string"
-                                            },
-                                            "provider_metadata": {},
-                                            "related": {
-                                              "type": "object",
-                                              "properties": {
-                                                "data": {
-                                                  "type": "array",
-                                                  "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "number"
-                                                      },
-                                                      "attributes": {
-                                                        "type": "object",
-                                                        "properties": {}
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            },
-                                            "folder": {
-                                              "type": "object",
-                                              "properties": {
-                                                "data": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "attributes": {
-                                                      "type": "object",
-                                                      "properties": {}
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            },
-                                            "folderPath": {
-                                              "type": "string"
-                                            },
-                                            "createdAt": {
-                                              "type": "string",
-                                              "format": "date-time"
-                                            },
-                                            "updatedAt": {
-                                              "type": "string",
-                                              "format": "date-time"
-                                            },
-                                            "createdBy": {
-                                              "type": "object",
-                                              "properties": {
-                                                "data": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "attributes": {
-                                                      "type": "object",
-                                                      "properties": {}
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            },
-                                            "updatedBy": {
-                                              "type": "object",
-                                              "properties": {
-                                                "data": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "attributes": {
-                                                      "type": "object",
-                                                      "properties": {}
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
                                       }
                                     }
                                   }
@@ -2252,7 +1817,7 @@
                                         "type": "string",
                                         "enum": [
                                           "Default",
-                                          "Marked"
+                                          "Highlight"
                                         ]
                                       }
                                     }
@@ -2318,7 +1883,7 @@
                                         "type": "string",
                                         "enum": [
                                           "Default",
-                                          "Marked"
+                                          "Highlight"
                                         ]
                                       }
                                     }
@@ -2556,14 +2121,6 @@
           "id": {
             "type": "number"
           },
-          "type": {
-            "type": "string",
-            "enum": [
-              "card",
-              "tile",
-              "icon"
-            ]
-          },
           "title": {
             "type": "string"
           },
@@ -2728,39 +2285,6 @@
           },
           "description": {
             "type": "string"
-          },
-          "color": {
-            "type": "string",
-            "enum": [
-              "Default",
-              "Marked"
-            ]
-          }
-        }
-      },
-      "SharedBannerComponent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number"
-          },
-          "__component": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "Card",
-              "Tile",
-              "Icon",
-              "Half-Half"
-            ]
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SharedButtonComponent"
-            }
           }
         }
       },
@@ -2775,12 +2299,6 @@
           },
           "title": {
             "type": "string"
-          },
-          "buttons": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SharedButtonComponent"
-            }
           },
           "image": {
             "type": "object",
@@ -2920,6 +2438,12 @@
                 }
               }
             }
+          },
+          "buttons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SharedButtonComponent"
+            }
           }
         }
       },
@@ -2950,7 +2474,7 @@
             "type": "string",
             "enum": [
               "Default",
-              "Marked"
+              "Highlight"
             ]
           }
         }

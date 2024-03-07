@@ -1,4 +1,4 @@
-import type {GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig} from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -357,7 +357,7 @@ export type NodePage = EdgeNode & NodeInterface & {
   /** The Universally Unique IDentifier (UUID). */
   uuid: Scalars['ID']['output'];
   /** Standaard Header Tonen */
-  verbergStandaardHeader: Scalars['Boolean']['output'];
+  verbergStandaardHeader?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** A paginated set of results for NodePage. */
@@ -1865,7 +1865,7 @@ export type NodePageResolvers<ContextType = any, ParentType extends ResolversPar
   sticky?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uuid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  verbergStandaardHeader?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  verbergStandaardHeader?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

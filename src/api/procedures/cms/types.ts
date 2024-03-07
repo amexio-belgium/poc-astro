@@ -2,6 +2,7 @@ export type Page = {
     title: string,
     slug: string,
     lang: string,
+    hideDefaultHeader: boolean,
     components: (BannerCards|BannerTiles|BannerVideo|Header|PageTitle)[]
 }
 
@@ -35,14 +36,13 @@ export type Button = {
     title: string,
     url: string,
     description?: string,
-    type: ButtonTypes,
-    color: ButtonColors,
+    color?: ButtonColors,
     image: Image
 }
 
 export enum ButtonColors {
-    DEFAULT = 'default',
-    MARKED = 'marked'
+    DEFAULT = 'Default',
+    HIGHLIGHT = 'Highlight'
 }
 
 export enum ButtonTypes {
