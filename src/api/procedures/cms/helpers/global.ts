@@ -1,14 +1,15 @@
-import {getHeaderDrupal} from '@trpc-procedures/cms/creators/page.ts';
+import {getHeaderDrupal, getHeaderStrapi, getHeaderStrapiFlat} from '@trpc-procedures/cms/creators/page.ts';
+import type {StrapiMenuItem} from '@trpc-procedures/cms/types.ts';
 
 export type BreadcrumbItem = {
     text: string;
     href: string;
 }
 
-export async function getBreadCrumbsDrupal(slug: string, ssr:boolean){
+export async function getBreadCrumbsDrupal(lang:string, slug: string, ssr: boolean){
     // Remove first slash if not SSR slug
     let fullSlug = ssr? `/${slug}` : slug;
-    const header = await getHeaderDrupal();
+    const header = await getHeaderDrupal(lang);
     let breadCrumbs: BreadcrumbItem[] = [];
     
     let foundAll = false;
@@ -34,5 +35,49 @@ export async function getBreadCrumbsDrupal(slug: string, ssr:boolean){
 
     breadCrumbs = breadCrumbs.reverse();
     if(breadCrumbs.length-1>0) breadCrumbs[breadCrumbs.length-1].href = '';
+    return breadCrumbs;
+}
+
+function findParents(menuItems: StrapiMenuItem[], targetUrl: string, parents: StrapiMenuItem[] = []): StrapiMenuItem[] | null {
+    for (const menuItem of menuItems) {
+        if (menuItem.attributes.url === targetUrl) {
+            return parents;
+        }
+
+        if (menuItem.attributes.children.data.length > 0) {
+            const foundParents = findParents(menuItem.attributes.children.data, targetUrl, parents.concat(menuItem));
+
+            if (foundParents !== null) {
+                return foundParents;
+            }
+        }
+    }
+
+    return null;
+}
+
+
+export async function getBreadCrumbsStrapi(slug: string, lang: string, ssr: boolean){
+    let fullSlug = slug;
+    if(slug.startsWith('en/')||slug.startsWith('nl/')){
+        fullSlug = slug.split("/")[1]
+    }
+    const header = await getHeaderStrapi(lang);
+    
+    let breadCrumbs: BreadcrumbItem[] = [];
+    
+    const menuItems: StrapiMenuItem[] = header.data.attributes.items.data;
+    const items = findParents(menuItems, `/${fullSlug}`);
+    
+    const mainItemData = await getHeaderStrapiFlat(lang);
+    const mainItem = mainItemData.data.attributes.items.data.find((item)=> item.attributes.url === `/${fullSlug}`);
+    if(mainItem) items?.push(mainItem);
+
+    items?.forEach((item)=>{
+        breadCrumbs.push({
+            text: item.attributes.title,
+            href: `/strapi/${ssr? 'ssr/':''}${lang}${item.attributes.url}`,
+        })
+    })
     return breadCrumbs;
 }

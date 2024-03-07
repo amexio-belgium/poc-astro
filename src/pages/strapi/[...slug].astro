@@ -1,9 +1,11 @@
 ---
-import MainHeader from 'src/components/MainHeader.astro';
 export const prerender = true;
 import ComponentWrapper from 'src/components/Wrapper.astro';
 import {type Page} from 'src/api/procedures/cms/types';
 import {getAllPagesStrapi} from 'src/api/procedures/cms/creators/page';
+import MainHeaderStrapi from 'src/components/MainHeaderStrapi.astro';
+import Breadcrumbs from 'src/components/Breadcrumbs.astro';
+import {getBreadCrumbsStrapi} from 'src/api/procedures/cms/helpers/global';
 export async function getStaticPaths() {
     const pages = await getAllPagesStrapi();
     return pages.map((page) => ({
@@ -13,6 +15,7 @@ export async function getStaticPaths() {
 }
 
 const page: Page = Astro.props;
+const breadCrumbs = await getBreadCrumbsStrapi(page.slug, page.lang, false);
 ---
 <html>
     <head>
@@ -20,8 +23,9 @@ const page: Page = Astro.props;
         <meta charset="UTF-8">
     </head>
     <body>
-        <MainHeader></MainHeader>
+        <MainHeaderStrapi lang={page.lang} ssr={false}></MainHeaderStrapi>
         <main class="mt-[144px]">
+            <Breadcrumbs breadCrumbs={breadCrumbs}></Breadcrumbs>
             {page.components.map((component)=>{
                 return <ComponentWrapper component={component}></ComponentWrapper>
             })}
