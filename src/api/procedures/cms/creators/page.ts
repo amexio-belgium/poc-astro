@@ -1,4 +1,4 @@
-import type {Page} from '@trpc-procedures/cms/types.ts';
+import type {Page, StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
     PageContentItem, SharedBannerCardsComponent, SharedBannerTilesComponent,
@@ -71,10 +71,34 @@ function getComponentFromStringDrupal(paragraph: ParagraphUnion){
 
 }
 
-export async function getHeaderDrupal(){
-    const menuResponse = await axios.get('https://develop-sr3snxi-2j664gzulfclu.fr-4.platformsh.site/system/menu/main/linkset')
+export async function getHeaderDrupal(lang: string){
+    let langPrefix = '';
+    if(lang=='en') langPrefix = '/en';
+    const menuResponse = await axios.get(`${import.meta.env.DRUPAL_URL}${langPrefix}/system/menu/main/linkset`)
     const menu = denormalize(menuResponse.data) as Menu[];
     return menu[0]
+}
+
+export async function getHeaderStrapi(lang: string){
+    let id = 1;
+    if(lang==='en'){
+        id = 2;
+    }
+    const response = await axios.get(`${import.meta.env.STRAPI_URL}/api/menus/${id}?nested&populate=*`)
+    const menu: StrapiMenuResponse = response.data;
+    
+    return menu;
+}
+
+export async function getHeaderStrapiFlat(lang: string){
+    let id = 1;
+    if(lang==='en'){
+        id = 2;
+    }
+    const response = await axios.get(`${import.meta.env.STRAPI_URL}/api/menus/${id}?populate=*`)
+    const menu: StrapiMenuResponse = response.data;
+
+    return menu;
 }
 
 export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: GetPageLang; }): Promise<Page|null>{
@@ -90,7 +114,12 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
     const response = await getPages(params).catch((err)=>{console.log(err);})
     if(response && response.data && response.data[0]){
         const dataObject = response.data[0];
-        let page:Page = {title: dataObject.attributes?.title!, slug: dataObject.attributes!.slug, components: []}
+        let page:Page = {
+            title: dataObject.attributes?.title!, 
+            lang: lang, 
+            slug: dataObject.attributes!.slug, 
+            components: []
+        }
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
             const astroComponent = getComponentFromStringStrapi(component);
             if(astroComponent){
@@ -113,7 +142,11 @@ export async function getAllPagesStrapi(): Promise<Page[]> {
         const response = await getPages(params).catch((err)=>{console.log(err);})
         const data = response?.data;
         data?.forEach((dataObject)=>{
-            let page:Page = {title: dataObject.attributes!.title, slug: `${lang}/${dataObject.attributes!.slug}`, components: []}
+            let page:Page = {
+                title: dataObject.attributes!.title, 
+                lang: lang,
+                slug: `${lang}/${dataObject.attributes!.slug}`, 
+                components: []}
             dataObject.attributes?.content?.forEach((component)=>{
                 const astroComponent = getComponentFromStringStrapi(component);
                 if(astroComponent){
@@ -244,7 +277,12 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
     })
     const data = await query;
     const pageNode = data.data.data.node;
-    let page:Page = {title: pageNode!.title, slug: pageNode!.path, components: []}
+    let page:Page = {
+        title: pageNode!.title, 
+        lang: lang,
+        slug: pageNode!.path, 
+        components: []
+    }
     pageNode?.paragraphs?.forEach((paragraphUnion)=>{
         const component = getComponentFromStringDrupal(paragraphUnion);
         if(component) page.components.push(component);
@@ -344,7 +382,12 @@ query MyQuery {
             }
         });
         query.data.data.nodePages.nodes.forEach((nodePage: NodePage)=>{
-            let page:Page = {title: nodePage.title, slug: nodePage.path, components: []}
+            let page:Page = {
+                title: nodePage.title, 
+                lang: lang,
+                slug: nodePage.path, 
+                components: []
+            }
             nodePage?.paragraphs?.forEach((paragraphUnion)=>{
                 const component = getComponentFromStringDrupal(paragraphUnion);
                 if(component) page.components.push(component);

@@ -1,8 +1,10 @@
 export type Page = {
     title: string,
     slug: string,
+    lang: string,
     components: (BannerCards|BannerTiles|BannerVideo|Header|PageTitle)[]
 }
+
 
 export enum Components {
     BannerCards = 'BannerCards',
@@ -71,4 +73,66 @@ export type BannerTiles = {
 export type PageTitle = {
     componentName: Components.PageTitle,
     title: string
+}
+
+
+
+
+export type StrapiMenuChildItem = {
+    id: number;
+    attributes: {
+        order: number;
+        title: string;
+        url: string;
+        target: null | string;
+        createdAt: string;
+        updatedAt: string;
+        children: {
+            data: StrapiMenuChildItem[];
+        };
+    };
+}
+
+export type StrapiMenuItem = {
+    id: number;
+    attributes: {
+        order: number;
+        title: string;
+        url: string;
+        target: null | string;
+        createdAt: string;
+        updatedAt: string;
+        children: {
+            data: StrapiMenuChildItem[];
+        };
+    };
+}
+
+export type StrapiMenuData = {
+    id: number;
+    attributes: {
+        title: string;
+        slug: string;
+        createdAt: string;
+        updatedAt: string;
+        items: {
+            data: StrapiMenuItem[];
+        };
+    };
+}
+
+export type StrapiMenuResponse = {
+    data: {
+        id: number;
+        attributes: {
+            title: string;
+            slug: string;
+            createdAt: string;
+            updatedAt: string;
+            items: {
+                data: StrapiMenuItem[];
+            };
+        };
+        meta: Record<string, unknown>;
+    };
 }

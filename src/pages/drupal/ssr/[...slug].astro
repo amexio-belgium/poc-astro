@@ -1,9 +1,9 @@
 ---
 import ComponentWrapper from 'src/components/Wrapper.astro';
-import {getHeaderDrupal, getPageDrupal} from 'src/api/procedures/cms/creators/page';
-import MainHeader from 'src/components/MainHeader.astro';
+import {getPageDrupal} from 'src/api/procedures/cms/creators/page';
 import Breadcrumbs from 'src/components/Breadcrumbs.astro';
 import {getBreadCrumbsDrupal} from 'src/api/procedures/cms/helpers/global';
+import MainHeaderDrupal from 'src/components/MainHeaderDrupal.astro';
 
 
 const { slug } = Astro.params;
@@ -20,7 +20,7 @@ if(!page){
     return Astro.redirect('/404')
 }
 
-const breadCrumbs = await getBreadCrumbsDrupal(slug, true);
+const breadCrumbs = await getBreadCrumbsDrupal(lang, slug, true);
 ---
 {page &&
 <html>
@@ -29,7 +29,7 @@ const breadCrumbs = await getBreadCrumbsDrupal(slug, true);
         <meta charset="UTF-8">
     </head>
     <body>
-        <MainHeader></MainHeader>
+        <MainHeaderDrupal lang={page.lang} ssr={true}></MainHeaderDrupal>
         <main class="mt-[144px]">
             <Breadcrumbs breadCrumbs={breadCrumbs}></Breadcrumbs>
             { page.components &&

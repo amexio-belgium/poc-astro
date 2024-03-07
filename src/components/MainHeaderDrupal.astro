@@ -1,6 +1,16 @@
 ---
 import {getHeaderDrupal} from 'src/api/procedures/cms/creators/page';
-const header = await getHeaderDrupal();
+
+interface Props{
+    lang: string;
+    ssr: boolean;
+}
+
+const {lang, ssr} = Astro.props;
+const drupalUrl = `/drupal${ssr? '/ssr':''}`;
+
+
+const header = await getHeaderDrupal(lang);
 
 function capitalizeFirstLetter(string: string) {
     const decap = string.toLowerCase();
@@ -43,36 +53,32 @@ function capitalizeFirstLetter(string: string) {
                         {header.tree.map((item,index)=>{
                             return (
                                 <li id={`linkitem-${index}`} class="level-0 py-[20px]">
-                                    {header.tree.map((item,index)=>{
-                                        return(
-                                                <div id={`dropdown-${index}`} class="hidden absolute pb-[30px] border border-b-2 border-[#4bb8f4] flex flex-col top-[63px] w-full bg-white">
-                                                    <div class="flex flex-col justify-between h-[80px] px-[30px] pt-[30px]">
-                                                        <span id="mega-menu-root-link">
-                                                            <a class="text-[#4bb8f4] hover:underline" href={item.link.href}>{item.title}</a>
-                                                        </span>
-                                                        <div class="bottom-0 w-full h-[1.5px] bg-[#4bb8f4]"></div>
-                                                    </div>
-                                                    <div class="flex flex-row gap-14 px-[30px] pt-[30px]">
-                                                        {item.children.map((child)=>{
-                                                            return (
-                                                                    <div>
-                                                                        <a href={child.link.href} class="font-bold text-black">{child.title && capitalizeFirstLetter(child.title)}</a>
-                                                                        <ul class="mt-4 space-y-3 text-[#0a1336]">
-                                                                            {child.children.map((childChildren)=>{
-                                                                                return (
-                                                                                        <li><a href={childChildren.link.href}>{childChildren.title && capitalizeFirstLetter(childChildren.title)}</a></li>
-                                                                                )
-                                                                            })}
-                                                                        </ul>
-                                                                    </div>
-                                                            )
-                                                        })}
-                                                    </div>
-                                                </div>
-                                        )
-                                    })}
+                                    <div id={`dropdown-${index}`} class="hidden absolute left-0 pb-[30px] border border-b-2 border-[#4bb8f4] flex flex-col top-[63px] w-full bg-white">
+                                        <div class="flex flex-col justify-between h-[80px] px-[30px] pt-[30px]">
+                                            <span id="mega-menu-root-link">
+                                                <a class="text-[#4bb8f4] hover:underline" href={drupalUrl.concat(item.link.href)}>{item.title}</a>
+                                            </span>
+                                            <div class="bottom-0 w-full h-[1.5px] bg-[#4bb8f4]"></div>
+                                        </div>
+                                        <div class="flex flex-row gap-14 px-[30px] pt-[30px]">
+                                            {item.children.map((child)=>{
+                                                return (
+                                                        <div>
+                                                            <a href={drupalUrl.concat(child.link.href)} class="font-bold text-black">{child.title && capitalizeFirstLetter(child.title)}</a>
+                                                            <ul class="mt-4 space-y-3 text-[#0a1336]">
+                                                                {child.children.map((childChildren)=>{
+                                                                    return (
+                                                                            <li><a href={drupalUrl.concat(childChildren.link.href)}>{childChildren.title && capitalizeFirstLetter(childChildren.title)}</a></li>
+                                                                    )
+                                                                })}
+                                                            </ul>
+                                                        </div>
+                                                )
+                                            })}
+                                        </div>
+                                    </div>
                                     <span class="link">
-                                        <a href={item.link.href}>{item.title}</a>
+                                        <a href={drupalUrl.concat(item.link.href)}>{item.title}</a>
                                     </span>
                                 </li>
                             )

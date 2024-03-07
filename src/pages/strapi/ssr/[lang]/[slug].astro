@@ -1,9 +1,11 @@
 ---
 import ComponentWrapper from 'src/components/Wrapper.astro';
-import {getHeaderDrupal, getPageStrapi} from 'src/api/procedures/cms/creators/page';
+import {getPageStrapi} from 'src/api/procedures/cms/creators/page';
 const { slug } = Astro.params;
 const { lang } = Astro.params;
-import MainHeader from 'src/components/MainHeader.astro';
+import MainHeaderStrapi from 'src/components/MainHeaderStrapi.astro';
+import {getBreadCrumbsStrapi} from 'src/api/procedures/cms/helpers/global';
+import Breadcrumbs from 'src/components/Breadcrumbs.astro';
 
 if(!slug || !lang){
     return Astro.redirect('/404')
@@ -13,6 +15,8 @@ if(!page){
     return Astro.redirect('/404')
 }
 
+const breadCrumbs = await getBreadCrumbsStrapi(slug, lang, true);
+
 ---
 {page &&
 <html>
@@ -21,8 +25,9 @@ if(!page){
         <meta charset="UTF-8">
     </head>
     <body>
-        <MainHeader></MainHeader>
+        <MainHeaderStrapi lang={page.lang} ssr={true}></MainHeaderStrapi>
         <main class="mt-[144px]">
+            <Breadcrumbs breadCrumbs={breadCrumbs}></Breadcrumbs>
             { page.components &&
                     <Fragment>
                         {page.components.map((component)=>{
