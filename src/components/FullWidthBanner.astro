@@ -1,5 +1,5 @@
 ---
-import {Alignment, FullWidthBanner} from 'src/api/procedures/cms/types';
+import {Alignment, type FullWidthBanner} from 'src/api/procedures/cms/types';
 interface Props {
     fullWidthBanner: FullWidthBanner
 }
@@ -8,12 +8,13 @@ const {fullWidthBanner} = Astro.props;
 
 const buttonAlignment = fullWidthBanner.alignment === Alignment.LEFT ? 'start' : fullWidthBanner.alignment === Alignment.RIGHT? 'end' : 'center';
 const imageUrl = `url(${fullWidthBanner.image})`
+const textAlignment = fullWidthBanner.alignment;
 ---
 
 <div class="content--paragraph-buttonbanner center with-image" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://www.aquafin.be/sites/aquafin/files/styles/header/public/2023-09/afbeelding%20voor%20button%20banner%202%20%281650%20x%20450%20px%29_0.png?h=640c729a&amp;itok=9UP9Zg2X);">
-    <h1 class={`text-${fullWidthBanner.alignment}`}>{fullWidthBanner.title}</h1>
+    <h1>{fullWidthBanner.title}</h1>
     {fullWidthBanner.description && fullWidthBanner.description !== '' &&
-            <div class={`text-${fullWidthBanner.alignment} content--paragraph-buttonbanner-description`}>
+            <div class="content--paragraph-buttonbanner-description">
                 <p>Een kijkje op een rioolwaterzuiveringsinstallatie, een werf en op onze Campus Aquafin</p>
             </div>
     }
@@ -22,7 +23,7 @@ const imageUrl = `url(${fullWidthBanner.image})`
     </div>
 </div>
 
-<style define:vars={{ imageUrl }} lang="scss">
+<style define:vars={{ imageUrl, buttonAlignment, textAlignment }} lang="scss">
     .content{
       &--paragraph-buttonbanner{
         -webkit-font-smoothing: antialiased;
@@ -44,6 +45,7 @@ const imageUrl = `url(${fullWidthBanner.image})`
         background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), var(--imageUrl);
 
         >h1{
+          text-align: var(--textAlignment);
           -webkit-font-smoothing: antialiased;
           text-rendering: optimizeLegibility;
           -webkit-text-size-adjust: 100%;
@@ -67,8 +69,9 @@ const imageUrl = `url(${fullWidthBanner.image})`
         font-size: 16px;
         line-height: normal;
         box-sizing: border-box;
+        text-align: var(--textAlignment);
         
-        >p{
+        > p{
           -webkit-font-smoothing: antialiased;
           text-rendering: optimizeLegibility;
           -webkit-text-size-adjust: 100%;
@@ -94,6 +97,7 @@ const imageUrl = `url(${fullWidthBanner.image})`
         box-sizing: border-box;
         position: relative;
         padding-top: 12px;
+        align-self: var(--buttonAlignment);
         
         >a{
           -webkit-font-smoothing: antialiased;

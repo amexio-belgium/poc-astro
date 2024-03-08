@@ -25,7 +25,7 @@ import type {
 } from 'src/types/drupal/resolvers-types.ts';
 import {denormalize} from '@drupal/decoupled-menu-parser';
 import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
-import {createBannerFullStrapi} from '@trpc-procedures/cms/creators/bannerFull.ts';
+import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/cms/creators/bannerFull.ts';
 
 const languages: string[] = ["en","nl"];
 
@@ -71,6 +71,9 @@ function getComponentFromStringDrupal(paragraph: ParagraphUnion){
         }
         if(paragraph.__typename === 'ParagraphHeader'){
             return createHeaderDrupal(paragraph);
+        }
+        if(paragraph.__typename === 'ParagraphBannerFull'){
+            return createBannerFullDrupal(paragraph);
         }
     }
 
@@ -281,6 +284,27 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                               }
                               title
                             }
+                            __typename
+                            ... on ParagraphBannerFull {
+                              id
+                              imagebannerfull {
+                                ... on MediaImage {
+                                  name
+                                  mediaImage {
+                                    url
+                                  }
+                                }
+                              }
+                              title
+                              uitlijning
+                              linkKnopTekst
+                              link {
+                                url
+                              }
+                              description {
+                                value
+                              }
+                            }
                           }
                           body {
                             value
@@ -396,6 +420,27 @@ query MyQuery {
                 }
               }
               title
+            }
+            __typename
+            ... on ParagraphBannerFull {
+              id
+              imagebannerfull {
+                ... on MediaImage {
+                  name
+                  mediaImage {
+                    url
+                  }
+                }
+              }
+              title
+              uitlijning
+              linkKnopTekst
+              link {
+                url
+              }
+              description {
+                value
+              }
             }
           }
           body {

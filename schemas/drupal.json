@@ -4794,7 +4794,7 @@
             "deprecationReason": null
           },
           {
-            "name": "image",
+            "name": "imagebannerfull",
             "description": "Afbeelding",
             "args": [],
             "type": {
@@ -4834,8 +4834,36 @@
             "deprecationReason": null
           },
           {
+            "name": "linkKnopTekst",
+            "description": "Link Knop Tekst",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "title",
             "description": "Titel",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "uitlijning",
+            "description": "Uitlijning",
             "args": [],
             "type": {
               "kind": "SCALAR",
