@@ -311,6 +311,7 @@ export type SharedBannerFullComponentLink = {
 export interface SharedBannerFullComponent {
   __component?: string;
   alignment?: SharedBannerFullComponentAlignment;
+  buttonText?: string;
   description?: string;
   externalUrl?: string;
   id?: number;
@@ -715,6 +716,7 @@ export type SharedBannerFullComponentLinkDataAttributesContentItemAnyOfLink = {
 export type SharedBannerFullComponentLinkDataAttributesContentItemAnyOf = {
   __component?: string;
   alignment?: SharedBannerFullComponentLinkDataAttributesContentItemAnyOfAlignment;
+  buttonText?: string;
   description?: string;
   externalUrl?: string;
   id?: number;
@@ -810,7 +812,7 @@ export type SharedBannerFullComponentLinkDataAttributesContentItemAnyOfAlignment
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SharedBannerFullComponentLinkDataAttributesContentItemAnyOfAlignment = {
   Left: 'Left',
-  Middle: 'Middle',
+  Center: 'Center',
   Right: 'Right',
 } as const;
 
@@ -1189,7 +1191,7 @@ export type SharedBannerFullComponentAlignment = typeof SharedBannerFullComponen
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SharedBannerFullComponentAlignment = {
   Left: 'Left',
-  Middle: 'Middle',
+  Center: 'Center',
   Right: 'Right',
 } as const;
 

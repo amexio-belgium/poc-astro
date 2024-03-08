@@ -1,13 +1,13 @@
 import type {Page, StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
-    PageContentItem, SharedBannerCardsComponent, SharedBannerTilesComponent,
+    PageContentItem, SharedBannerCardsComponent, SharedBannerFullComponent, SharedBannerTilesComponent,
     SharedBannerVideoComponent,
     SharedHeaderComponent
 } from 'src/types/strapi/generated.schemas.ts';
 import {getPages} from 'src/types/strapi/page.ts';
 import {
-    isSharedBannerCards, isSharedBannerTiles,
+    isSharedBannerCards, isSharedBannerFull, isSharedBannerTiles,
     isSharedBannerVideo,
     isSharedHeader,
 } from '@trpc-procedures/cms/helpers/isComponent.ts';
@@ -25,6 +25,7 @@ import type {
 } from 'src/types/drupal/resolvers-types.ts';
 import {denormalize} from '@drupal/decoupled-menu-parser';
 import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
+import {createBannerFullStrapi} from '@trpc-procedures/cms/creators/bannerFull.ts';
 
 const languages: string[] = ["en","nl"];
 
@@ -44,6 +45,10 @@ export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerTiles(component)){
         const sharedBannerTiles = component as SharedBannerTilesComponent;
         return createBannerTilesStrapi(sharedBannerTiles)
+    }
+    if(isSharedBannerFull(component)){
+        const sharedBannerFull = component as SharedBannerFullComponent;
+        return createBannerFullStrapi(sharedBannerFull)
     }
     return null;
 }

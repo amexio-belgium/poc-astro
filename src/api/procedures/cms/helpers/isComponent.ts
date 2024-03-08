@@ -1,6 +1,6 @@
 import type {
     PageContentItem,
-    SharedBannerCardsComponent, SharedBannerTilesComponent,
+    SharedBannerCardsComponent, SharedBannerFullComponent, SharedBannerTilesComponent,
     SharedBannerVideoComponent,
     SharedHeaderComponent
 } from 'src/types/strapi/generated.schemas.ts';
@@ -19,4 +19,8 @@ export function isSharedBannerCards(component: PageContentItem){
 
 export function isSharedBannerTiles(component: PageContentItem){
     return (component as SharedBannerTilesComponent).__component === 'shared.banner-tiles';
+}
+
+export function isSharedBannerFull(component: PageContentItem){
+    return (component as SharedBannerFullComponent).__component === 'shared.banner-full';
 }
