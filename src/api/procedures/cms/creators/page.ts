@@ -3,13 +3,13 @@ import type {
     GetPagesParams,
     PageContentItem, SharedBannerCardsComponent, SharedBannerFullComponent, SharedBannerTilesComponent,
     SharedBannerVideoComponent,
-    SharedHeaderComponent
+    SharedHeaderComponent, SharedTextComponent
 } from 'src/types/strapi/generated.schemas.ts';
 import {getPages} from 'src/types/strapi/page.ts';
 import {
     isSharedBannerCards, isSharedBannerFull, isSharedBannerTiles,
     isSharedBannerVideo,
-    isSharedHeader,
+    isSharedHeader, isSharedText,
 } from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideoDrupal, createBannerVideoStrapi} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createDefaultHeader, createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
@@ -26,6 +26,7 @@ import type {
 import {denormalize} from '@drupal/decoupled-menu-parser';
 import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
 import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/cms/creators/bannerFull.ts';
+import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
 
 const languages: string[] = ["en","nl"];
 
@@ -49,6 +50,10 @@ export function getComponentFromStringStrapi(component: PageContentItem){
     if(isSharedBannerFull(component)){
         const sharedBannerFull = component as SharedBannerFullComponent;
         return createBannerFullStrapi(sharedBannerFull)
+    }
+    if(isSharedText(component)){
+        const sharedText = component as SharedTextComponent;
+        return createTextStrapi(sharedText);
     }
     return null;
 }
@@ -74,6 +79,9 @@ function getComponentFromStringDrupal(paragraph: ParagraphUnion){
         }
         if(paragraph.__typename === 'ParagraphBannerFull'){
             return createBannerFullDrupal(paragraph);
+        }
+        if(paragraph.__typename === 'ParagraphText'){
+            return createTextDrupal(paragraph);
         }
     }
 
@@ -305,6 +313,12 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                                 value
                               }
                             }
+                            __typename
+                            ... on ParagraphText {
+                              text {
+                                value
+                              }
+                            }
                           }
                           body {
                             value
@@ -439,6 +453,12 @@ query MyQuery {
                 url
               }
               description {
+                value
+              }
+            }
+            __typename
+            ... on ParagraphText {
+              text {
                 value
               }
             }

@@ -47,6 +47,12 @@ filters?: { [key: string]: any };
 locale?: string;
 };
 
+export interface SharedTextComponent {
+  __component?: string;
+  id?: number;
+  text?: string;
+}
+
 export interface SharedBannerTilesComponent {
   __component?: string;
   id?: number;
@@ -182,6 +188,8 @@ export type SharedHeaderComponentImageDataAttributesCreatedBy = {
   data?: SharedHeaderComponentImageDataAttributesCreatedByData;
 };
 
+export type SharedButtonComponentLinkDataAttributes = { [key: string]: any };
+
 export type SharedButtonComponentLinkData = {
   attributes?: SharedButtonComponentLinkDataAttributes;
   id?: number;
@@ -189,6 +197,15 @@ export type SharedButtonComponentLinkData = {
 
 export type SharedButtonComponentLink = {
   data?: SharedButtonComponentLinkData;
+};
+
+export type SharedButtonComponentImageData = {
+  attributes?: SharedButtonComponentImageDataAttributes;
+  id?: number;
+};
+
+export type SharedButtonComponentImage = {
+  data?: SharedButtonComponentImageData;
 };
 
 export interface SharedButtonComponent {
@@ -199,17 +216,6 @@ export interface SharedButtonComponent {
   link?: SharedButtonComponentLink;
   title?: string;
 }
-
-export type SharedButtonComponentLinkDataAttributes = { [key: string]: any };
-
-export type SharedButtonComponentImageData = {
-  attributes?: SharedButtonComponentImageDataAttributes;
-  id?: number;
-};
-
-export type SharedButtonComponentImage = {
-  data?: SharedButtonComponentImageData;
-};
 
 export type SharedButtonComponentImageDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
@@ -283,22 +289,6 @@ export type SharedButtonComponentImageDataAttributesCreatedBy = {
   data?: SharedButtonComponentImageDataAttributesCreatedByData;
 };
 
-export type SharedBannerFullComponentLinkDataAttributes = {
-  content?: SharedBannerFullComponentLinkDataAttributesContentItem[];
-  createdAt?: string;
-  createdBy?: SharedBannerFullComponentLinkDataAttributesCreatedBy;
-  defaultHeader?: SharedBannerFullComponentLinkDataAttributesDefaultHeader;
-  description?: string;
-  locale?: string;
-  localizations?: SharedBannerFullComponentLinkDataAttributesLocalizations;
-  publishedAt?: string;
-  slug?: string;
-  teaserImage?: SharedBannerFullComponentLinkDataAttributesTeaserImage;
-  title?: string;
-  updatedAt?: string;
-  updatedBy?: SharedBannerFullComponentLinkDataAttributesUpdatedBy;
-};
-
 export type SharedBannerFullComponentLinkData = {
   attributes?: SharedBannerFullComponentLinkDataAttributes;
   id?: number;
@@ -340,6 +330,22 @@ export type SharedBannerFullComponentLinkDataAttributesTeaserImage = {
   data?: SharedBannerFullComponentLinkDataAttributesTeaserImageData;
 };
 
+export type SharedBannerFullComponentLinkDataAttributes = {
+  content?: SharedBannerFullComponentLinkDataAttributesContentItem[];
+  createdAt?: string;
+  createdBy?: SharedBannerFullComponentLinkDataAttributesCreatedBy;
+  defaultHeader?: SharedBannerFullComponentLinkDataAttributesDefaultHeader;
+  description?: string;
+  locale?: string;
+  localizations?: SharedBannerFullComponentLinkDataAttributesLocalizations;
+  publishedAt?: string;
+  slug?: string;
+  teaserImage?: SharedBannerFullComponentLinkDataAttributesTeaserImage;
+  title?: string;
+  updatedAt?: string;
+  updatedBy?: SharedBannerFullComponentLinkDataAttributesUpdatedBy;
+};
+
 export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesUpdatedByDataAttributes = { [key: string]: any };
 
 export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesUpdatedByData = {
@@ -350,6 +356,21 @@ export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributes
 export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesUpdatedBy = {
   data?: SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesUpdatedByData;
 };
+
+export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelatedDataItemAttributes = { [key: string]: any };
+
+export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelatedDataItem = {
+  attributes?: SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelatedDataItemAttributes;
+  id?: number;
+};
+
+export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelated = {
+  data?: SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelatedDataItem[];
+};
+
+export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesProviderMetadata = {};
+
+export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesFormats = {};
 
 export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributes = {
   alternativeText?: string;
@@ -375,23 +396,6 @@ export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributes
   width?: number;
 };
 
-export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelatedDataItemAttributes = { [key: string]: any };
-
-export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelatedDataItem = {
-  attributes?: SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelatedDataItemAttributes;
-  id?: number;
-};
-
-export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelated = {
-  data?: SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesRelatedDataItem[];
-};
-
-export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesProviderMetadata = {};
-
-export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesFormats = {};
-
-export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesFolderDataAttributes = { [key: string]: any };
-
 export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesFolderData = {
   attributes?: SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesFolderDataAttributes;
   id?: number;
@@ -400,6 +404,8 @@ export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributes
 export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesFolder = {
   data?: SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesFolderData;
 };
+
+export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesFolderDataAttributes = { [key: string]: any };
 
 export type SharedBannerFullComponentLinkDataAttributesTeaserImageDataAttributesCreatedByDataAttributes = { [key: string]: any };
 
@@ -436,6 +442,12 @@ export type SharedBannerFullComponentLinkDataAttributesCreatedByData = {
 
 export type SharedBannerFullComponentLinkDataAttributesCreatedBy = {
   data?: SharedBannerFullComponentLinkDataAttributesCreatedByData;
+};
+
+export type SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSevenfive = {
+  __component?: string;
+  id?: number;
+  text?: string;
 };
 
 export type SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixnine = {
@@ -510,7 +522,7 @@ export type SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixtwo = 
   teasers?: SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixtwoTeasersItem[];
 };
 
-export type SharedBannerFullComponentLinkDataAttributesContentItem = SharedBannerFullComponentLinkDataAttributesContentItemAnyOf | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfTwothree | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixtwo | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixeight | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixnine;
+export type SharedBannerFullComponentLinkDataAttributesContentItem = SharedBannerFullComponentLinkDataAttributesContentItemAnyOf | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfTwothree | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixtwo | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixeight | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSixnine | SharedBannerFullComponentLinkDataAttributesContentItemAnyOfSevenfive;
 
 export type SharedBannerFullComponentLinkDataAttributesContentItemAnyOfTwothreeImageData = {
   attributes?: SharedBannerFullComponentLinkDataAttributesContentItemAnyOfTwothreeImageDataAttributes;
@@ -1339,7 +1351,7 @@ export type PageCreatedBy = {
   data?: PageCreatedByData;
 };
 
-export type PageContentItem = SharedBannerFullComponent | SharedHeaderComponent | SharedBannerCardsComponent | SharedBannerVideoComponent | SharedBannerTilesComponent;
+export type PageContentItem = SharedBannerFullComponent | SharedHeaderComponent | SharedBannerCardsComponent | SharedBannerVideoComponent | SharedBannerTilesComponent | SharedTextComponent;
 
 export type PageListResponseMetaPagination = {
   page?: number;
@@ -1406,7 +1418,7 @@ export const PageRequestDataDefaultHeader = {
   Hidden: 'Hidden',
 } as const;
 
-export type PageRequestDataContentItem = SharedBannerFullComponent | SharedHeaderComponent | SharedBannerCardsComponent | SharedBannerVideoComponent | SharedBannerTilesComponent;
+export type PageRequestDataContentItem = SharedBannerFullComponent | SharedHeaderComponent | SharedBannerCardsComponent | SharedBannerVideoComponent | SharedBannerTilesComponent | SharedTextComponent;
 
 export type PageRequestData = {
   content?: PageRequestDataContentItem[];
@@ -1433,7 +1445,7 @@ export const PageLocalizationRequestDefaultHeader = {
   Hidden: 'Hidden',
 } as const;
 
-export type PageLocalizationRequestContentItem = SharedBannerFullComponent | SharedHeaderComponent | SharedBannerCardsComponent | SharedBannerVideoComponent | SharedBannerTilesComponent;
+export type PageLocalizationRequestContentItem = SharedBannerFullComponent | SharedHeaderComponent | SharedBannerCardsComponent | SharedBannerVideoComponent | SharedBannerTilesComponent | SharedTextComponent;
 
 export interface PageLocalizationRequest {
   content?: PageLocalizationRequestContentItem[];

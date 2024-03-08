@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-03-08T05:35:13.991Z"
+    "x-generation-date": "2024-03-08T09:26:56.132Z"
   },
   "x-strapi-config": {
     "plugins": [],
@@ -111,6 +111,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/SharedBannerTilesComponent"
+                },
+                {
+                  "$ref": "#/components/schemas/SharedTextComponent"
                 }
               ]
             }
@@ -180,6 +183,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/SharedBannerTilesComponent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SharedTextComponent"
                     }
                   ]
                 }
@@ -359,6 +365,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/SharedBannerTilesComponent"
+                },
+                {
+                  "$ref": "#/components/schemas/SharedTextComponent"
                 }
               ]
             }
@@ -1893,6 +1902,20 @@
                                   }
                                 }
                               }
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "__component": {
+                                  "type": "string"
+                                },
+                                "text": {
+                                  "type": "string"
+                                }
+                              }
                             }
                           ]
                         }
@@ -2536,6 +2559,20 @@
             "items": {
               "$ref": "#/components/schemas/PrivatePageRelationComponent"
             }
+          }
+        }
+      },
+      "SharedTextComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
           }
         }
       }

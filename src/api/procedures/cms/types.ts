@@ -3,7 +3,7 @@ export type Page = {
     slug: string,
     lang: string,
     hideDefaultHeader: boolean,
-    components: (BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner)[]
+    components: (BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text)[]
 }
 
 
@@ -14,7 +14,8 @@ export enum Components {
     Header = 'Header',
     DefaultHeader = 'DefaultHeader',
     PageTitle = 'PageTitle',
-    FullWidthBanner = 'FullWidthBanner'
+    FullWidthBanner = 'FullWidthBanner',
+    Text = 'Text',
 }
 
 export enum CMSType {
@@ -29,6 +30,11 @@ export type Header = {
     image: Image
 }
 
+export type Text = {
+    componentName: Components.Text,
+    text: string,
+}
+
 export enum Alignment {
     LEFT = 'left',
     CENTER = 'center',
@@ -36,6 +42,16 @@ export enum Alignment {
 }
 
 export type FullWidthBanner = {
+    componentName: Components.FullWidthBanner,
+    alignment: Alignment,
+    title: string,
+    description?: string,
+    buttonText: string,
+    image: string,
+    link: string
+}
+
+export type FullWidthBannerText = {
     componentName: Components.FullWidthBanner,
     alignment: Alignment,
     title: string,
