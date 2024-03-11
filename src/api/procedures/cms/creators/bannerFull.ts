@@ -47,7 +47,6 @@ export function createBannerFullStrapi(sharedBannerFull: SharedBannerFullCompone
 }
 
 export function createBannerFullDrupal(sharedBannerFull: ParagraphBannerFull){
-    console.log(sharedBannerFull);
     const image = sharedBannerFull.imagebannerfull as MediaImage;
     return {
         componentName: Components.FullWidthBanner,

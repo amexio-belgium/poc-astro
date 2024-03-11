@@ -3,7 +3,7 @@ export type Page = {
     slug: string,
     lang: string,
     hideDefaultHeader: boolean,
-    components: (BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text)[]
+    components: (Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text)[]
 }
 
 
@@ -16,6 +16,7 @@ export enum Components {
     PageTitle = 'PageTitle',
     FullWidthBanner = 'FullWidthBanner',
     Text = 'Text',
+    Banner5050 = 'Banner5050'
 }
 
 export enum CMSType {
@@ -28,6 +29,11 @@ export type Header = {
     title: string,
     buttons: Button[],
     image: Image
+}
+
+export type Banner5050 = {
+    componentName: Components.Banner5050,
+    buttons: [Button, Button],
 }
 
 export type Text = {
@@ -77,7 +83,8 @@ export type Button = {
     url: string,
     description?: string,
     color?: ButtonColors,
-    image: Image
+    image: Image,
+    buttonText?: string
 }
 
 export enum ButtonColors {

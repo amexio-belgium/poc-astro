@@ -1,5 +1,5 @@
 import type {
-    PageContentItem,
+    PageContentItem, SharedBanner5050Component,
     SharedBannerCardsComponent, SharedBannerFullComponent, SharedBannerTilesComponent,
     SharedBannerVideoComponent,
     SharedHeaderComponent, SharedTextComponent
@@ -27,4 +27,8 @@ export function isSharedBannerFull(component: PageContentItem){
 
 export function isSharedText(component: PageContentItem){
     return (component as SharedTextComponent).__component === 'shared.text';
+}
+
+export function isSharedBanner5050(component: PageContentItem){
+    return (component as SharedBanner5050Component).__component === 'shared.banner-5050';
 }

@@ -11,7 +11,7 @@ const imageUrl = `url(${fullWidthBanner.image})`
 const textAlignment = fullWidthBanner.alignment;
 ---
 
-<div class="content--paragraph-buttonbanner center with-image" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://www.aquafin.be/sites/aquafin/files/styles/header/public/2023-09/afbeelding%20voor%20button%20banner%202%20%281650%20x%20450%20px%29_0.png?h=640c729a&amp;itok=9UP9Zg2X);">
+<article class="content--paragraph-buttonbanner center with-image" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://www.aquafin.be/sites/aquafin/files/styles/header/public/2023-09/afbeelding%20voor%20button%20banner%202%20%281650%20x%20450%20px%29_0.png?h=640c729a&amp;itok=9UP9Zg2X);">
     <h1>{fullWidthBanner.title}</h1>
     {fullWidthBanner.description && fullWidthBanner.description !== '' &&
             <div class="content--paragraph-buttonbanner-description">
@@ -21,7 +21,7 @@ const textAlignment = fullWidthBanner.alignment;
     <div class={`self-${buttonAlignment} content--paragraph-buttonbanner-button`} >
         <a href={fullWidthBanner.link}>{fullWidthBanner.buttonText}</a>
     </div>
-</div>
+</article>
 
 <style define:vars={{ imageUrl, buttonAlignment, textAlignment }} lang="scss">
     .content{
@@ -46,6 +46,8 @@ const textAlignment = fullWidthBanner.alignment;
 
         >h1{
           text-align: var(--textAlignment);
+          align-self: var(--buttonAlignment);
+          width: 50%;
           -webkit-font-smoothing: antialiased;
           text-rendering: optimizeLegibility;
           -webkit-text-size-adjust: 100%;
@@ -70,8 +72,10 @@ const textAlignment = fullWidthBanner.alignment;
         line-height: normal;
         box-sizing: border-box;
         text-align: var(--textAlignment);
+        align-self: var(--buttonAlignment);
+        width: 50%;
         
-        > p{
+        >p {
           -webkit-font-smoothing: antialiased;
           text-rendering: optimizeLegibility;
           -webkit-text-size-adjust: 100%;

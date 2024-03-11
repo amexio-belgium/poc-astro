@@ -7,11 +7,11 @@ interface Props {
 const {text} = Astro.props;
 ---
 
-<div class="content--paragraph-tta">
+<article class="content--paragraph-tta">
     <div class="paragraph-tta-text">
         <Fragment set:html={text.text}></Fragment>
     </div>
-</div>
+</article>
 
 <style lang="scss" is:global>
     .content--paragraph-tta{
@@ -36,7 +36,7 @@ const {text} = Astro.props;
       font-size: 16px;
       line-height: normal;
       box-sizing: border-box;
-      margin: 40px 90px;
+      padding: 40px 90px;
       
       
       >h3{
@@ -62,7 +62,9 @@ const {text} = Astro.props;
         font-weight: 400;
         color: #4a4a4a;
         font-size: 1.125rem;
-        line-height: 2.813rem;
+        line-height: 1.813rem;
+        margin-top: 18px;
+        margin-bottom: 18px;
       }
       
       >ul{
@@ -94,7 +96,6 @@ const {text} = Astro.props;
           &::before{
             background-clip: padding-box;
             border-radius: 50%;
-            background-color: #4a4a4a;
             content: '';
             height: 3px;
             left: -25px;
