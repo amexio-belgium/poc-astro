@@ -33,7 +33,7 @@ import {denormalize} from '@drupal/decoupled-menu-parser';
 import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
 import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/cms/creators/bannerFull.ts';
 import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
-import {createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
+import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
 
 const languages: string[] = ["en","nl"];
 
@@ -93,6 +93,9 @@ function getComponentFromStringDrupal(paragraph: ParagraphUnion){
         }
         if(paragraph.__typename === 'ParagraphText'){
             return createTextDrupal(paragraph);
+        }
+        if(paragraph.__typename === 'ParagraphBanner5050'){
+            return createBanner5050Drupal(paragraph);
         }
     }
 
@@ -330,6 +333,28 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                                 value
                               }
                             }
+                            __typename
+                            ... on ParagraphBanner5050 {
+                              id
+                              buttons {
+                                ... on ParagraphButton {
+                                  buttonText
+                                  image {
+                                    ... on MediaImage {
+                                      name
+                                      mediaImage {
+                                        url
+                                        title
+                                      }
+                                    }
+                                  }
+                                  link {
+                                    url
+                                  }
+                                  title
+                                }
+                              }
+                            }
                           }
                           body {
                             value
@@ -471,6 +496,28 @@ query MyQuery {
             ... on ParagraphText {
               text {
                 value
+              }
+            }
+            __typename
+            ... on ParagraphBanner5050 {
+              id
+              buttons {
+                ... on ParagraphButton {
+                  buttonText
+                  image {
+                    ... on MediaImage {
+                      name
+                      mediaImage {
+                        url
+                        title
+                      }
+                    }
+                  }
+                  link {
+                    url
+                  }
+                  title
+                }
               }
             }
           }

@@ -32,7 +32,7 @@ export function getButtonsStrapi(component: SharedHeaderComponent){
             {
                 title: button.title,
                 description: button.description,
-                url: button.externalUrl? button.externalUrl : buttonLinkPage.slug,
+                url: button.externalUrl ? button.externalUrl : buttonLinkPage.slug,
                 image: {
                     name: button.image?.data?.attributes?.name,
                     url: import.meta.env.STRAPI_URL.concat(button.image?.data?.attributes?.url!)

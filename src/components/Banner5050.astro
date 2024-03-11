@@ -6,8 +6,8 @@ interface Props {
 
 const {banner5050} = Astro.props;
 
-const leftImage = `url(${banner5050.buttons[0].image.url})`;
-const rightImage = `url(${banner5050.buttons[1].image.url})`;
+const leftImage = `url(${banner5050.buttons[0].image?.url})`;
+const rightImage = `url(${banner5050.buttons[1].image?.url})`;
 ---
 
 <article class="content--paragraph-buttonbanner-group">

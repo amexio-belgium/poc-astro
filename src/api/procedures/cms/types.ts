@@ -83,7 +83,7 @@ export type Button = {
     url: string,
     description?: string,
     color?: ButtonColors,
-    image: Image,
+    image?: Image,
     buttonText?: string
 }
 
