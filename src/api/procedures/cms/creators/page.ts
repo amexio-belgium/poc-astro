@@ -1,4 +1,4 @@
-import type {Page, StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
+import {Components, type Page, type StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
     PageContentItem,
@@ -24,9 +24,9 @@ import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures
 import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 import axios from 'axios'
 import type {
-    NodePage,
-    ParagraphTeaser,
-    ParagraphUnion,
+    NodePage, ParagraphBanner5050, ParagraphBannerFull, ParagraphHeader,
+    ParagraphTeaser, ParagraphText,
+    ParagraphUnion, ParagraphVideobanner,
     Query
 } from 'src/types/drupal/resolvers-types.ts';
 import {denormalize} from '@drupal/decoupled-menu-parser';
@@ -69,6 +69,33 @@ export function getComponentFromStringStrapi(component: PageContentItem){
     return null;
 }
 
+
+const paragraphComponentMap: {key: string, function: Function}[] = [
+    {
+        key: 'ParagraphVideobanner', 
+        function: 
+            function(paragraph: ParagraphVideobanner){
+                return createBannerVideoDrupal(paragraph)
+            }
+        },
+    {
+        key: 'ParagraphTeaser', 
+        function: 
+            function(paragraph: ParagraphTeaser){
+                switch(paragraph.type){
+                    case 'card':
+                        return createBannerCardsDrupal(paragraph)
+                    case 'tile':
+                        return createBannerTilesDrupal(paragraph)
+                }
+        }
+    }
+    //.... more component objects
+];
+
+function getParagraph(paragraph: ParagraphUnion){
+    return paragraphComponentMap.find((paragraphComp)=> paragraphComp.key === paragraph.__typename)
+}
 
 function getComponentFromStringDrupal(paragraph: ParagraphUnion){
     //Check if paragraph is not empty graphql object
