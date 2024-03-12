@@ -4,6 +4,7 @@ import {getPageDrupal} from 'src/api/procedures/cms/creators/page';
 import Breadcrumbs from 'src/components/Breadcrumbs.astro';
 import {getBreadCrumbsDrupal} from 'src/api/procedures/cms/helpers/global';
 import MainHeaderDrupal from 'src/components/MainHeaderDrupal.astro';
+import Footer from 'src/components/Footer.astro';
 
 
 const { slug } = Astro.params;
@@ -40,6 +41,7 @@ const breadCrumbs = await getBreadCrumbsDrupal(lang, slug, true);
                     </Fragment>
             }
         </main>
+        <Footer></Footer>
     </body>
 </html>
     }
