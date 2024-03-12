@@ -54,12 +54,12 @@ function capitalizeFirstLetter(string: string) {
                         {header.data.attributes.items.data.map((item,index)=>{
                             return (
                                     <li id={`linkitem-${index}`} class="level-0 py-[20px]">
-                                            <div id={`dropdown-${index}`} class="hidden absolute left-0 pb-[30px] border border-b-2 border-[#4bb8f4] flex flex-col top-[63px] w-full bg-white">
+                                            <div id={`dropdown-${index}`} class="hidden absolute left-0 pb-[30px] border border-b-2 border-[var(--primary-color)] flex flex-col top-[63px] w-full bg-white">
                                                 <div class="flex flex-col justify-between h-[80px] px-[30px] pt-[30px]">
                                                 <span id="mega-menu-root-link">
-                                                    <a class="text-[#4bb8f4] hover:underline" href={strapiUrl.concat(item.attributes.url)}>{item.attributes.title}</a>
+                                                    <a class="text-[var(--primary-color)] hover:underline" href={strapiUrl.concat(item.attributes.url)}>{item.attributes.title}</a>
                                                 </span>
-                                                    <div class="bottom-0 w-full h-[1.5px] bg-[#4bb8f4]"></div>
+                                                    <div class="bottom-0 w-full h-[1.5px] bg-[var(--primary-color)]"></div>
                                                 </div>
                                                 <div class="flex flex-row gap-14 px-[30px] pt-[30px]">
                                                     {item.attributes.children.data.map((child)=>{
@@ -265,7 +265,7 @@ function capitalizeFirstLetter(string: string) {
                   width: 5px;
                   height: 5px;
                   content: '';
-                  border: solid #4bb8f4;
+                  border: solid var(--primary-color);
                   border-width: 0 2px 2px 0;
                   display: inline-block;
                   -webkit-transform: translateY(-50%) rotate(45deg);
@@ -292,7 +292,7 @@ function capitalizeFirstLetter(string: string) {
       list-style: none;
       box-sizing: border-box;
       padding-top: 100px;
-      border-bottom: 2px solid #4bb8f4;
+      border-bottom: 2px solid var(--primary-color);
       display: flex;
       position: absolute;
       top: 60px;
@@ -345,14 +345,14 @@ function capitalizeFirstLetter(string: string) {
         position: static;
         font-weight: 700;
         text-decoration: none;
-        color: #4bb8f4;
+        color: var(--primary-color);
         border: none;
         width: 116px;
         
         &::after{
           display: block;
           content: '';
-          border-bottom: solid 2px #4bb8f4;
+          border-bottom: solid 2px var(--primary-color);
           -webkit-transform: scaleX(0);
           transform: scaleX(0);
           width: calc(100% - 35px);
@@ -381,7 +381,7 @@ function capitalizeFirstLetter(string: string) {
         position: static;
         font-weight: 700;
         text-decoration: none;
-        color: #4bb8f4;
+        color: var(--primary-color);
         border: none;
         width: 140px;
       }
@@ -389,7 +389,7 @@ function capitalizeFirstLetter(string: string) {
       &::after{
         display: block;
         content: '';
-        border-bottom: solid 2px #4bb8f4;
+        border-bottom: solid 2px var(--primary-color);
         -webkit-transform: scaleX(0);
         transform: scaleX(0);
         width: calc(100% - 35px);
