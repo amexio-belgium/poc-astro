@@ -12,7 +12,7 @@ const {bannerCards} = Astro.props;
         return  <div class="flex flex-col justify-between w-full shadow-sm">
                     <div class="text-[#4A4A4A]">
                         <div class="h-[350px] w-full overflow-hidden">
-                            <img class="h-full object-cover object-left" src={card.image.url}>
+                            <img class="h-full object-cover object-left" src={card.image?.url}>
                         </div>
 
                         <h3 class="font-semibold text-[24px] px-[24px] pt-[24px] mb-[10px]">{card.title}</h3>
@@ -20,7 +20,7 @@ const {bannerCards} = Astro.props;
                     </div>
                     <div>
                         <button data-bannercards-redirect-url={card.url}
-                                class="text-start ml-[24px] h-[92px] text-[#4bb8f4]"
+                                class="text-start ml-[24px] h-[92px] text-[var(--primary-color)]"
                         >
                             Lees meer >
                         </button>

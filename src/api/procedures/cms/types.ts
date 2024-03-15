@@ -2,7 +2,8 @@ export type Page = {
     title: string,
     slug: string,
     lang: string,
-    components: (BannerCards|BannerTiles|BannerVideo|Header|PageTitle)[]
+    hideDefaultHeader: boolean,
+    components: (Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text)[]
 }
 
 
@@ -11,7 +12,11 @@ export enum Components {
     BannerTiles = 'BannerTiles',
     BannerVideo = 'BannerVideo',
     Header = 'Header',
+    DefaultHeader = 'DefaultHeader',
     PageTitle = 'PageTitle',
+    FullWidthBanner = 'FullWidthBanner',
+    Text = 'Text',
+    Banner5050 = 'Banner5050'
 }
 
 export enum CMSType {
@@ -26,6 +31,48 @@ export type Header = {
     image: Image
 }
 
+export type Banner5050 = {
+    componentName: Components.Banner5050,
+    buttons: [Button, Button],
+}
+
+export type Text = {
+    componentName: Components.Text,
+    text: string,
+}
+
+export enum Alignment {
+    LEFT = 'left',
+    CENTER = 'center',
+    RIGHT = 'right'
+}
+
+export type FullWidthBanner = {
+    componentName: Components.FullWidthBanner,
+    alignment: Alignment,
+    title: string,
+    description?: string,
+    buttonText: string,
+    image: string,
+    link: string
+}
+
+export type FullWidthBannerText = {
+    componentName: Components.FullWidthBanner,
+    alignment: Alignment,
+    title: string,
+    description?: string,
+    buttonText: string,
+    image: string,
+    link: string
+}
+
+export type DefaultHeader = {
+    componentName: Components.DefaultHeader,
+    title: string,
+    description: string
+}
+
 export type Image ={
     name: string,
     url: string
@@ -35,14 +82,14 @@ export type Button = {
     title: string,
     url: string,
     description?: string,
-    type: ButtonTypes,
-    color: ButtonColors,
-    image: Image
+    color?: ButtonColors,
+    image?: Image,
+    buttonText?: string
 }
 
 export enum ButtonColors {
-    DEFAULT = 'default',
-    MARKED = 'marked'
+    DEFAULT = 'Default',
+    HIGHLIGHT = 'Highlight'
 }
 
 export enum ButtonTypes {

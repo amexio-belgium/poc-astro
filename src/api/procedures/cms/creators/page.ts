@@ -1,30 +1,39 @@
-import type {Page, StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
+import {Components, type Page, type StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
-    PageContentItem, SharedBannerCardsComponent, SharedBannerTilesComponent,
+    PageContentItem,
+    SharedBanner5050Component,
+    SharedBannerCardsComponent,
+    SharedBannerFullComponent,
+    SharedBannerTilesComponent,
     SharedBannerVideoComponent,
-    SharedHeaderComponent
+    SharedHeaderComponent,
+    SharedTextComponent
 } from 'src/types/strapi/generated.schemas.ts';
 import {getPages} from 'src/types/strapi/page.ts';
 import {
-    isSharedBannerCards, isSharedBannerTiles,
+    isSharedBanner5050,
+    isSharedBannerCards, isSharedBannerFull, isSharedBannerTiles,
     isSharedBannerVideo,
-    isSharedHeader,
+    isSharedHeader, isSharedText,
 } from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideoDrupal, createBannerVideoStrapi} from '@trpc-procedures/cms/creators/bannerVideo.ts';
-import {createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
+import {createDefaultHeader, createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
 import type {GetPageInput, GetPageLang} from '@trpc-procedures/cms';
 import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures/cms/creators/bannerCards.ts';
 import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 import axios from 'axios'
 import type {
-    NodePage,
-    ParagraphTeaser,
-    ParagraphUnion,
+    NodePage, ParagraphBanner5050, ParagraphBannerFull, ParagraphHeader,
+    ParagraphTeaser, ParagraphText,
+    ParagraphUnion, ParagraphVideobanner,
     Query
 } from 'src/types/drupal/resolvers-types.ts';
 import {denormalize} from '@drupal/decoupled-menu-parser';
 import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
+import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/cms/creators/bannerFull.ts';
+import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
+import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
 
 const languages: string[] = ["en","nl"];
 
@@ -45,9 +54,48 @@ export function getComponentFromStringStrapi(component: PageContentItem){
         const sharedBannerTiles = component as SharedBannerTilesComponent;
         return createBannerTilesStrapi(sharedBannerTiles)
     }
+    if(isSharedBannerFull(component)){
+        const sharedBannerFull = component as SharedBannerFullComponent;
+        return createBannerFullStrapi(sharedBannerFull)
+    }
+    if(isSharedText(component)){
+        const sharedText = component as SharedTextComponent;
+        return createTextStrapi(sharedText);
+    }
+    if(isSharedBanner5050(component)){
+        const sharedBanner5050 = component as SharedBanner5050Component;
+        return createBanner5050Strapi(sharedBanner5050);
+    }
     return null;
 }
 
+
+const paragraphComponentMap: {key: string, function: Function}[] = [
+    {
+        key: 'ParagraphVideobanner', 
+        function: 
+            function(paragraph: ParagraphVideobanner){
+                return createBannerVideoDrupal(paragraph)
+            }
+        },
+    {
+        key: 'ParagraphTeaser', 
+        function: 
+            function(paragraph: ParagraphTeaser){
+                switch(paragraph.type){
+                    case 'card':
+                        return createBannerCardsDrupal(paragraph)
+                    case 'tile':
+                        return createBannerTilesDrupal(paragraph)
+                }
+        }
+    }
+    //.... more component objects
+];
+
+function getParagraph(paragraph: ParagraphUnion){
+    return paragraphComponentMap.find((paragraphComp)=> paragraphComp.key === paragraph.__typename)
+}
 
 function getComponentFromStringDrupal(paragraph: ParagraphUnion){
     //Check if paragraph is not empty graphql object
@@ -66,6 +114,15 @@ function getComponentFromStringDrupal(paragraph: ParagraphUnion){
         }
         if(paragraph.__typename === 'ParagraphHeader'){
             return createHeaderDrupal(paragraph);
+        }
+        if(paragraph.__typename === 'ParagraphBannerFull'){
+            return createBannerFullDrupal(paragraph);
+        }
+        if(paragraph.__typename === 'ParagraphText'){
+            return createTextDrupal(paragraph);
+        }
+        if(paragraph.__typename === 'ParagraphBanner5050'){
+            return createBanner5050Drupal(paragraph);
         }
     }
 
@@ -118,7 +175,12 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
             title: dataObject.attributes?.title!, 
             lang: lang, 
             slug: dataObject.attributes!.slug, 
+            hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
             components: []
+        }
+        if(!page.hideDefaultHeader){
+            const defaultHeader = createDefaultHeader(page.title, dataObject.attributes!.description)
+            page.components.push(defaultHeader)
         }
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
             const astroComponent = getComponentFromStringStrapi(component);
@@ -145,8 +207,14 @@ export async function getAllPagesStrapi(): Promise<Page[]> {
             let page:Page = {
                 title: dataObject.attributes!.title, 
                 lang: lang,
+                hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
                 slug: `${lang}/${dataObject.attributes!.slug}`, 
-                components: []}
+                components: []
+            }
+            if(!page.hideDefaultHeader){
+                const defaultHeader = createDefaultHeader(page.title, dataObject.attributes!.description)
+                page.components.push(defaultHeader)
+            }
             dataObject.attributes?.content?.forEach((component)=>{
                 const astroComponent = getComponentFromStringStrapi(component);
                 if(astroComponent){
@@ -216,6 +284,9 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                                       }
                                     }
                                   }
+                                  body {
+                                    value
+                                  }
                                 }
                               }
                               type
@@ -262,6 +333,55 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                               }
                               title
                             }
+                            __typename
+                            ... on ParagraphBannerFull {
+                              id
+                              imagebannerfull {
+                                ... on MediaImage {
+                                  name
+                                  mediaImage {
+                                    url
+                                  }
+                                }
+                              }
+                              title
+                              uitlijning
+                              linkKnopTekst
+                              link {
+                                url
+                              }
+                              description {
+                                value
+                              }
+                            }
+                            __typename
+                            ... on ParagraphText {
+                              text {
+                                value
+                              }
+                            }
+                            __typename
+                            ... on ParagraphBanner5050 {
+                              id
+                              buttons {
+                                ... on ParagraphButton {
+                                  buttonText
+                                  image {
+                                    ... on MediaImage {
+                                      name
+                                      mediaImage {
+                                        url
+                                        title
+                                      }
+                                    }
+                                  }
+                                  link {
+                                    url
+                                  }
+                                  title
+                                }
+                              }
+                            }
                           }
                           body {
                             value
@@ -276,13 +396,20 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
         }
     })
     const data = await query;
-    const pageNode = data.data.data.node;
+    const pageNode: NodePage = data.data.data.node!;
     let page:Page = {
         title: pageNode!.title, 
         lang: lang,
+        hideDefaultHeader: pageNode?.verbergStandaardHeader === true,
         slug: pageNode!.path, 
         components: []
     }
+
+    if(!page.hideDefaultHeader){
+        const defaultHeader = createDefaultHeader(page.title, pageNode.body?.value?.replace(/<\/?[^>]+(>|$)/g, ""))
+        page.components.push(defaultHeader)
+    }
+    
     pageNode?.paragraphs?.forEach((paragraphUnion)=>{
         const component = getComponentFromStringDrupal(paragraphUnion);
         if(component) page.components.push(component);
@@ -321,6 +448,9 @@ query MyQuery {
                         url
                       }
                     }
+                  }
+                  body {
+                    value
                   }
                 }
               }
@@ -368,6 +498,55 @@ query MyQuery {
               }
               title
             }
+            __typename
+            ... on ParagraphBannerFull {
+              id
+              imagebannerfull {
+                ... on MediaImage {
+                  name
+                  mediaImage {
+                    url
+                  }
+                }
+              }
+              title
+              uitlijning
+              linkKnopTekst
+              link {
+                url
+              }
+              description {
+                value
+              }
+            }
+            __typename
+            ... on ParagraphText {
+              text {
+                value
+              }
+            }
+            __typename
+            ... on ParagraphBanner5050 {
+              id
+              buttons {
+                ... on ParagraphButton {
+                  buttonText
+                  image {
+                    ... on MediaImage {
+                      name
+                      mediaImage {
+                        url
+                        title
+                      }
+                    }
+                  }
+                  link {
+                    url
+                  }
+                  title
+                }
+              }
+            }
           }
           body {
             value
@@ -385,9 +564,16 @@ query MyQuery {
             let page:Page = {
                 title: nodePage.title, 
                 lang: lang,
+                hideDefaultHeader: nodePage?.verbergStandaardHeader === true,
                 slug: nodePage.path, 
                 components: []
             }
+
+            if(!page.hideDefaultHeader){
+                const defaultHeader = createDefaultHeader(page.title, nodePage.body?.value?.replace(/<\/?[^>]+(>|$)/g, ""))
+                page.components.push(defaultHeader)
+            }
+            
             nodePage?.paragraphs?.forEach((paragraphUnion)=>{
                 const component = getComponentFromStringDrupal(paragraphUnion);
                 if(component) page.components.push(component);
@@ -396,6 +582,5 @@ query MyQuery {
         })
         
     }
-    // TODO Write code for fetching Drupal pages
     return pages;
 }

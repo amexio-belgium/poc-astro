@@ -4,7 +4,11 @@ import type {
     BannerTiles as BannerTilesType,
     BannerVideo as BannerVideoType,
     Header as HeaderType,
-    PageTitle as PageTitleType
+    PageTitle as PageTitleType,
+    DefaultHeader as DefaultHeaderType,
+    FullWidthBanner as FullWidthBannerType,
+    Banner5050 as Banner5050Type,
+    Text as TextType,
 } from 'src/api/procedures/cms/types';
 import {Components} from 'src/api/procedures/cms/types'
 import Header from 'src/components/Header.astro';
@@ -12,15 +16,22 @@ import BannerVideo from 'src/components/BannerVideo.astro';
 import PageTitle from 'src/components/PageTitle.astro';
 import BannerCards from 'src/components/BannerCards.astro';
 import BannerTiles from 'src/components/BannerTiles.astro';
+import DefaultHeader from 'src/components/DefaultHeader.astro';
+import FullWidthBanner from 'src/components/FullWidthBanner.astro';
+import Text from 'src/components/Text.astro';
+import Banner5050 from 'src/components/Banner5050.astro';
 
 interface Props {
-    component: (BannerCardsType|BannerTilesType|HeaderType|BannerVideoType|PageTitleType);
+    component: (Banner5050Type|BannerCardsType|BannerTilesType|DefaultHeaderType|HeaderType|BannerVideoType|PageTitleType|FullWidthBannerType|TextType);
 }
 
 const {component} = Astro.props;
-
 ---
 
+{component.componentName === Components.DefaultHeader && <DefaultHeader defaultHeader={component}></DefaultHeader>}
+{component.componentName === Components.Banner5050 && <Banner5050 banner5050={component}></Banner5050>}
+{component.componentName === Components.Text && <Text text={component}></Text>}
+{component.componentName === Components.FullWidthBanner && <FullWidthBanner fullWidthBanner={component}></FullWidthBanner>}
 {component.componentName === Components.Header && <Header header={component}></Header>}
 {component.componentName === Components.BannerVideo && <BannerVideo bannerVideo={component}></BannerVideo>}
 {component.componentName === Components.PageTitle && <PageTitle pageTitle={component}></PageTitle>}

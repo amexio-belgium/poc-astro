@@ -6,6 +6,7 @@ const { lang } = Astro.params;
 import MainHeaderStrapi from 'src/components/MainHeaderStrapi.astro';
 import {getBreadCrumbsStrapi} from 'src/api/procedures/cms/helpers/global';
 import Breadcrumbs from 'src/components/Breadcrumbs.astro';
+import Footer from 'src/components/Footer.astro';
 
 if(!slug || !lang){
     return Astro.redirect('/404')
@@ -36,6 +37,7 @@ const breadCrumbs = await getBreadCrumbsStrapi(slug, lang, true);
                     </Fragment>
             }
         </main>
+        <Footer></Footer>
     </body>
 
 </html>
@@ -43,6 +45,10 @@ const breadCrumbs = await getBreadCrumbsStrapi(slug, lang, true);
 
 
 <style is:global lang="scss">
+    :root {
+        --primary-color: #f1667b;
+    }
+
   article {
     &:nth-of-type(odd){
       background: #EFEFEF;

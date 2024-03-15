@@ -166,7 +166,7 @@ export type MediaImage = EdgeNode & MediaInterface & {
   id: Scalars['ID']['output'];
   /** Taal */
   langcode: Language;
-  /** Afbeelding */
+  /** Image */
   mediaImage: Image;
   /** Naam */
   name: Scalars['String']['output'];
@@ -357,7 +357,7 @@ export type NodePage = EdgeNode & NodeInterface & {
   /** The Universally Unique IDentifier (UUID). */
   uuid: Scalars['ID']['output'];
   /** Standaard Header Tonen */
-  verbergStandaardHeader: Scalars['Boolean']['output'];
+  verbergStandaardHeader?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** A paginated set of results for NodePage. */
@@ -448,13 +448,17 @@ export type ParagraphBannerFull = EdgeNode & ParagraphInterface & {
   /** The entity ID. */
   id: Scalars['ID']['output'];
   /** Afbeelding */
-  image?: Maybe<MediaUnion>;
+  imagebannerfull?: Maybe<MediaUnion>;
   /** Entiteittaalcode van de paragraaf. */
   langcode: Language;
   /** Link */
   link?: Maybe<Link>;
+  /** Link Knop Tekst */
+  linkKnopTekst: Scalars['String']['output'];
   /** Titel */
   title?: Maybe<Scalars['String']['output']>;
+  /** Uitlijning */
+  uitlijning?: Maybe<Scalars['String']['output']>;
   /** The Universally Unique IDentifier (UUID). */
   uuid: Scalars['ID']['output'];
 };
@@ -537,6 +541,8 @@ export type ParagraphBannerTileEdge = Edge & {
 /** Entity type paragraph. */
 export type ParagraphButton = EdgeNode & ParagraphInterface & {
   __typename?: 'ParagraphButton';
+  /** Knop Tekst */
+  buttonText?: Maybe<Scalars['String']['output']>;
   /** Tijdstip waarop de paragraaf is aangemaakt. */
   created: DateTime;
   /** Beschrijving */
@@ -544,7 +550,7 @@ export type ParagraphButton = EdgeNode & ParagraphInterface & {
   /** The entity ID. */
   id: Scalars['ID']['output'];
   /** Afbeelding */
-  image: MediaUnion;
+  image?: Maybe<MediaUnion>;
   /** Entiteittaalcode van de paragraaf. */
   langcode: Language;
   /** Link */
@@ -890,6 +896,10 @@ export type Query = {
   paragraphVideobanners: ParagraphVideobannerConnection;
   /** List of all ParagraphVideo on the platform. */
   paragraphVideos: ParagraphVideoConnection;
+  /** Load a Term entity by id. */
+  term?: Maybe<TermUnion>;
+  /** List of all TermTag on the platform. */
+  termTags: TermTagConnection;
   /** Load a User entity by id. */
   user?: Maybe<User>;
   /** List of all User on the platform. */
@@ -1225,6 +1235,33 @@ export type QueryParagraphVideosArgs = {
  *
  * This acts as the public, top-level API from which all queries must start.
  */
+export type QueryTermArgs = {
+  id: Scalars['ID']['input'];
+  langcode?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
+export type QueryTermTagsArgs = {
+  after?: InputMaybe<Scalars['Cursor']['input']>;
+  before?: InputMaybe<Scalars['Cursor']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  langcode?: InputMaybe<Scalars['String']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  sortKey?: InputMaybe<ConnectionSortKeys>;
+};
+
+
+/**
+ * The schema's entry-point for queries.
+ *
+ * This acts as the public, top-level API from which all queries must start.
+ */
 export type QueryUserArgs = {
   id: Scalars['ID']['input'];
   langcode?: InputMaybe<Scalars['String']['input']>;
@@ -1264,6 +1301,73 @@ export enum SortDirection {
   /** Aflopend */
   Desc = 'DESC'
 }
+
+/** Entity type taxonomy_term. */
+export type TermInterface = {
+  /** Het tijdstip waarop de term het laatst is aangepast. */
+  changed: DateTime;
+  /** Beschrijving */
+  description: Text;
+  /** The entity ID. */
+  id: Scalars['ID']['output'];
+  /** De taalcode van de term. */
+  langcode: Language;
+  /** Naam */
+  name: Scalars['String']['output'];
+  /** De bovenliggende termen van deze term. */
+  parent?: Maybe<TermUnion>;
+  /** URL-alias */
+  path: Scalars['String']['output'];
+  /** Gepubliceerd */
+  status: Scalars['Boolean']['output'];
+  /** The Universally Unique IDentifier (UUID). */
+  uuid: Scalars['ID']['output'];
+  /** Het gewicht van deze term in relatie tot andere termen. */
+  weight: Scalars['Int']['output'];
+};
+
+/** Gebruik tags om artikelen over vergelijkbare onderwerpen in categorieën te groeperen. */
+export type TermTag = EdgeNode & TermInterface & {
+  __typename?: 'TermTag';
+  /** Het tijdstip waarop de term het laatst is aangepast. */
+  changed: DateTime;
+  /** Beschrijving */
+  description: Text;
+  /** The entity ID. */
+  id: Scalars['ID']['output'];
+  /** De taalcode van de term. */
+  langcode: Language;
+  /** Naam */
+  name: Scalars['String']['output'];
+  /** De bovenliggende termen van deze term. */
+  parent?: Maybe<TermUnion>;
+  /** URL-alias */
+  path: Scalars['String']['output'];
+  /** Gepubliceerd */
+  status: Scalars['Boolean']['output'];
+  /** The Universally Unique IDentifier (UUID). */
+  uuid: Scalars['ID']['output'];
+  /** Het gewicht van deze term in relatie tot andere termen. */
+  weight: Scalars['Int']['output'];
+};
+
+/** A paginated set of results for TermTag. */
+export type TermTagConnection = Connection & {
+  __typename?: 'TermTagConnection';
+  edges: Array<TermTagEdge>;
+  nodes: Array<TermTag>;
+  pageInfo: ConnectionPageInfo;
+};
+
+/** Edge for TermTag. */
+export type TermTagEdge = Edge & {
+  __typename?: 'TermTagEdge';
+  cursor: Scalars['Cursor']['output'];
+  node: TermTag;
+};
+
+/** Entity type taxonomy_term. */
+export type TermUnion = TermTag;
 
 /** A processed text format defined by the CMS. */
 export type Text = {
@@ -1316,7 +1420,7 @@ export type User = EdgeNode & UserInterface & {
   roles?: Maybe<Array<Scalars['UserRoles']['output']>>;
   /** Of de gebruiker actief of geblokkeerd is. */
   status: UserStatus;
-  /** Uw foto of afbeelding. */
+  /** Your virtual face or picture. */
   userPicture?: Maybe<Image>;
   /** The Universally Unique IDentifier (UUID). */
   uuid: Scalars['ID']['output'];
@@ -1439,18 +1543,20 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
   MediaUnion: ( MediaImage ) | ( MediaRemoteVideo ) | ( MediaVideo );
   NodeUnion: ( Omit<NodePage, 'mediaImage' | 'paragraphs'> & { mediaImage?: Maybe<RefType['MediaUnion']>, paragraphs?: Maybe<Array<RefType['ParagraphUnion']>> } );
-  ParagraphUnion: ( Omit<ParagraphBanner5050, 'buttons'> & { buttons: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerCard, 'cards'> & { cards: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerFull, 'image'> & { image?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphBannerIcon, 'icons'> & { icons?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphBannerTile, 'tiles'> & { tiles: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphButton, 'image'> & { image: RefType['MediaUnion'] } ) | ( ParagraphEmbed ) | ( Omit<ParagraphGeneriek, 'items'> & { items?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphHeader, 'image' | 'knoppen'> & { image: RefType['MediaUnion'], knoppen?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphIcon, 'image'> & { image: RefType['MediaUnion'] } ) | ( Omit<ParagraphTeaser, 'reference'> & { reference: Array<RefType['NodeUnion']> } ) | ( ParagraphText ) | ( Omit<ParagraphVideo, 'video'> & { video?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphVideobanner, 'videoUrl'> & { videoUrl?: Maybe<RefType['MediaUnion']> } );
+  ParagraphUnion: ( Omit<ParagraphBanner5050, 'buttons'> & { buttons: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerCard, 'cards'> & { cards: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerFull, 'imagebannerfull'> & { imagebannerfull?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphBannerIcon, 'icons'> & { icons?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphBannerTile, 'tiles'> & { tiles: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphButton, 'image'> & { image?: Maybe<RefType['MediaUnion']> } ) | ( ParagraphEmbed ) | ( Omit<ParagraphGeneriek, 'items'> & { items?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphHeader, 'image' | 'knoppen'> & { image: RefType['MediaUnion'], knoppen?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphIcon, 'image'> & { image: RefType['MediaUnion'] } ) | ( Omit<ParagraphTeaser, 'reference'> & { reference: Array<RefType['NodeUnion']> } ) | ( ParagraphText ) | ( Omit<ParagraphVideo, 'video'> & { video?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphVideobanner, 'videoUrl'> & { videoUrl?: Maybe<RefType['MediaUnion']> } );
+  TermUnion: ( Omit<TermTag, 'parent'> & { parent?: Maybe<RefType['TermUnion']> } );
   UserUnion: ( User );
 };
 
 /** Mapping of interface types */
 export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
-  Connection: ( MediaImageConnection ) | ( MediaRemoteVideoConnection ) | ( MediaVideoConnection ) | ( NodePageConnection ) | ( ParagraphBanner5050Connection ) | ( ParagraphBannerCardConnection ) | ( ParagraphBannerFullConnection ) | ( ParagraphBannerIconConnection ) | ( ParagraphBannerTileConnection ) | ( ParagraphButtonConnection ) | ( ParagraphEmbedConnection ) | ( ParagraphGeneriekConnection ) | ( ParagraphHeaderConnection ) | ( ParagraphIconConnection ) | ( ParagraphTeaserConnection ) | ( ParagraphTextConnection ) | ( ParagraphVideoConnection ) | ( ParagraphVideobannerConnection ) | ( UserConnection );
-  Edge: ( MediaImageEdge ) | ( MediaRemoteVideoEdge ) | ( MediaVideoEdge ) | ( NodePageEdge ) | ( ParagraphBanner5050Edge ) | ( ParagraphBannerCardEdge ) | ( ParagraphBannerFullEdge ) | ( ParagraphBannerIconEdge ) | ( ParagraphBannerTileEdge ) | ( ParagraphButtonEdge ) | ( ParagraphEmbedEdge ) | ( ParagraphGeneriekEdge ) | ( ParagraphHeaderEdge ) | ( ParagraphIconEdge ) | ( ParagraphTeaserEdge ) | ( ParagraphTextEdge ) | ( ParagraphVideoEdge ) | ( ParagraphVideobannerEdge ) | ( UserEdge );
-  EdgeNode: ( MediaImage ) | ( MediaRemoteVideo ) | ( MediaVideo ) | ( Omit<NodePage, 'mediaImage' | 'paragraphs'> & { mediaImage?: Maybe<RefType['MediaUnion']>, paragraphs?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphBanner5050, 'buttons'> & { buttons: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerCard, 'cards'> & { cards: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerFull, 'image'> & { image?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphBannerIcon, 'icons'> & { icons?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphBannerTile, 'tiles'> & { tiles: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphButton, 'image'> & { image: RefType['MediaUnion'] } ) | ( ParagraphEmbed ) | ( Omit<ParagraphGeneriek, 'items'> & { items?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphHeader, 'image' | 'knoppen'> & { image: RefType['MediaUnion'], knoppen?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphIcon, 'image'> & { image: RefType['MediaUnion'] } ) | ( Omit<ParagraphTeaser, 'reference'> & { reference: Array<RefType['NodeUnion']> } ) | ( ParagraphText ) | ( Omit<ParagraphVideo, 'video'> & { video?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphVideobanner, 'videoUrl'> & { videoUrl?: Maybe<RefType['MediaUnion']> } ) | ( User );
+  Connection: ( MediaImageConnection ) | ( MediaRemoteVideoConnection ) | ( MediaVideoConnection ) | ( NodePageConnection ) | ( ParagraphBanner5050Connection ) | ( ParagraphBannerCardConnection ) | ( ParagraphBannerFullConnection ) | ( ParagraphBannerIconConnection ) | ( ParagraphBannerTileConnection ) | ( ParagraphButtonConnection ) | ( ParagraphEmbedConnection ) | ( ParagraphGeneriekConnection ) | ( ParagraphHeaderConnection ) | ( ParagraphIconConnection ) | ( ParagraphTeaserConnection ) | ( ParagraphTextConnection ) | ( ParagraphVideoConnection ) | ( ParagraphVideobannerConnection ) | ( TermTagConnection ) | ( UserConnection );
+  Edge: ( MediaImageEdge ) | ( MediaRemoteVideoEdge ) | ( MediaVideoEdge ) | ( NodePageEdge ) | ( ParagraphBanner5050Edge ) | ( ParagraphBannerCardEdge ) | ( ParagraphBannerFullEdge ) | ( ParagraphBannerIconEdge ) | ( ParagraphBannerTileEdge ) | ( ParagraphButtonEdge ) | ( ParagraphEmbedEdge ) | ( ParagraphGeneriekEdge ) | ( ParagraphHeaderEdge ) | ( ParagraphIconEdge ) | ( ParagraphTeaserEdge ) | ( ParagraphTextEdge ) | ( ParagraphVideoEdge ) | ( ParagraphVideobannerEdge ) | ( TermTagEdge ) | ( UserEdge );
+  EdgeNode: ( MediaImage ) | ( MediaRemoteVideo ) | ( MediaVideo ) | ( Omit<NodePage, 'mediaImage' | 'paragraphs'> & { mediaImage?: Maybe<RefType['MediaUnion']>, paragraphs?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphBanner5050, 'buttons'> & { buttons: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerCard, 'cards'> & { cards: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerFull, 'imagebannerfull'> & { imagebannerfull?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphBannerIcon, 'icons'> & { icons?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphBannerTile, 'tiles'> & { tiles: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphButton, 'image'> & { image?: Maybe<RefType['MediaUnion']> } ) | ( ParagraphEmbed ) | ( Omit<ParagraphGeneriek, 'items'> & { items?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphHeader, 'image' | 'knoppen'> & { image: RefType['MediaUnion'], knoppen?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphIcon, 'image'> & { image: RefType['MediaUnion'] } ) | ( Omit<ParagraphTeaser, 'reference'> & { reference: Array<RefType['NodeUnion']> } ) | ( ParagraphText ) | ( Omit<ParagraphVideo, 'video'> & { video?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphVideobanner, 'videoUrl'> & { videoUrl?: Maybe<RefType['MediaUnion']> } ) | ( Omit<TermTag, 'parent'> & { parent?: Maybe<RefType['TermUnion']> } ) | ( User );
   MediaInterface: ( MediaImage ) | ( MediaRemoteVideo ) | ( MediaVideo );
   NodeInterface: ( Omit<NodePage, 'mediaImage' | 'paragraphs'> & { mediaImage?: Maybe<RefType['MediaUnion']>, paragraphs?: Maybe<Array<RefType['ParagraphUnion']>> } );
-  ParagraphInterface: ( Omit<ParagraphBanner5050, 'buttons'> & { buttons: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerCard, 'cards'> & { cards: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerFull, 'image'> & { image?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphBannerIcon, 'icons'> & { icons?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphBannerTile, 'tiles'> & { tiles: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphButton, 'image'> & { image: RefType['MediaUnion'] } ) | ( ParagraphEmbed ) | ( Omit<ParagraphGeneriek, 'items'> & { items?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphHeader, 'image' | 'knoppen'> & { image: RefType['MediaUnion'], knoppen?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphIcon, 'image'> & { image: RefType['MediaUnion'] } ) | ( Omit<ParagraphTeaser, 'reference'> & { reference: Array<RefType['NodeUnion']> } ) | ( ParagraphText ) | ( Omit<ParagraphVideo, 'video'> & { video?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphVideobanner, 'videoUrl'> & { videoUrl?: Maybe<RefType['MediaUnion']> } );
+  ParagraphInterface: ( Omit<ParagraphBanner5050, 'buttons'> & { buttons: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerCard, 'cards'> & { cards: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphBannerFull, 'imagebannerfull'> & { imagebannerfull?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphBannerIcon, 'icons'> & { icons?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphBannerTile, 'tiles'> & { tiles: Array<RefType['ParagraphUnion']> } ) | ( Omit<ParagraphButton, 'image'> & { image?: Maybe<RefType['MediaUnion']> } ) | ( ParagraphEmbed ) | ( Omit<ParagraphGeneriek, 'items'> & { items?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphHeader, 'image' | 'knoppen'> & { image: RefType['MediaUnion'], knoppen?: Maybe<Array<RefType['ParagraphUnion']>> } ) | ( Omit<ParagraphIcon, 'image'> & { image: RefType['MediaUnion'] } ) | ( Omit<ParagraphTeaser, 'reference'> & { reference: Array<RefType['NodeUnion']> } ) | ( ParagraphText ) | ( Omit<ParagraphVideo, 'video'> & { video?: Maybe<RefType['MediaUnion']> } ) | ( Omit<ParagraphVideobanner, 'videoUrl'> & { videoUrl?: Maybe<RefType['MediaUnion']> } );
+  TermInterface: ( Omit<TermTag, 'parent'> & { parent?: Maybe<RefType['TermUnion']> } );
   UserInterface: ( User );
 };
 
@@ -1497,7 +1603,7 @@ export type ResolversTypes = {
   ParagraphBannerCard: ResolverTypeWrapper<Omit<ParagraphBannerCard, 'cards'> & { cards: Array<ResolversTypes['ParagraphUnion']> }>;
   ParagraphBannerCardConnection: ResolverTypeWrapper<ParagraphBannerCardConnection>;
   ParagraphBannerCardEdge: ResolverTypeWrapper<ParagraphBannerCardEdge>;
-  ParagraphBannerFull: ResolverTypeWrapper<Omit<ParagraphBannerFull, 'image'> & { image?: Maybe<ResolversTypes['MediaUnion']> }>;
+  ParagraphBannerFull: ResolverTypeWrapper<Omit<ParagraphBannerFull, 'imagebannerfull'> & { imagebannerfull?: Maybe<ResolversTypes['MediaUnion']> }>;
   ParagraphBannerFullConnection: ResolverTypeWrapper<ParagraphBannerFullConnection>;
   ParagraphBannerFullEdge: ResolverTypeWrapper<ParagraphBannerFullEdge>;
   ParagraphBannerIcon: ResolverTypeWrapper<Omit<ParagraphBannerIcon, 'icons'> & { icons?: Maybe<Array<ResolversTypes['ParagraphUnion']>> }>;
@@ -1506,7 +1612,7 @@ export type ResolversTypes = {
   ParagraphBannerTile: ResolverTypeWrapper<Omit<ParagraphBannerTile, 'tiles'> & { tiles: Array<ResolversTypes['ParagraphUnion']> }>;
   ParagraphBannerTileConnection: ResolverTypeWrapper<ParagraphBannerTileConnection>;
   ParagraphBannerTileEdge: ResolverTypeWrapper<ParagraphBannerTileEdge>;
-  ParagraphButton: ResolverTypeWrapper<Omit<ParagraphButton, 'image'> & { image: ResolversTypes['MediaUnion'] }>;
+  ParagraphButton: ResolverTypeWrapper<Omit<ParagraphButton, 'image'> & { image?: Maybe<ResolversTypes['MediaUnion']> }>;
   ParagraphButtonConnection: ResolverTypeWrapper<ParagraphButtonConnection>;
   ParagraphButtonEdge: ResolverTypeWrapper<ParagraphButtonEdge>;
   ParagraphEmbed: ResolverTypeWrapper<ParagraphEmbed>;
@@ -1540,6 +1646,11 @@ export type ResolversTypes = {
   SchemaInformation: ResolverTypeWrapper<SchemaInformation>;
   SortDirection: SortDirection;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  TermInterface: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TermInterface']>;
+  TermTag: ResolverTypeWrapper<Omit<TermTag, 'parent'> & { parent?: Maybe<ResolversTypes['TermUnion']> }>;
+  TermTagConnection: ResolverTypeWrapper<TermTagConnection>;
+  TermTagEdge: ResolverTypeWrapper<TermTagEdge>;
+  TermUnion: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['TermUnion']>;
   Text: ResolverTypeWrapper<Text>;
   TextSummary: ResolverTypeWrapper<TextSummary>;
   Time: ResolverTypeWrapper<Scalars['Time']['output']>;
@@ -1599,7 +1710,7 @@ export type ResolversParentTypes = {
   ParagraphBannerCard: Omit<ParagraphBannerCard, 'cards'> & { cards: Array<ResolversParentTypes['ParagraphUnion']> };
   ParagraphBannerCardConnection: ParagraphBannerCardConnection;
   ParagraphBannerCardEdge: ParagraphBannerCardEdge;
-  ParagraphBannerFull: Omit<ParagraphBannerFull, 'image'> & { image?: Maybe<ResolversParentTypes['MediaUnion']> };
+  ParagraphBannerFull: Omit<ParagraphBannerFull, 'imagebannerfull'> & { imagebannerfull?: Maybe<ResolversParentTypes['MediaUnion']> };
   ParagraphBannerFullConnection: ParagraphBannerFullConnection;
   ParagraphBannerFullEdge: ParagraphBannerFullEdge;
   ParagraphBannerIcon: Omit<ParagraphBannerIcon, 'icons'> & { icons?: Maybe<Array<ResolversParentTypes['ParagraphUnion']>> };
@@ -1608,7 +1719,7 @@ export type ResolversParentTypes = {
   ParagraphBannerTile: Omit<ParagraphBannerTile, 'tiles'> & { tiles: Array<ResolversParentTypes['ParagraphUnion']> };
   ParagraphBannerTileConnection: ParagraphBannerTileConnection;
   ParagraphBannerTileEdge: ParagraphBannerTileEdge;
-  ParagraphButton: Omit<ParagraphButton, 'image'> & { image: ResolversParentTypes['MediaUnion'] };
+  ParagraphButton: Omit<ParagraphButton, 'image'> & { image?: Maybe<ResolversParentTypes['MediaUnion']> };
   ParagraphButtonConnection: ParagraphButtonConnection;
   ParagraphButtonEdge: ParagraphButtonEdge;
   ParagraphEmbed: ParagraphEmbed;
@@ -1641,6 +1752,11 @@ export type ResolversParentTypes = {
   Query: {};
   SchemaInformation: SchemaInformation;
   String: Scalars['String']['output'];
+  TermInterface: ResolversInterfaceTypes<ResolversParentTypes>['TermInterface'];
+  TermTag: Omit<TermTag, 'parent'> & { parent?: Maybe<ResolversParentTypes['TermUnion']> };
+  TermTagConnection: TermTagConnection;
+  TermTagEdge: TermTagEdge;
+  TermUnion: ResolversUnionTypes<ResolversParentTypes>['TermUnion'];
   Text: Text;
   TextSummary: TextSummary;
   Time: Scalars['Time']['output'];
@@ -1658,7 +1774,7 @@ export type ResolversParentTypes = {
 };
 
 export type ConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Connection'] = ResolversParentTypes['Connection']> = {
-  __resolveType: TypeResolveFn<'MediaImageConnection' | 'MediaRemoteVideoConnection' | 'MediaVideoConnection' | 'NodePageConnection' | 'ParagraphBanner5050Connection' | 'ParagraphBannerCardConnection' | 'ParagraphBannerFullConnection' | 'ParagraphBannerIconConnection' | 'ParagraphBannerTileConnection' | 'ParagraphButtonConnection' | 'ParagraphEmbedConnection' | 'ParagraphGeneriekConnection' | 'ParagraphHeaderConnection' | 'ParagraphIconConnection' | 'ParagraphTeaserConnection' | 'ParagraphTextConnection' | 'ParagraphVideoConnection' | 'ParagraphVideobannerConnection' | 'UserConnection', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'MediaImageConnection' | 'MediaRemoteVideoConnection' | 'MediaVideoConnection' | 'NodePageConnection' | 'ParagraphBanner5050Connection' | 'ParagraphBannerCardConnection' | 'ParagraphBannerFullConnection' | 'ParagraphBannerIconConnection' | 'ParagraphBannerTileConnection' | 'ParagraphButtonConnection' | 'ParagraphEmbedConnection' | 'ParagraphGeneriekConnection' | 'ParagraphHeaderConnection' | 'ParagraphIconConnection' | 'ParagraphTeaserConnection' | 'ParagraphTextConnection' | 'ParagraphVideoConnection' | 'ParagraphVideobannerConnection' | 'TermTagConnection' | 'UserConnection', ParentType, ContextType>;
   edges?: Resolver<Array<ResolversTypes['Edge']>, ParentType, ContextType>;
   nodes?: Resolver<Array<ResolversTypes['EdgeNode']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['ConnectionPageInfo'], ParentType, ContextType>;
@@ -1685,13 +1801,13 @@ export type DateTimeResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type EdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Edge'] = ResolversParentTypes['Edge']> = {
-  __resolveType: TypeResolveFn<'MediaImageEdge' | 'MediaRemoteVideoEdge' | 'MediaVideoEdge' | 'NodePageEdge' | 'ParagraphBanner5050Edge' | 'ParagraphBannerCardEdge' | 'ParagraphBannerFullEdge' | 'ParagraphBannerIconEdge' | 'ParagraphBannerTileEdge' | 'ParagraphButtonEdge' | 'ParagraphEmbedEdge' | 'ParagraphGeneriekEdge' | 'ParagraphHeaderEdge' | 'ParagraphIconEdge' | 'ParagraphTeaserEdge' | 'ParagraphTextEdge' | 'ParagraphVideoEdge' | 'ParagraphVideobannerEdge' | 'UserEdge', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'MediaImageEdge' | 'MediaRemoteVideoEdge' | 'MediaVideoEdge' | 'NodePageEdge' | 'ParagraphBanner5050Edge' | 'ParagraphBannerCardEdge' | 'ParagraphBannerFullEdge' | 'ParagraphBannerIconEdge' | 'ParagraphBannerTileEdge' | 'ParagraphButtonEdge' | 'ParagraphEmbedEdge' | 'ParagraphGeneriekEdge' | 'ParagraphHeaderEdge' | 'ParagraphIconEdge' | 'ParagraphTeaserEdge' | 'ParagraphTextEdge' | 'ParagraphVideoEdge' | 'ParagraphVideobannerEdge' | 'TermTagEdge' | 'UserEdge', ParentType, ContextType>;
   cursor?: Resolver<ResolversTypes['Cursor'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['EdgeNode'], ParentType, ContextType>;
 };
 
 export type EdgeNodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['EdgeNode'] = ResolversParentTypes['EdgeNode']> = {
-  __resolveType: TypeResolveFn<'MediaImage' | 'MediaRemoteVideo' | 'MediaVideo' | 'NodePage' | 'ParagraphBanner5050' | 'ParagraphBannerCard' | 'ParagraphBannerFull' | 'ParagraphBannerIcon' | 'ParagraphBannerTile' | 'ParagraphButton' | 'ParagraphEmbed' | 'ParagraphGeneriek' | 'ParagraphHeader' | 'ParagraphIcon' | 'ParagraphTeaser' | 'ParagraphText' | 'ParagraphVideo' | 'ParagraphVideobanner' | 'User', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'MediaImage' | 'MediaRemoteVideo' | 'MediaVideo' | 'NodePage' | 'ParagraphBanner5050' | 'ParagraphBannerCard' | 'ParagraphBannerFull' | 'ParagraphBannerIcon' | 'ParagraphBannerTile' | 'ParagraphButton' | 'ParagraphEmbed' | 'ParagraphGeneriek' | 'ParagraphHeader' | 'ParagraphIcon' | 'ParagraphTeaser' | 'ParagraphText' | 'ParagraphVideo' | 'ParagraphVideobanner' | 'TermTag' | 'User', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -1865,7 +1981,7 @@ export type NodePageResolvers<ContextType = any, ParentType extends ResolversPar
   sticky?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   uuid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  verbergStandaardHeader?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  verbergStandaardHeader?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1934,10 +2050,12 @@ export type ParagraphBannerFullResolvers<ContextType = any, ParentType extends R
   created?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['Text']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  image?: Resolver<Maybe<ResolversTypes['MediaUnion']>, ParentType, ContextType>;
+  imagebannerfull?: Resolver<Maybe<ResolversTypes['MediaUnion']>, ParentType, ContextType>;
   langcode?: Resolver<ResolversTypes['Language'], ParentType, ContextType>;
   link?: Resolver<Maybe<ResolversTypes['Link']>, ParentType, ContextType>;
+  linkKnopTekst?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  uitlijning?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   uuid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -2000,10 +2118,11 @@ export type ParagraphBannerTileEdgeResolvers<ContextType = any, ParentType exten
 };
 
 export type ParagraphButtonResolvers<ContextType = any, ParentType extends ResolversParentTypes['ParagraphButton'] = ResolversParentTypes['ParagraphButton']> = {
+  buttonText?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   created?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['Text']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  image?: Resolver<ResolversTypes['MediaUnion'], ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['MediaUnion']>, ParentType, ContextType>;
   langcode?: Resolver<ResolversTypes['Language'], ParentType, ContextType>;
   link?: Resolver<ResolversTypes['Link'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -2246,6 +2365,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   paragraphTexts?: Resolver<ResolversTypes['ParagraphTextConnection'], ParentType, ContextType, RequireFields<QueryParagraphTextsArgs, 'reverse'>>;
   paragraphVideobanners?: Resolver<ResolversTypes['ParagraphVideobannerConnection'], ParentType, ContextType, RequireFields<QueryParagraphVideobannersArgs, 'reverse'>>;
   paragraphVideos?: Resolver<ResolversTypes['ParagraphVideoConnection'], ParentType, ContextType, RequireFields<QueryParagraphVideosArgs, 'reverse'>>;
+  term?: Resolver<Maybe<ResolversTypes['TermUnion']>, ParentType, ContextType, RequireFields<QueryTermArgs, 'id'>>;
+  termTags?: Resolver<ResolversTypes['TermTagConnection'], ParentType, ContextType, RequireFields<QueryTermTagsArgs, 'reverse'>>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
   users?: Resolver<ResolversTypes['UserConnection'], ParentType, ContextType, RequireFields<QueryUsersArgs, 'reverse'>>;
   viewer?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
@@ -2256,6 +2377,51 @@ export type SchemaInformationResolvers<ContextType = any, ParentType extends Res
   home?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TermInterfaceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TermInterface'] = ResolversParentTypes['TermInterface']> = {
+  __resolveType: TypeResolveFn<'TermTag', ParentType, ContextType>;
+  changed?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['Text'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  langcode?: Resolver<ResolversTypes['Language'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  parent?: Resolver<Maybe<ResolversTypes['TermUnion']>, ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  uuid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  weight?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+};
+
+export type TermTagResolvers<ContextType = any, ParentType extends ResolversParentTypes['TermTag'] = ResolversParentTypes['TermTag']> = {
+  changed?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['Text'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  langcode?: Resolver<ResolversTypes['Language'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  parent?: Resolver<Maybe<ResolversTypes['TermUnion']>, ParentType, ContextType>;
+  path?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  uuid?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  weight?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TermTagConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TermTagConnection'] = ResolversParentTypes['TermTagConnection']> = {
+  edges?: Resolver<Array<ResolversTypes['TermTagEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['TermTag']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['ConnectionPageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TermTagEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['TermTagEdge'] = ResolversParentTypes['TermTagEdge']> = {
+  cursor?: Resolver<ResolversTypes['Cursor'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['TermTag'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TermUnionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TermUnion'] = ResolversParentTypes['TermUnion']> = {
+  __resolveType: TypeResolveFn<'TermTag', ParentType, ContextType>;
 };
 
 export type TextResolvers<ContextType = any, ParentType extends ResolversParentTypes['Text'] = ResolversParentTypes['Text']> = {
@@ -2421,6 +2587,11 @@ export type Resolvers<ContextType = any> = {
   PhoneNumber?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   SchemaInformation?: SchemaInformationResolvers<ContextType>;
+  TermInterface?: TermInterfaceResolvers<ContextType>;
+  TermTag?: TermTagResolvers<ContextType>;
+  TermTagConnection?: TermTagConnectionResolvers<ContextType>;
+  TermTagEdge?: TermTagEdgeResolvers<ContextType>;
+  TermUnion?: TermUnionResolvers<ContextType>;
   Text?: TextResolvers<ContextType>;
   TextSummary?: TextSummaryResolvers<ContextType>;
   Time?: GraphQLScalarType;

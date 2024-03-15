@@ -14,7 +14,7 @@ const {bannerTiles} = Astro.props;
         {bannerTiles.tiles.map((tile)=>{
             return  <div class="teaser teaser--with-title ">
                         <div class="teaser--blog-image-container">
-                            <img src={tile.image.url} width="900" height="500">
+                            <img src={tile.image?.url} width="900" height="500">
                         </div>
                         <div class="teaser--title">
                             <h3>{tile.title}</h3>
@@ -96,7 +96,7 @@ const {bannerTiles} = Astro.props;
       width: 20px;
       height: 20px;
       border-radius: 10px;
-      background-color: #4bb8f4;
+      background-color: var(--primary-color);
       transform: translateY(-50%);
     }
     .arrow::after{

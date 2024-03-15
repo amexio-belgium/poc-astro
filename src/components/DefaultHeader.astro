@@ -1,0 +1,112 @@
+---
+import {type DefaultHeader} from 'src/api/procedures/cms/types';
+interface Props{
+    defaultHeader: DefaultHeader,
+}
+
+const {defaultHeader} = Astro.props;
+---
+
+<header class="container">
+    <div class="content--header-wrapper">
+        <div class="content--header category--global has-title has-intro">
+            <h1>{defaultHeader.title}</h1>
+            <p>
+                {defaultHeader.description}
+            </p>
+            <div>
+                <div class="social-share-wrapper content--header-social">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style lang="scss">
+    .container{
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 400;
+      color: #4a4a4a;
+      font-size: 16px;
+      line-height: normal;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    .content{
+      &--header-wrapper{
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-weight: 400;
+        color: #4a4a4a;
+        font-size: 16px;
+        line-height: normal;
+        box-sizing: border-box;
+        background-color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      
+      &--header{
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-weight: 400;
+        color: #4a4a4a;
+        font-size: 16px;
+        line-height: normal;
+        box-sizing: border-box;
+        position: relative;
+        padding: 50px 90px;
+        flex: 1 0 50%;
+        
+        >p{
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+          -webkit-text-size-adjust: 100%;
+          box-sizing: border-box;
+          font-family: 'Source Sans Pro',sans-serif;
+          font-weight: 400;
+          font-size: 1.125rem;
+          line-height: 1.813rem;
+          color: #0a1336;
+          position: relative;
+        }
+        
+        >h1{
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+          -webkit-text-size-adjust: 100%;
+          box-sizing: border-box;
+          margin: 0;
+          font-family: 'Source Sans Pro',sans-serif;
+          font-weight: 600;
+          font-size: 3.125rem;
+          line-height: 3.25rem;
+          color: #0a1336;
+          position: relative;
+          max-width: 750px;
+          
+          &::after{
+            content: '';
+            display: block;
+            height: 2px;
+            position: relative;
+            left: -50px;
+            width: 150px;
+            margin: 40px 0;
+            background-color: var(--primary-color);
+          }
+        }
+      }
+    }
+</style>
