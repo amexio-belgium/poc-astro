@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-03-11T09:27:17.627Z"
+    "x-generation-date": "2024-03-15T14:22:52.262Z"
   },
   "x-strapi-config": {
     "plugins": [],
@@ -117,6 +117,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/SharedBanner5050Component"
+                },
+                {
+                  "$ref": "#/components/schemas/SharedJobsComponent"
                 }
               ]
             }
@@ -192,6 +195,9 @@
                     },
                     {
                       "$ref": "#/components/schemas/SharedBanner5050Component"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SharedJobsComponent"
                     }
                   ]
                 }
@@ -377,6 +383,9 @@
                 },
                 {
                   "$ref": "#/components/schemas/SharedBanner5050Component"
+                },
+                {
+                  "$ref": "#/components/schemas/SharedJobsComponent"
                 }
               ]
             }
@@ -2118,6 +2127,20 @@
                                   }
                                 }
                               }
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "__component": {
+                                  "type": "string"
+                                },
+                                "jobs": {
+                                  "type": "string"
+                                }
+                              }
                             }
                           ]
                         }
@@ -2795,6 +2818,20 @@
             "items": {
               "$ref": "#/components/schemas/SharedButtonComponent"
             }
+          }
+        }
+      },
+      "SharedJobsComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "__component": {
+            "type": "string"
+          },
+          "jobs": {
+            "type": "string"
           }
         }
       }

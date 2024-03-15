@@ -1,0 +1,96 @@
+---
+import axios from 'axios';
+import type {JobsResponse} from 'src/api/procedures/cms/types';
+
+const config = {
+    headers: {
+        APIKey: 'a8vdEIPQIg4BuN7wwDYlnUxXnaZYUAlJ',
+        Accept: 'application/json',
+    }
+}
+
+
+const response = await axios.get("https://sandbox.api.sap.com/successfactors/odata/v2/JobRequisitionLocale?$top=20&$filter=locale%20eq%20'en_US'", config)
+const data: JobsResponse = response.data;
+
+
+---
+<article class="w-full p-20">
+    <ul class="w-full">
+        {data.d.results.slice(0, 5).map((job)=>{
+            return (
+                    <li class="my-8 h-max-80">
+                        <h3>{job.jobTitle}</h3>
+                        <div class="mb-4 overflow-clip">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ut est nisi. Sed et efficitur dolor. Vivamus placerat mauris non nisi rutrum, non pharetra diam aliquam. Morbi feugiat a nisl eu tincidunt. Nulla facilisi. Nulla pretium molestie velit in sodales. Aenean placerat interdum varius.
+                            </p>
+                        </div>
+                        <div class="bg-gray-200 w-full h-0.5"></div>
+                        <div class="flex w-full justify-between mt-4">
+                            <div class="job--overview-teaser_location">
+                                <span class="icon-pinpoint"></span>Belgium
+                            </div>
+
+                            <a class="items-center flex button bg-[#4bb8f4] px-4 py-3 rounded-md text-white" 
+                               href="https://www.aquafin.be/nl-be/jobs/administratieve-ondersteuning-accountmanagement">
+                                Meer info
+                            </a>
+                        </div>
+                        <div class="bg-gray-400 mt-4 w-full h-0.5"></div>
+                    </li>
+            )
+        })}
+    </ul>
+</article>
+
+<style lang="scss">
+    h3 {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      -webkit-text-size-adjust: 100%;
+      box-sizing: border-box;
+      font-family: 'Source Sans Pro',sans-serif;
+      font-weight: 600;
+      color: #0a1336;
+      font-size: 1.875rem;
+      line-height: 2.2rem;
+      padding-bottom: 15px;
+      text-decoration: none !important;
+    }
+    .icon-pinpoint{
+      padding-left: 25px;
+      position: relative;
+    }
+    .icon-pinpoint::before{
+      background: url(/icons/icon-pinpoint.svg) no-repeat;
+      background-size: 100%;
+      content: '';
+      height: 20px;
+      left: 0;
+      margin-right: 20px;
+      position: absolute;
+      top: 0;
+      width: 20px;
+    }
+    
+    .job--overview-teaser_location{
+      font-size: 1.125rem;
+      line-height: 2;
+      color: #666;
+      flex: 0 0 50%;
+      text-align: left;
+      margin-bottom: 15px;
+    }
+    .button::after{
+      height: 20px;
+      width: 18px;
+      content: '';
+      display: inline-block;
+      transition: background-image 0.2s linear;
+      background-image: url(/icons/arrow-right-white.svg);
+      background-repeat: no-repeat;
+      background-size: 7px 12px;
+      background-position: center center;
+    }
+</style>

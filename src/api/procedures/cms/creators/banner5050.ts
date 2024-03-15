@@ -2,7 +2,7 @@ import type {SharedBanner5050Component, SharedButtonComponent} from 'src/types/s
 import {
     type Banner5050,
     type Button,
-    Components, type Image,
+    Components,
 } from '@trpc-procedures/cms/types.ts';
 import type {MediaImage, ParagraphBanner5050, ParagraphButton} from 'src/types/drupal/resolvers-types.ts';
 

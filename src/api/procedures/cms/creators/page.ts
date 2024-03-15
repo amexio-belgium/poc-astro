@@ -1,4 +1,4 @@
-import {Components, type Page, type StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
+import {type Page, type StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
     PageContentItem,
@@ -15,7 +15,7 @@ import {
     isSharedBanner5050,
     isSharedBannerCards, isSharedBannerFull, isSharedBannerTiles,
     isSharedBannerVideo,
-    isSharedHeader, isSharedText,
+    isSharedHeader, isSharedJobs, isSharedText,
 } from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideoDrupal, createBannerVideoStrapi} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createDefaultHeader, createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
@@ -24,9 +24,9 @@ import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures
 import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 import axios from 'axios'
 import type {
-    NodePage, ParagraphBanner5050, ParagraphBannerFull, ParagraphHeader,
-    ParagraphTeaser, ParagraphText,
-    ParagraphUnion, ParagraphVideobanner,
+    NodePage,
+    ParagraphTeaser,
+    ParagraphUnion,
     Query
 } from 'src/types/drupal/resolvers-types.ts';
 import {denormalize} from '@drupal/decoupled-menu-parser';
@@ -34,6 +34,7 @@ import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
 import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/cms/creators/bannerFull.ts';
 import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
 import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
+import {createJob} from '@trpc-procedures/cms/creators/job.ts';
 
 const languages: string[] = ["en","nl"];
 
@@ -66,36 +67,12 @@ export function getComponentFromStringStrapi(component: PageContentItem){
         const sharedBanner5050 = component as SharedBanner5050Component;
         return createBanner5050Strapi(sharedBanner5050);
     }
+    if(isSharedJobs(component)){
+        return createJob();
+    }
     return null;
 }
 
-
-const paragraphComponentMap: {key: string, function: Function}[] = [
-    {
-        key: 'ParagraphVideobanner', 
-        function: 
-            function(paragraph: ParagraphVideobanner){
-                return createBannerVideoDrupal(paragraph)
-            }
-        },
-    {
-        key: 'ParagraphTeaser', 
-        function: 
-            function(paragraph: ParagraphTeaser){
-                switch(paragraph.type){
-                    case 'card':
-                        return createBannerCardsDrupal(paragraph)
-                    case 'tile':
-                        return createBannerTilesDrupal(paragraph)
-                }
-        }
-    }
-    //.... more component objects
-];
-
-function getParagraph(paragraph: ParagraphUnion){
-    return paragraphComponentMap.find((paragraphComp)=> paragraphComp.key === paragraph.__typename)
-}
 
 function getComponentFromStringDrupal(paragraph: ParagraphUnion){
     //Check if paragraph is not empty graphql object
@@ -123,6 +100,9 @@ function getComponentFromStringDrupal(paragraph: ParagraphUnion){
         }
         if(paragraph.__typename === 'ParagraphBanner5050'){
             return createBanner5050Drupal(paragraph);
+        }
+        if(paragraph.__typename === 'ParagraphJob'){
+            return createJob();
         }
     }
 
@@ -382,6 +362,10 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                                 }
                               }
                             }
+                            __typename
+                            ... on ParagraphJob {
+                              id
+                            }
                           }
                           body {
                             value
@@ -546,6 +530,10 @@ query MyQuery {
                   title
                 }
               }
+            }
+            __typename
+            ... on ParagraphJob {
+              id
             }
           }
           body {
