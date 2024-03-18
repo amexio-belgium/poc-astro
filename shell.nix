@@ -7,8 +7,8 @@ pkgs.mkShellNoCC {
   packages = with pkgs; [
     cowsay
     lolcat
-    nodejs_21
-    corepack_21
+    nodejs_20
+    corepack_20
   ];
 
   GREETING = "Hello, Nix!";
