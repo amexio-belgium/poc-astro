@@ -3,9 +3,22 @@ export type Page = {
     slug: string,
     lang: string,
     hideDefaultHeader: boolean,
-    components: (Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text)[]
+    components: (Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text|JobType)[]
 }
 
+export type JobType = {
+    componentName: Components.Job
+}
+
+export type Job = {
+    jobTitle: string,
+    externalTitle: string,
+    externalJobDescription: string,
+}
+
+export type JobsResponse = {
+    d: {results: Job[]}
+}
 
 export enum Components {
     BannerCards = 'BannerCards',
@@ -16,7 +29,8 @@ export enum Components {
     PageTitle = 'PageTitle',
     FullWidthBanner = 'FullWidthBanner',
     Text = 'Text',
-    Banner5050 = 'Banner5050'
+    Banner5050 = 'Banner5050',
+    Job = 'Job'
 }
 
 export enum CMSType {

@@ -5,6 +5,7 @@ import {getAllPagesDrupal} from 'src/api/procedures/cms/creators/page';
 import {getBreadCrumbsDrupal} from 'src/api/procedures/cms/helpers/global';
 import Breadcrumbs from 'src/components/Breadcrumbs.astro';
 import MainHeaderDrupal from 'src/components/MainHeaderDrupal.astro';
+import Footer from 'src/components/Footer.astro';
 
 export const prerender = true;
 export async function getStaticPaths() {
@@ -31,6 +32,7 @@ const breadCrumbs = await getBreadCrumbsDrupal(page.lang, page.slug, false)
                 return <ComponentWrapper component={component}></ComponentWrapper>
             })}
         </main>
+        <Footer></Footer>
     </body>
 </html>
 

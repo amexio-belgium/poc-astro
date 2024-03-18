@@ -8,7 +8,7 @@ import type {
     DefaultHeader as DefaultHeaderType,
     FullWidthBanner as FullWidthBannerType,
     Banner5050 as Banner5050Type,
-    Text as TextType,
+    Text as TextType, JobType,
 } from 'src/api/procedures/cms/types';
 import {Components} from 'src/api/procedures/cms/types'
 import Header from 'src/components/Header.astro';
@@ -20,9 +20,10 @@ import DefaultHeader from 'src/components/DefaultHeader.astro';
 import FullWidthBanner from 'src/components/FullWidthBanner.astro';
 import Text from 'src/components/Text.astro';
 import Banner5050 from 'src/components/Banner5050.astro';
+import Jobs from 'src/components/Jobs.astro';
 
 interface Props {
-    component: (Banner5050Type|BannerCardsType|BannerTilesType|DefaultHeaderType|HeaderType|BannerVideoType|PageTitleType|FullWidthBannerType|TextType);
+    component: (Banner5050Type|BannerCardsType|BannerTilesType|DefaultHeaderType|HeaderType|BannerVideoType|PageTitleType|FullWidthBannerType|TextType|JobType);
 }
 
 const {component} = Astro.props;
@@ -37,6 +38,7 @@ const {component} = Astro.props;
 {component.componentName === Components.PageTitle && <PageTitle pageTitle={component}></PageTitle>}
 {component.componentName === Components.BannerCards && <BannerCards bannerCards={component}></BannerCards>}
 {component.componentName === Components.BannerTiles && <BannerTiles bannerTiles={component}></BannerTiles>}
+{component.componentName === Components.Job && <Jobs></Jobs>}
 
 <style is:global>
     @font-face {

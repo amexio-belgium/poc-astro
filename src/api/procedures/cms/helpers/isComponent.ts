@@ -2,7 +2,7 @@ import type {
     PageContentItem, SharedBanner5050Component,
     SharedBannerCardsComponent, SharedBannerFullComponent, SharedBannerTilesComponent,
     SharedBannerVideoComponent,
-    SharedHeaderComponent, SharedTextComponent
+    SharedHeaderComponent, SharedJobsComponent, SharedTextComponent
 } from 'src/types/strapi/generated.schemas.ts';
 
 export function isSharedBannerVideo(component: PageContentItem){
@@ -31,4 +31,8 @@ export function isSharedText(component: PageContentItem){
 
 export function isSharedBanner5050(component: PageContentItem){
     return (component as SharedBanner5050Component).__component === 'shared.banner-5050';
+}
+
+export function isSharedJobs(component: PageContentItem){
+    return (component as SharedJobsComponent).__component === 'shared.jobs';
 }

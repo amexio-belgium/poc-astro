@@ -653,6 +653,107 @@
             "deprecationReason": null
           },
           {
+            "name": "paragraphJobs",
+            "description": "List of all ParagraphJob on the platform.",
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns up to the first n elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns up to the last n elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "reverse",
+                "description": "Reverse the order of the underlying list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "sortKey",
+                "description": "Sort the underlying list by the given key.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "ConnectionSortKeys",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "langcode",
+                "description": "Filter the results by language. Eg en, ja, fr.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ParagraphJobConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "paragraphBanner5050s",
             "description": "List of all ParagraphBanner5050 on the platform.",
             "args": [
@@ -2067,6 +2168,107 @@
             "deprecationReason": null
           },
           {
+            "name": "paragraphWebforms",
+            "description": "List of all ParagraphWebform on the platform.",
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Cursor",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns up to the first n elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns up to the last n elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "reverse",
+                "description": "Reverse the order of the underlying list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "sortKey",
+                "description": "Sort the underlying list by the given key.",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "ConnectionSortKeys",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "langcode",
+                "description": "Filter the results by language. Eg en, ja, fr.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ParagraphWebformConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "termTags",
             "description": "List of all TermTag on the platform.",
             "args": [
@@ -2927,6 +3129,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "ParagraphJob",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ParagraphBanner5050",
             "ofType": null
           },
@@ -2993,6 +3200,11 @@
           {
             "kind": "OBJECT",
             "name": "ParagraphVideobanner",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ParagraphWebform",
             "ofType": null
           },
           {
@@ -4435,6 +4647,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "ParagraphJob",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ParagraphBanner5050",
             "ofType": null
           },
@@ -4502,13 +4719,18 @@
             "kind": "OBJECT",
             "name": "ParagraphVideobanner",
             "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ParagraphWebform",
+            "ofType": null
           }
         ]
       },
       {
         "kind": "OBJECT",
-        "name": "ParagraphBanner5050",
-        "description": "Een banner met 2 knoppen, even verdeeld over de pagina.",
+        "name": "ParagraphJob",
+        "description": "Entity type paragraph.",
         "specifiedByUrl": null,
         "fields": [
           {
@@ -4538,30 +4760,6 @@
                 "kind": "SCALAR",
                 "name": "ID",
                 "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "buttons",
-            "description": "Buttons",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "UNION",
-                    "name": "ParagraphUnion",
-                    "ofType": null
-                  }
-                }
               }
             },
             "isDeprecated": false,
@@ -4693,6 +4891,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "ParagraphJob",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ParagraphBanner5050",
             "ofType": null
           },
@@ -4760,8 +4963,124 @@
             "kind": "OBJECT",
             "name": "ParagraphVideobanner",
             "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ParagraphWebform",
+            "ofType": null
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ParagraphBanner5050",
+        "description": "Een banner met 2 knoppen, even verdeeld over de pagina.",
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": "The entity ID.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "uuid",
+            "description": "The Universally Unique IDentifier (UUID).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "buttons",
+            "description": "Buttons",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "UNION",
+                    "name": "ParagraphUnion",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "created",
+            "description": "Tijdstip waarop de paragraaf is aangemaakt.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "langcode",
+            "description": "Entiteittaalcode van de paragraaf.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Language",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ParagraphInterface",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "EdgeNode",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
       },
       {
         "kind": "OBJECT",
@@ -6439,6 +6758,93 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "ParagraphWebform",
+        "description": "Entity type paragraph.",
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "id",
+            "description": "The entity ID.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "uuid",
+            "description": "The Universally Unique IDentifier (UUID).",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "created",
+            "description": "Tijdstip waarop de paragraaf is aangemaakt.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "langcode",
+            "description": "Entiteittaalcode van de paragraaf.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Language",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ParagraphInterface",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "EdgeNode",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "UNION",
         "name": "TermUnion",
         "description": "Entity type taxonomy_term.",
@@ -7040,6 +7446,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "ParagraphJobConnection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ParagraphBanner5050Connection",
             "ofType": null
           },
@@ -7106,6 +7517,11 @@
           {
             "kind": "OBJECT",
             "name": "ParagraphVideobannerConnection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ParagraphWebformConnection",
             "ofType": null
           },
           {
@@ -7185,6 +7601,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "ParagraphJobEdge",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ParagraphBanner5050Edge",
             "ofType": null
           },
@@ -7251,6 +7672,11 @@
           {
             "kind": "OBJECT",
             "name": "ParagraphVideobannerEdge",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ParagraphWebformEdge",
             "ofType": null
           },
           {
@@ -7761,6 +8187,138 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "NodePage",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Edge",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ParagraphJobConnection",
+        "description": "A paginated set of results for ParagraphJob.",
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "edges",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ParagraphJobEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ParagraphJob",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ConnectionPageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Connection",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ParagraphJobEdge",
+        "description": "Edge for ParagraphJob.",
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Cursor",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ParagraphJob",
                 "ofType": null
               }
             },
@@ -9609,6 +10167,138 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "ParagraphVideobanner",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Edge",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ParagraphWebformConnection",
+        "description": "A paginated set of results for ParagraphWebform.",
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "edges",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ParagraphWebformEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ParagraphWebform",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ConnectionPageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Connection",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ParagraphWebformEdge",
+        "description": "Edge for ParagraphWebform.",
+        "specifiedByUrl": null,
+        "fields": [
+          {
+            "name": "cursor",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Cursor",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ParagraphWebform",
                 "ofType": null
               }
             },
