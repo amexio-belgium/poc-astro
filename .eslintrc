@@ -2,7 +2,6 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "extends": [
-    "@acolad-aem",
     "plugin:@typescript-eslint/recommended",
     "plugin:astro/recommended",
   ],

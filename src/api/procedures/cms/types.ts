@@ -3,8 +3,9 @@ export type Page = {
     slug: string,
     lang: string,
     hideDefaultHeader: boolean,
-    components: (Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text|JobType)[]
+    components: ComponentsUnion[]
 }
+export type ComponentsUnion = Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|FullWidthBanner|Text|JobType;
 
 export type JobType = {
     componentName: Components.Job
@@ -26,7 +27,6 @@ export enum Components {
     BannerVideo = 'BannerVideo',
     Header = 'Header',
     DefaultHeader = 'DefaultHeader',
-    PageTitle = 'PageTitle',
     FullWidthBanner = 'FullWidthBanner',
     Text = 'Text',
     Banner5050 = 'Banner5050',
@@ -130,14 +130,6 @@ export type BannerTiles = {
     componentName: Components.BannerTiles,
     tiles: Button[]
 }
-
-export type PageTitle = {
-    componentName: Components.PageTitle,
-    title: string
-}
-
-
-
 
 export type StrapiMenuChildItem = {
     id: number;
