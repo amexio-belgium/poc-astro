@@ -6,7 +6,7 @@ import {
     isPreviewing,
     type RegisteredComponent
 } from '@builder.io/sdk-react';
-import {fullWidthBannerBuilderProps} from '@components/react/FullWidthBanner.tsx';
+import {fullWidthBannerBuilderProps} from 'src/components/react/FullWidthBanner.tsx';
 
 interface pageProps {
     builderModel: string,

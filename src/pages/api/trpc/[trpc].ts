@@ -1,9 +1,9 @@
 // /pages/api/trpc/[trpc].ts
 import {
     router
-} from '@trpc-api/trpc';
+} from 'src/api/server/trpc.ts';
 import type { APIRoute } from 'astro';
-import { createContext } from '@trpc-api/context';
+import { createContext } from 'src/api/server/context.ts';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 
 const appRouter = router({});
