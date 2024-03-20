@@ -1,6 +1,3 @@
-
-import React from 'react';
-
 interface fullWidthBannerProps {
     title: string,
     description: string,
@@ -63,7 +60,7 @@ export function FullWidthBanner({title, description, buttonLink, buttonText, ima
             }
             <button 
                 className="py-3.5 px-4 bg-aq-primary rounded-md text-white text-base mt-3"
-                onClick={event =>  window.location.href=buttonLink}>
+                onClick={() =>  window.location.href=buttonLink}>
                 {buttonText}
             </button>
         </article>

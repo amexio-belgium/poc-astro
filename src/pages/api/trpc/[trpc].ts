@@ -5,11 +5,8 @@ import {
 import type { APIRoute } from 'astro';
 import { createContext } from '@trpc-api/context';
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import {CMSRouter} from '@trpc-procedures/cms';
 
-const appRouter = router({
-    cms: CMSRouter
-});
+const appRouter = router({});
 
 // The Astro API route, handling all incoming HTTP requests.
 export const ALL: APIRoute = ({ request }) => fetchRequestHandler({
