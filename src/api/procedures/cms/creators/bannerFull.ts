@@ -1,6 +1,6 @@
 import type {SharedBannerFullComponent} from 'src/types/strapi/generated.schemas.ts';
 import {Alignment, Components, type FullWidthBanner} from '@trpc-procedures/cms/types.ts';
-import type {MediaImage, ParagraphBannerFull, ParagraphHeader} from 'src/types/drupal/resolvers-types.ts';
+import type {MediaImage, ParagraphBannerFull} from 'src/types/drupal/resolvers-types.ts';
 
 
 function getBannerFullAlignmentStrapi(alignment: string|undefined){
@@ -41,7 +41,10 @@ export function createBannerFullStrapi(sharedBannerFull: SharedBannerFullCompone
         description: sharedBannerFull.description,
         buttonText: sharedBannerFull.buttonText,
         link: sharedBannerFull.link?.data !== null ? sharedBannerFull.link!.data!.attributes?.slug : sharedBannerFull.externalUrl,
-        image: sharedBannerFull.image?.data?.attributes?.url,
+        image: sharedBannerFull.image?.data?.attributes?.url ?
+            import.meta.env.STRAPI_URL.concat(<string>sharedBannerFull.image?.data?.attributes?.url)
+            :
+            '',
         alignment: getBannerFullAlignmentStrapi(sharedBannerFull.alignment)
     } as FullWidthBanner
 }

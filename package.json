@@ -42,6 +42,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.5.5",
     "@astrojs/tailwind": "^5.1.0",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
     "@typescript-eslint/parser": "^7.0.2",
     "eslint-plugin-astro": "^0.31.4",
     "orval": "^6.25.0",

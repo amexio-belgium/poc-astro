@@ -14,7 +14,7 @@ export const drupalInstance = <T>(
         cancelToken: source.token,
     }).then(({ data }) => data);
 
-    // @ts-ignore
+    // @ts-expect-error .cancel doesn't exist on promise because typing is not the best for Orval
     promise.cancel = () => {
         source.cancel('Query was cancelled');
     };
