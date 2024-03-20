@@ -6,6 +6,12 @@ export default {
             fontFamily: {
                 source_sans_pro: 'Source Sans Pro',
             },
+            colors: {
+                aq: {
+                    primary: '#4bb8f4',
+                    secondary: '#0a1336'
+                }
+            }
         }
     },
     plugins: []
