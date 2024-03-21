@@ -27,6 +27,8 @@ export function Page({builderModel, apiKey, slug}: pageProps){
             userAttributes: {
                 urlPath: `/${slug}`
             },
+            staleCacheSeconds: 3,
+            cacheSeconds: 3,
         }).then((content) => {
             setContent(content);
         });
