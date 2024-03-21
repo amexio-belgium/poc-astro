@@ -42,7 +42,6 @@ export const fullWidthBannerBuilderProps =         {
     ],
 }
 export function FullWidthBanner({title, description, buttonLink, buttonText, image}: fullWidthBannerProps){
-    console.log(image);
     return (
         <article 
             style={{
@@ -55,7 +54,7 @@ export function FullWidthBanner({title, description, buttonLink, buttonText, ima
             <h1 className="max-w-[50%]">{title}</h1>
             {description && description !== '' &&
                 <div className="content--paragraph-buttonbanner-description">
-                    <p>Een kijkje op een rioolwaterzuiveringsinstallatie, een werf en op onze Campus Aquafin</p>
+                    <p className="text-white text-base">{description}</p>
                 </div>
             }
             <button 
