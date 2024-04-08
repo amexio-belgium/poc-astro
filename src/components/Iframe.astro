@@ -1,0 +1,12 @@
+---
+import type {Iframe} from 'src/api/procedures/cms/types';
+
+
+interface Props {
+    iframe: Iframe
+}
+
+const {iframe} = Astro.props;
+---
+
+<iframe src={iframe.url}></iframe>

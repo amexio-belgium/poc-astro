@@ -50,6 +50,9 @@ dependencies:
   axios-oauth-client:
     specifier: ^2.0.4
     version: 2.0.4(axios@1.6.7)
+  dotenv:
+    specifier: ^16.4.5
+    version: 16.4.5
   graphql:
     specifier: ^16.8.1
     version: 16.8.1

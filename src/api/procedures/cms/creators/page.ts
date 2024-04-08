@@ -35,6 +35,7 @@ import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/c
 import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
 import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
 import {createJob} from '@trpc-procedures/cms/creators/job.ts';
+import {createIframeDrupal} from '@trpc-procedures/cms/creators/iframe.ts';
 
 const languages: string[] = ["en","nl"];
 
@@ -103,6 +104,9 @@ function getComponentFromStringDrupal(paragraph: ParagraphUnion){
         }
         if(paragraph.__typename === 'ParagraphJob'){
             return createJob();
+        }
+        if(paragraph.__typename === 'ParagraphIframe'){
+            return createIframeDrupal(paragraph);
         }
     }
 

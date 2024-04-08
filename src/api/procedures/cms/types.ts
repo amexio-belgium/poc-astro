@@ -3,7 +3,7 @@ export type Page = {
     slug: string,
     lang: string,
     hideDefaultHeader: boolean,
-    components: (Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text|JobType)[]
+    components: (Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|PageTitle|FullWidthBanner|Text|JobType|Iframe)[]
 }
 
 export type JobType = {
@@ -59,6 +59,10 @@ export enum Alignment {
     LEFT = 'left',
     CENTER = 'center',
     RIGHT = 'right'
+}
+
+export type Iframe = {
+    url: string,
 }
 
 export type FullWidthBanner = {
