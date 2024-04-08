@@ -1,5 +1,5 @@
 ---
-import ComponentWrapper from 'src/components/Wrapper.astro';
+import Component from 'src/components/Component.astro';
 import {getPageStrapi} from 'src/api/procedures/cms/creators/page';
 const { slug } = Astro.params;
 const { lang } = Astro.params;
@@ -32,7 +32,7 @@ const breadCrumbs = await getBreadCrumbsStrapi(slug, lang, true);
             { page.components &&
                     <Fragment>
                         {page.components.map((component)=>{
-                            return <ComponentWrapper component={component}></ComponentWrapper>
+                            return <Component component={component}></Component>
                         })}
                     </Fragment>
             }
