@@ -9,4 +9,14 @@ interface Props {
 const {iframe} = Astro.props;
 ---
 
-<iframe class="w-full h-auto" src={iframe.url}></iframe>
+<iframe id="iframe" class="w-full !overflow-hidden" src={iframe.url}></iframe>
+
+<script is:inline>
+    window.addEventListener("message", function(e){
+        const this_frame = document.getElementById("iframe");
+        if (this_frame.contentWindow === e.source) {
+            this_frame.height = e.data.height + "px";
+            this_frame.style.height = e.data.height + "px";
+        }
+    })
+</script>
