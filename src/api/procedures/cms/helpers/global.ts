@@ -1,5 +1,5 @@
-import {getHeaderDrupal, getHeaderStrapi, getHeaderStrapiFlat} from '@trpc-procedures/cms/creators/page.ts';
 import type {StrapiMenuItem} from '@trpc-procedures/cms/types.ts';
+import {getHeaderDrupal, getHeaderStrapi, getHeaderStrapiFlat} from '@trpc-procedures/cms/creators/header.ts';
 
 export type BreadcrumbItem = {
     text: string;
@@ -26,7 +26,7 @@ export async function getBreadCrumbsDrupal(lang:string, slug: string, ssr: boole
                     href: `/drupal${ssr ? '/ssr':''}${element.href}`,
                 }
             );
-            let lastIndex = fullSlug.lastIndexOf("/");
+            const lastIndex = fullSlug.lastIndexOf("/");
             if (lastIndex !== -1) {
                 fullSlug = fullSlug.substring(0, lastIndex);
             }
@@ -64,7 +64,7 @@ export async function getBreadCrumbsStrapi(slug: string, lang: string, ssr: bool
     }
     const header = await getHeaderStrapi(lang);
     
-    let breadCrumbs: BreadcrumbItem[] = [];
+    const breadCrumbs: BreadcrumbItem[] = [];
     
     const menuItems: StrapiMenuItem[] = header.data.attributes.items.data;
     const items = findParents(menuItems, `/${fullSlug}`);

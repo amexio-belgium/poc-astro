@@ -50,12 +50,13 @@ const breadCrumbs = await getBreadCrumbsDrupal(lang, slug, true);
     :root {
         --primary-color: #4bb8f4;
     }
-  article {
-    &:nth-of-type(odd){
-      background: #EFEFEF;
+
+    article {
+        &:nth-of-type(odd){
+            background: #EFEFEF;
+        }
+        &:nth-of-type(even){
+            background: white;
+        }
     }
-    &:nth-of-type(even){
-      background: white;
-    }
-  }
 </style>

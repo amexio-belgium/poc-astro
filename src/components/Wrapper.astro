@@ -1,19 +1,8 @@
 ---
-import type {
-    BannerCards as BannerCardsType,
-    BannerTiles as BannerTilesType,
-    BannerVideo as BannerVideoType,
-    Header as HeaderType,
-    PageTitle as PageTitleType,
-    DefaultHeader as DefaultHeaderType,
-    FullWidthBanner as FullWidthBannerType,
-    Banner5050 as Banner5050Type,
-    Text as TextType, JobType,
-} from 'src/api/procedures/cms/types';
+import type {ComponentsUnion} from 'src/api/procedures/cms/types';
 import {Components} from 'src/api/procedures/cms/types'
 import Header from 'src/components/Header.astro';
 import BannerVideo from 'src/components/BannerVideo.astro';
-import PageTitle from 'src/components/PageTitle.astro';
 import BannerCards from 'src/components/BannerCards.astro';
 import BannerTiles from 'src/components/BannerTiles.astro';
 import DefaultHeader from 'src/components/DefaultHeader.astro';
@@ -23,7 +12,7 @@ import Banner5050 from 'src/components/Banner5050.astro';
 import Jobs from 'src/components/Jobs.astro';
 
 interface Props {
-    component: (Banner5050Type|BannerCardsType|BannerTilesType|DefaultHeaderType|HeaderType|BannerVideoType|PageTitleType|FullWidthBannerType|TextType|JobType);
+    component: ComponentsUnion;
 }
 
 const {component} = Astro.props;
@@ -35,7 +24,6 @@ const {component} = Astro.props;
 {component.componentName === Components.FullWidthBanner && <FullWidthBanner fullWidthBanner={component}></FullWidthBanner>}
 {component.componentName === Components.Header && <Header header={component}></Header>}
 {component.componentName === Components.BannerVideo && <BannerVideo bannerVideo={component}></BannerVideo>}
-{component.componentName === Components.PageTitle && <PageTitle pageTitle={component}></PageTitle>}
 {component.componentName === Components.BannerCards && <BannerCards bannerCards={component}></BannerCards>}
 {component.componentName === Components.BannerTiles && <BannerTiles bannerTiles={component}></BannerTiles>}
 {component.componentName === Components.Job && <Jobs></Jobs>}

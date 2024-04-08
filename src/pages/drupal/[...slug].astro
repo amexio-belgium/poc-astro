@@ -37,12 +37,16 @@ const breadCrumbs = await getBreadCrumbsDrupal(page.lang, page.slug, false)
 </html>
 
 <style is:global lang="scss">
-  article {
-    &:nth-of-type(odd){
-      background: #EFEFEF;
+    :root {
+        --primary-color: #4bb8f4;
     }
-    &:nth-of-type(even){
-      background: white;
+
+    article {
+        &:nth-of-type(odd){
+            background: #EFEFEF;
+        }
+        &:nth-of-type(even){
+            background: white;
+        }
     }
-  }
 </style>

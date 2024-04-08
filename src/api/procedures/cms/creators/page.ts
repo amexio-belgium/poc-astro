@@ -1,4 +1,4 @@
-import {type Page, type StrapiMenuResponse} from '@trpc-procedures/cms/types.ts';
+import {type ComponentsUnion, type Page} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
     PageContentItem,
@@ -11,12 +11,6 @@ import type {
     SharedTextComponent
 } from 'src/types/strapi/generated.schemas.ts';
 import {getPages} from 'src/types/strapi/page.ts';
-import {
-    isSharedBanner5050,
-    isSharedBannerCards, isSharedBannerFull, isSharedBannerTiles,
-    isSharedBannerVideo,
-    isSharedHeader, isSharedJobs, isSharedText,
-} from '@trpc-procedures/cms/helpers/isComponent.ts';
 import {createBannerVideoDrupal, createBannerVideoStrapi} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createDefaultHeader, createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
 import type {GetPageInput, GetPageLang} from '@trpc-procedures/cms';
@@ -24,123 +18,118 @@ import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures
 import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 import axios from 'axios'
 import type {
-    NodePage,
-    ParagraphTeaser,
-    ParagraphUnion,
+    NodePage, ParagraphBanner5050, ParagraphBannerFull, ParagraphHeader,
+    ParagraphTeaser, ParagraphText,
+    ParagraphUnion, ParagraphVideobanner,
     Query
 } from 'src/types/drupal/resolvers-types.ts';
-import {denormalize} from '@drupal/decoupled-menu-parser';
-import type {Menu} from '@drupal/decoupled-menu-parser/dist/core/menu';
 import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/cms/creators/bannerFull.ts';
 import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
 import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
 import {createJob} from '@trpc-procedures/cms/creators/job.ts';
 import {createIframeDrupal} from '@trpc-procedures/cms/creators/iframe.ts';
-
 const languages: string[] = ["en","nl"];
+type ComponentMapStrapiFunction = (component: PageContentItem) => ComponentsUnion|null;
+const componentMapStrapi: {key: string, function: ComponentMapStrapiFunction}[] = [
+    {
+        key: 'shared.banner-video',
+        function: (component: SharedBannerVideoComponent) => createBannerVideoStrapi(component)
+    },
+    {
+        key: 'shared.header',
+        function: (component: SharedHeaderComponent) => createHeaderStrapi(component)
+    },
+    {
+        key: 'shared.banner-cards',
+        function: (component: SharedBannerCardsComponent) => createBannerCardsStrapi(component)
+    },
+    {
+        key: 'shared.banner-tiles',
+        function: (component: SharedBannerTilesComponent) => createBannerTilesStrapi(component)
+    },
+    {
+        key: 'shared.banner-full',
+        function: (component: SharedBannerFullComponent) => createBannerFullStrapi(component)
+    },
+    {
+        key: 'shared.text',
+        function: (component: SharedTextComponent) => createTextStrapi(component)
+    },
+    {
+        key: 'shared.banner-5050',
+        function: (component: SharedBanner5050Component) => createBanner5050Strapi(component)
+    },
+    {
+        key: 'shared.jobs',
+        function: () => createJob()
+    }
+    
+]
 
-export function getComponentFromStringStrapi(component: PageContentItem){
-    if(isSharedBannerVideo(component)){
-        const sharedBannerVideo = component as SharedBannerVideoComponent;
-        return createBannerVideoStrapi(sharedBannerVideo);
-    }
-    if(isSharedHeader(component)){
-        const sharedHeader = component as SharedHeaderComponent;
-        return createHeaderStrapi(sharedHeader)
-    }
-    if(isSharedBannerCards(component)){
-        const sharedBannerCards = component as SharedBannerCardsComponent;
-        return createBannerCardsStrapi(sharedBannerCards)
-    }
-    if(isSharedBannerTiles(component)){
-        const sharedBannerTiles = component as SharedBannerTilesComponent;
-        return createBannerTilesStrapi(sharedBannerTiles)
-    }
-    if(isSharedBannerFull(component)){
-        const sharedBannerFull = component as SharedBannerFullComponent;
-        return createBannerFullStrapi(sharedBannerFull)
-    }
-    if(isSharedText(component)){
-        const sharedText = component as SharedTextComponent;
-        return createTextStrapi(sharedText);
-    }
-    if(isSharedBanner5050(component)){
-        const sharedBanner5050 = component as SharedBanner5050Component;
-        return createBanner5050Strapi(sharedBanner5050);
-    }
-    if(isSharedJobs(component)){
-        return createJob();
-    }
-    return null;
+export function getComponentFromStringStrapi(pageContentItem: PageContentItem){
+    const component = componentMapStrapi.find(
+        (component) => component.key === pageContentItem.__component
+    );
+    if(component) return component.function(pageContentItem);
 }
+
+type ComponentMapDrupalFunction = (paragraph: ParagraphUnion) => ComponentsUnion|null;
+const componentMapDrupal: {key: string, function: ComponentMapDrupalFunction}[] = [
+    {
+        key: 'ParagraphVideoBanner',
+        function: (paragraph) => createBannerVideoDrupal(paragraph as ParagraphVideobanner)
+    },
+    {
+        key: 'ParagraphHeader',
+        function: (paragraph) => createHeaderDrupal(paragraph as ParagraphHeader)
+    },
+    {
+        key: 'ParagraphBannerFull',
+        function: (paragraph) => createBannerFullDrupal(paragraph as ParagraphBannerFull)
+    },
+    {
+        key: 'ParagraphText',
+        function: (paragraph) => createTextDrupal(paragraph as ParagraphText)
+    },
+    {
+        key: 'ParagraphBanner5050',
+        function: (paragraph) => createBanner5050Drupal(paragraph as ParagraphBanner5050)
+    },
+    {
+        key: 'ParagraphIframe',
+        function: (paragraph) => createIframeDrupal(paragraph as ParagraphIframe)
+    },
+    {
+        key: 'ParagraphJob',
+        function: () => createJob()
+    },
+    {
+        key: 'ParagraphTeaser',
+        function: (paragraph) => {
+            const paragraphTeaser = paragraph as ParagraphTeaser;
+            if(paragraphTeaser.type === 'card'){
+                return createBannerCardsDrupal(paragraphTeaser)
+            }
+            else if(paragraphTeaser.type === 'tile'){
+                return createBannerTilesDrupal(paragraphTeaser)
+            }
+            return null;
+        }
+    },
+]
 
 
 function getComponentFromStringDrupal(paragraph: ParagraphUnion){
     //Check if paragraph is not empty graphql object
     if(Object.keys(paragraph).length > 1){
-        if(paragraph.__typename === 'ParagraphTeaser'){
-            const paragraphTeaser = paragraph as ParagraphTeaser;
-            if(paragraphTeaser.type === 'card'){
-                return createBannerCardsDrupal(paragraphTeaser)
-            }
-            if(paragraphTeaser.type === 'tile'){
-                return createBannerTilesDrupal(paragraphTeaser)
-            }
-        }
-        if(paragraph.__typename === 'ParagraphVideobanner'){
-            return createBannerVideoDrupal(paragraph);
-        }
-        if(paragraph.__typename === 'ParagraphHeader'){
-            return createHeaderDrupal(paragraph);
-        }
-        if(paragraph.__typename === 'ParagraphBannerFull'){
-            return createBannerFullDrupal(paragraph);
-        }
-        if(paragraph.__typename === 'ParagraphText'){
-            return createTextDrupal(paragraph);
-        }
-        if(paragraph.__typename === 'ParagraphBanner5050'){
-            return createBanner5050Drupal(paragraph);
-        }
-        if(paragraph.__typename === 'ParagraphJob'){
-            return createJob();
-        }
-        if(paragraph.__typename === 'ParagraphIframe'){
-            return createIframeDrupal(paragraph);
-        }
+        const paragraphComponent = componentMapDrupal.find(
+            (paragraphComponent) => paragraphComponent.key === paragraph.__typename
+        );
+        if(paragraphComponent) return paragraphComponent.function(paragraph);
     }
 
 }
 
-export async function getHeaderDrupal(lang: string){
-    let langPrefix = '';
-    if(lang=='en') langPrefix = '/en';
-    const menuResponse = await axios.get(`${import.meta.env.DRUPAL_URL}${langPrefix}/system/menu/main/linkset`)
-    const menu = denormalize(menuResponse.data) as Menu[];
-    return menu[0]
-}
-
-export async function getHeaderStrapi(lang: string){
-    let id = 1;
-    if(lang==='en'){
-        id = 2;
-    }
-    const response = await axios.get(`${import.meta.env.STRAPI_URL}/api/menus/${id}?nested&populate=*`)
-    const menu: StrapiMenuResponse = response.data;
-    
-    return menu;
-}
-
-export async function getHeaderStrapiFlat(lang: string){
-    let id = 1;
-    if(lang==='en'){
-        id = 2;
-    }
-    const response = await axios.get(`${import.meta.env.STRAPI_URL}/api/menus/${id}?populate=*`)
-    const menu: StrapiMenuResponse = response.data;
-
-    return menu;
-}
 
 export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: GetPageLang; }): Promise<Page|null>{
     const params: GetPagesParams = {
@@ -155,10 +144,10 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
     const response = await getPages(params).catch((err)=>{console.log(err);})
     if(response && response.data && response.data[0]){
         const dataObject = response.data[0];
-        let page:Page = {
-            title: dataObject.attributes?.title!, 
+        const page:Page = {
+            title: dataObject.attributes?.title ? dataObject.attributes?.title : '', 
             lang: lang, 
-            slug: dataObject.attributes!.slug, 
+            slug: dataObject.attributes ? dataObject.attributes!.slug : '', 
             hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
             components: []
         }
@@ -179,7 +168,7 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
 
 
 export async function getAllPagesStrapi(): Promise<Page[]> {
-    let pages: Page[]  = [];
+    const pages: Page[]  = [];
     for (const lang of languages) {
         const params: GetPagesParams = {
             populate:'deep,10', 
@@ -188,7 +177,7 @@ export async function getAllPagesStrapi(): Promise<Page[]> {
         const response = await getPages(params).catch((err)=>{console.log(err);})
         const data = response?.data;
         data?.forEach((dataObject)=>{
-            let page:Page = {
+            const page:Page = {
                 title: dataObject.attributes!.title, 
                 lang: lang,
                 hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
@@ -385,7 +374,7 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
     })
     const data = await query;
     const pageNode: NodePage = data.data.data.node!;
-    let page:Page = {
+    const page:Page = {
         title: pageNode!.title, 
         lang: lang,
         hideDefaultHeader: pageNode?.verbergStandaardHeader === true,
@@ -553,7 +542,7 @@ query MyQuery {
             }
         });
         query.data.data.nodePages.nodes.forEach((nodePage: NodePage)=>{
-            let page:Page = {
+            const page:Page = {
                 title: nodePage.title, 
                 lang: lang,
                 hideDefaultHeader: nodePage?.verbergStandaardHeader === true,

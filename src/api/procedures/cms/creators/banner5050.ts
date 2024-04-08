@@ -12,8 +12,14 @@ function getButtonStrapi(button: SharedButtonComponent){
         url: button.link?.data !== null ? button.link!.data!.attributes?.slug : button.externalUrl,
         description: button.description,
         image: {
-            name: button.image?.data?.attributes?.name!,
-            url: import.meta.env.STRAPI_URL.concat(button.image?.data?.attributes?.url!)
+            name: button.image?.data?.attributes?.name ? 
+                button.image?.data?.attributes?.name
+                :
+                '',
+            url: button.image?.data?.attributes?.url ?
+                import.meta.env.STRAPI_URL.concat(button.image?.data?.attributes?.url)
+                : 
+                ''
         },
         buttonText: button.buttonText
     } as Button

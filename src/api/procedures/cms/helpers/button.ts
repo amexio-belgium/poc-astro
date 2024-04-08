@@ -35,7 +35,10 @@ export function getButtonsStrapi(component: SharedHeaderComponent){
                 url: button.externalUrl ? button.externalUrl : buttonLinkPage.slug,
                 image: {
                     name: button.image?.data?.attributes?.name,
-                    url: import.meta.env.STRAPI_URL.concat(button.image?.data?.attributes?.url!)
+                    url: button.image?.data?.attributes?.url ? 
+                        import.meta.env.STRAPI_URL.concat(<string>button.image?.data?.attributes?.url)
+                        :
+                        ''
                 } as Image
             } as Button
         )
@@ -76,7 +79,10 @@ export function getButtonsFromTeaser(component: PrivatePageRelationComponent[]){
                 color: getButtonColor(teaser.Color),
                 image: {
                     name: teaserLinkPage.teaserImage.data?.attributes?.name,
-                    url: import.meta.env.STRAPI_URL.concat(teaserLinkPage.teaserImage.data?.attributes?.url!)
+                    url: teaserLinkPage.teaserImage.data?.attributes?.url ?
+                        import.meta.env.STRAPI_URL.concat(teaserLinkPage.teaserImage.data?.attributes?.url)
+                        :
+                        ''
                 } as Image
             } as Button
         )
