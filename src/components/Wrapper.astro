@@ -10,6 +10,7 @@ import FullWidthBanner from 'src/components/FullWidthBanner.astro';
 import Text from 'src/components/Text.astro';
 import Banner5050 from 'src/components/Banner5050.astro';
 import Jobs from 'src/components/Jobs.astro';
+import Iframe from 'src/components/Iframe.astro';
 
 interface Props {
     component: ComponentsUnion;
@@ -27,6 +28,7 @@ const {component} = Astro.props;
 {component.componentName === Components.BannerCards && <BannerCards bannerCards={component}></BannerCards>}
 {component.componentName === Components.BannerTiles && <BannerTiles bannerTiles={component}></BannerTiles>}
 {component.componentName === Components.Job && <Jobs></Jobs>}
+{component.componentName === Components.Iframe && <Iframe iframe={component}></Iframe>}
 
 <style is:global>
     @font-face {
