@@ -1,0 +1,63 @@
+---
+import type {BannerVideo} from 'src/api/procedures/cms/types';
+interface Props {
+    bannerVideo: BannerVideo;
+}
+
+const {bannerVideo} = Astro.props;
+
+function getId(url:string) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+
+    return (match && match[2].length === 11) ? match[2] : null;
+}
+---
+
+<article class="banner-video grid grid-cols-2 w-full">
+    <div class="flex align-top py-10 px-[90px] top-0">
+        <div>
+            <h3 class="text-[30px] mb-2 font-semibold">{bannerVideo.title}</h3>
+            <Fragment set:html={bannerVideo.description}></Fragment>
+        </div>
+    </div>
+    <div class="h-[425px] w-full shadow-2xl">
+        <iframe
+                title={bannerVideo.title}
+                src={`//www.youtube.com/embed/${getId(bannerVideo.url)}`}
+                class="h-full w-full">
+        </iframe>
+    </div>
+
+</article>
+
+<style lang="scss" is:inline>
+  .banner-video {
+    p {
+      color: rgb(74, 74, 74);
+      font-weight: 400;
+      font-size: 18px;
+    }
+    h3 {
+      color: rgb(10, 19, 54);
+    }
+    ul {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    li {
+      font-size: 18px;
+      color: #4A4A4A;
+      margin-left: 30px;
+      list-style-type: circle;
+    }
+
+    li > p {
+      margin-left: 16px;
+    }
+
+    strong {
+      font-weight: 700;
+    }
+  }
+</style>
