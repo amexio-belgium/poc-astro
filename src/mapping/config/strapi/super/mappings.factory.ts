@@ -5,7 +5,7 @@ import {SuperMappingFactory} from "../../../abstract/mapping.factory.ts";
 
 
 export class MappingsFactoryStrapi extends SuperMappingFactory {
-    createFactory (factoryName: string): MappingFactory | undefined {
+    createFactory (factoryName: MappingList): MappingFactory | undefined {
         switch (factoryName) {
             case MappingList.bannerVideo:
                 return new  bannerVideoMappingFactory();
