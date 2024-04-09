@@ -192,7 +192,6 @@ export async function getPageNew({input, lang}: { input: GetPageInput; lang: Get
             // make sure objects are mapped correclty over here
             const astroComponent = getComponentFromConfig(component, componentsConfigListNew);
             if(astroComponent){
-                console.log('astro');
                 page.components.push(astroComponent);
             }
         })

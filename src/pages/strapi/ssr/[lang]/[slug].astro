@@ -21,26 +21,28 @@ const breadCrumbs = await getBreadCrumbsStrapi(slug, lang, true);
 ---
 {page &&
 <html>
-<head>
-    <title>{page.title!}</title>
-    <meta charset="UTF-8">
-</head>
-<body>
-<MainHeaderStrapi lang={page.lang} ssr={true}></MainHeaderStrapi>
-<main class="mt-[144px]">
-    <Breadcrumbs breadCrumbs={breadCrumbs}></Breadcrumbs>
-    { page.components &&
-            <Fragment>
-                {page.components.map((component)=>{
-                    return <ComponentWrapper component={component}></ComponentWrapper>
-                })}
-            </Fragment>
-    }
-</main>
-<Footer></Footer>
-</body>
+    <head>
+        <title>{page.title!}</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <MainHeaderStrapi lang={page.lang} ssr={true}></MainHeaderStrapi>
+        <main class="mt-[144px]">
+            <Breadcrumbs breadCrumbs={breadCrumbs}></Breadcrumbs>
+            { page.components &&
+                    <Fragment>
+                        {page.components.map((component)=>{
+                            return <ComponentWrapper component={component}></ComponentWrapper>
+                        })}
+                    </Fragment>
+            }
+        </main>
+        <Footer></Footer>
+    </body>
 </html>
-    }
+}
+
+
 
 
 <style is:global lang="scss">
