@@ -1,4 +1,4 @@
-import {type ComponentsUnion, type Page} from '@trpc-procedures/cms/types.ts';
+import {type ComponentsUnion, NewPage, type Page} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
     PageContentItem,
@@ -177,17 +177,17 @@ export async function getPageNew({input, lang}: { input: GetPageInput; lang: Get
     const response = await getPages(params).catch((err)=>{console.log(err);})
     if(response && response.data && response.data[0]){
         const dataObject = response.data[0];
-        const page:Page = {
+        const page:NewPage = {
             title: dataObject.attributes?.title ? dataObject.attributes?.title : '',
             lang: lang,
             slug: dataObject.attributes ? dataObject.attributes!.slug : '',
             hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
             components: []
         }
-        if(!page.hideDefaultHeader){
+        /* if(!page.hideDefaultHeader){
             const defaultHeader = createDefaultHeader(page.title, dataObject.attributes!.description)
             page.components.push(defaultHeader)
-        }
+        } */
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
             // make sure objects are mapped correclty over here
             const astroComponent = getComponentFromConfig(component, componentsConfigListNew);

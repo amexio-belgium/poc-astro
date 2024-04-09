@@ -6,3 +6,5 @@ export enum ComponentsList {
 }
 
 export type ComponentsListItem = keyof typeof ComponentsList;
+
+export type Components = BannerVideoModel;

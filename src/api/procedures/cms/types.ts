@@ -5,6 +5,15 @@ export type Page = {
     hideDefaultHeader: boolean,
     components: ComponentsUnion[]
 }
+
+export type NewPage = {
+    title: string,
+    slug: string,
+    lang: string,
+    hideDefaultHeader: boolean,
+    components: Components [];
+}
+
 export type ComponentsUnion = Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|FullWidthBanner|Text|JobType;
 
 export type JobType = {
