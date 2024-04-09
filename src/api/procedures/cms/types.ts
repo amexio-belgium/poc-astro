@@ -30,7 +30,8 @@ export enum Components {
     FullWidthBanner = 'FullWidthBanner',
     Text = 'Text',
     Banner5050 = 'Banner5050',
-    Job = 'Job'
+    Job = 'Job',
+    Iframe = 'Iframe'
 }
 
 export enum CMSType {
@@ -62,6 +63,7 @@ export enum Alignment {
 }
 
 export type Iframe = {
+    componentName: Components.Iframe,
     url: string,
 }
 

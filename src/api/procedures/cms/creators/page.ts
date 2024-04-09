@@ -18,7 +18,7 @@ import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures
 import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 import axios from 'axios'
 import type {
-    NodePage, ParagraphBanner5050, ParagraphBannerFull, ParagraphHeader,
+    NodePage, ParagraphBanner5050, ParagraphBannerFull, ParagraphHeader, ParagraphIframe,
     ParagraphTeaser, ParagraphText,
     ParagraphUnion, ParagraphVideobanner,
     Query
@@ -359,6 +359,13 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                             ... on ParagraphJob {
                               id
                             }
+                            __typename
+                            ... on ParagraphIframe {
+                              id
+                              url {
+                                url
+                              }
+                            }
                           }
                           body {
                             value
@@ -527,6 +534,13 @@ query MyQuery {
             __typename
             ... on ParagraphJob {
               id
+            }
+            __typename
+            ... on ParagraphIframe {
+              id
+              url {
+                url
+              }
             }
           }
           body {
