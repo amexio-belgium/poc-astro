@@ -5,7 +5,7 @@ import {ComponentsList} from "./components.type.ts";
 export class ComponentsFactoryCreator {
     createFactory (factoryName: ComponentsList): ComponentFactory | undefined {
         switch (factoryName) {
-            case ComponentsList.bannerVideo:
+            case ComponentsList.BannerVideo:
                 return new BannerVideoFactory();
         }
     }

@@ -1,3 +1,3 @@
 export enum MappingList {
-    "bannerVideo" = "bannerVideoMappingFactory"
+    "BannerVideo" = "bannerVideoMappingFactory"
 }

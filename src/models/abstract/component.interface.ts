@@ -1,4 +1,5 @@
+import type {ComponentsListItem} from "../super/components.type.ts";
+
 export interface Component {
-    // everything all components have in common goes over here
-    componentName: string;
+    componentName: ComponentsListItem;
 }

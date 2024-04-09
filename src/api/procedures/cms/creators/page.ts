@@ -27,7 +27,8 @@ import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/c
 import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
 import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
 import {createJob} from '@trpc-procedures/cms/creators/job.ts';
-import {getComponentFromNewConfig} from "../../../../mapping/new.config.ts";
+import {getComponentFromConfig} from "../../../../mapping/abstract/component.instantiate.ts";
+import {componentsConfigListNew} from "../../../../mapping/new.config.ts";
 
 const languages: string[] = ["en","nl"];
 type ComponentMapStrapiFunction = (component: PageContentItem) => ComponentsUnion|null;
@@ -189,8 +190,9 @@ export async function getPageNew({input, lang}: { input: GetPageInput; lang: Get
         }
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
             // make sure objects are mapped correclty over here
-            const astroComponent = getComponentFromNewConfig(component);
+            const astroComponent = getComponentFromConfig(component, componentsConfigListNew);
             if(astroComponent){
+                console.log('astro');
                 page.components.push(astroComponent);
             }
         })

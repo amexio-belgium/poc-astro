@@ -1,8 +1,9 @@
 import type { BannerVideoMapping } from "./bannerVideo.mapping.ts";
 import type { BannerVideo } from "./bannerVideo.interface.ts";
+import {ComponentsList} from "../../super/components.type.ts";
 
 export class BannerVideoModel implements BannerVideo {
-    componentName = "bannerVideo";
+    componentName = ComponentsList.BannerVideo;
     description: string;
     title: string;
     url: string;
