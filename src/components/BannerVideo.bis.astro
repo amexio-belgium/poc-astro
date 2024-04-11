@@ -23,6 +23,8 @@ const {bannerVideo} = Astro.props;
         </div>
     </div>
     <div class="h-[425px] w-full shadow-2xl">
+        <!-- shouldn't the creation of the url be in the model instead of the component itself? -->
+        <!-- should it be possible to also provide a link to another source then youtube? -->
         <iframe
                 title={bannerVideo.title}
                 src={`//www.youtube.com/embed/${bannerVideo.getVideoId()}`}

@@ -8,6 +8,10 @@ export class BannerVideoModel implements BannerVideo {
     title: string;
     url: string;
 
+    // now a url can be provided, should it be possible (for other source maybe) to also provide just the id,
+    // then generate the url from the id? (use constructor overloading?)
+    // if it is possible to upload from multiple sources, the source type should be defined also, when provided an id only,
+    // otherwise this might be derived from the url also and made sure to transform to an embed type of url
     constructor (bannerVideo: BannerVideoMapping) {
         this.description = bannerVideo.description;
         this.title = bannerVideo.title;
