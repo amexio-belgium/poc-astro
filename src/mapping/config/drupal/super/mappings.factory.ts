@@ -6,6 +6,8 @@ import {SuperMappingFactory} from "../../../abstract/mapping.factory.ts";
 
 export class MappingsFactoryDrupal extends SuperMappingFactory {
     createFactory (factoryName: MappingList): MappingFactory | undefined {
+        // would it be possible to apply dynamic imports over here?
+        // or is it better to make this tree-shakable?
         switch (factoryName) {
             case MappingList.BannerVideo:
                 return new  bannerVideoMappingFactory();

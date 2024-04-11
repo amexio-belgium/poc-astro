@@ -5,6 +5,8 @@ import {ComponentsList} from "./components.type.ts";
 export class ComponentsFactoryCreator {
     createFactory (factoryName: ComponentsList): ComponentFactory | undefined {
         switch (factoryName) {
+            // would it be possible to apply dynamic imports over here?
+            // or is it better to make this tree-shakable?
             case ComponentsList.BannerVideo:
                 return new BannerVideoFactory();
         }
