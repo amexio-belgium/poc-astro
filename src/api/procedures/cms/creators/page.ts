@@ -18,7 +18,7 @@ import {createBannerCardsStrapi, createBannerCardsDrupal} from '@trpc-procedures
 import {createBannerTilesDrupal, createBannerTilesStrapi} from '@trpc-procedures/cms/creators/bannerTiles.ts';
 import axios from 'axios'
 import type {
-    NodePage, ParagraphBanner5050, ParagraphBannerFull, ParagraphHeader,
+    NodePage, ParagraphBanner5050, ParagraphBannerFull, ParagraphHeader, ParagraphIframe,
     ParagraphTeaser, ParagraphText,
     ParagraphUnion, ParagraphVideobanner,
     Query
@@ -29,7 +29,7 @@ import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/c
 import {createJob} from '@trpc-procedures/cms/creators/job.ts';
 import {getComponentFromConfig} from "../../../../mapping/abstract/component.instantiate.ts";
 import {componentsConfigListNew} from "../../../../mapping/new.config.ts";
-
+import {createIframeDrupal} from '@trpc-procedures/cms/creators/iframe.ts';
 const languages: string[] = ["en","nl"];
 type ComponentMapStrapiFunction = (component: PageContentItem) => ComponentsUnion|null;
 const componentMapStrapi: {key: string, function: ComponentMapStrapiFunction}[] = [
@@ -96,6 +96,10 @@ const componentMapDrupal: {key: string, function: ComponentMapDrupalFunction}[] 
     {
         key: 'ParagraphBanner5050',
         function: (paragraph) => createBanner5050Drupal(paragraph as ParagraphBanner5050)
+    },
+    {
+        key: 'ParagraphIframe',
+        function: (paragraph) => createIframeDrupal(paragraph as ParagraphIframe)
     },
     {
         key: 'ParagraphJob',
@@ -392,6 +396,13 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
                             ... on ParagraphJob {
                               id
                             }
+                            __typename
+                            ... on ParagraphIframe {
+                              id
+                              url {
+                                url
+                              }
+                            }
                           }
                           body {
                             value
@@ -560,6 +571,13 @@ query MyQuery {
             __typename
             ... on ParagraphJob {
               id
+            }
+            __typename
+            ... on ParagraphIframe {
+              id
+              url {
+                url
+              }
             }
           }
           body {

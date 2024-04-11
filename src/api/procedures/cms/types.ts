@@ -14,7 +14,7 @@ export type NewPage = {
     components: Components [];
 }
 
-export type ComponentsUnion = Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|FullWidthBanner|Text|JobType;
+export type ComponentsUnion = Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|FullWidthBanner|Text|JobType|Iframe;
 
 export type JobType = {
     componentName: Components.Job
@@ -39,7 +39,8 @@ export enum Components {
     FullWidthBanner = 'FullWidthBanner',
     Text = 'Text',
     Banner5050 = 'Banner5050',
-    Job = 'Job'
+    Job = 'Job',
+    Iframe = 'Iframe'
 }
 
 export enum CMSType {
@@ -68,6 +69,11 @@ export enum Alignment {
     LEFT = 'left',
     CENTER = 'center',
     RIGHT = 'right'
+}
+
+export type Iframe = {
+    componentName: Components.Iframe,
+    url: string,
 }
 
 export type FullWidthBanner = {
