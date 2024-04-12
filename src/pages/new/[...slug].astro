@@ -1,7 +1,7 @@
 ---
 import Footer from 'src/components/Footer.astro';
 export const prerender = true;
-import ComponentWrapper from 'src/components/Wrapper.bis.astro';
+import Component from 'src/components/Component.astro';
 import {type Page} from 'src/api/procedures/cms/types';
 import {getAllPagesStrapi} from 'src/api/procedures/cms/creators/page';
 import MainHeaderStrapi from 'src/components/MainHeaderStrapi.astro';
@@ -25,7 +25,7 @@ const breadCrumbs = await getBreadCrumbsStrapi(page.slug, page.lang, false);
     </head>
     <body>
             {page.components.map((component)=>{
-                return <ComponentWrapper component={component}></ComponentWrapper>
+                return <Component component={component}></Component>
             })}
     </body>
 </html>

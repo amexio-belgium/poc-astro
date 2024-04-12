@@ -18,7 +18,7 @@ interface Props {
 const {component} = Astro.props;
 ---
 
-{component.componentName === Components.BannerVideo && <BannerVideo bannerVideo={component}></BannerVideo>}
+{component.componentName === Components.BannerVideo && <BannerVideo props={component}></BannerVideo>}
 
 
 <style is:global>

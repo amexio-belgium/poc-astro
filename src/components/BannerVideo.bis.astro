@@ -1,33 +1,26 @@
 ---
-import {BannerVideo} from "../models/components/bannerVideo/bannerVideo.interface";
 import {BannerVideoModel} from "../models/components/bannerVideo/bannerVideo.model";
 interface Props {
-    bannerVideo: BannerVideoModel;
+    props: BannerVideoModel;
 }
 
-const {bannerVideo} = Astro.props;
+const {props} = Astro.props;
 
-/* function getId(url:string) {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*//*;
-    const match = url.match(regExp);
-
-    return (match && match[2].length === 11) ? match[2] : null;
-} */
 ---
 
 <article class="banner-video grid grid-cols-2 w-full">
     <div class="flex align-top py-10 px-[90px] top-0">
         <div>
-            <h3 class="text-[30px] mb-2 font-semibold">{bannerVideo.title}</h3>
-            <Fragment set:html={bannerVideo.description}></Fragment>
+            <h3 class="text-[30px] mb-2 font-semibold">{props.title}</h3>
+            <Fragment set:html={props.description}></Fragment>
         </div>
     </div>
     <div class="h-[425px] w-full shadow-2xl">
         <!-- shouldn't the creation of the url be in the model instead of the component itself? -->
         <!-- should it be possible to also provide a link to another source then youtube? -->
         <iframe
-                title={bannerVideo.title}
-                src={`//www.youtube.com/embed/${bannerVideo.getVideoId()}`}
+                title={props.title}
+                src={`//www.youtube.com/embed/${props.getVideoId()}`}
                 class="h-full w-full">
         </iframe>
     </div>
