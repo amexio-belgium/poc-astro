@@ -29,6 +29,7 @@ export class banner5050MappingFactory extends MappingFactory {
         return { cards: [cards[0], cards[1]] };
     }
 
+    // this mapping should remain over here, since other components might require another mapping for buttons
     createButtonMapping(button: SharedButtonComponent): ButtonMapping {
         return {
             url: button.externalUrl || '',
