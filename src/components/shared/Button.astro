@@ -1,0 +1,86 @@
+---
+import {ButtonModel} from "../../models/components/button/button.model";
+interface Props {
+    props: ButtonModel
+}
+
+const {props} = Astro.props;
+
+---
+
+{props.url &&
+        <div class="button">
+            <a href={props.url}>{props.text}</a>
+        </div>
+}
+
+<style lang="scss">
+    .button {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        font-family: 'Source Sans Pro',sans-serif;
+        font-weight: 400;
+        border-radius: 4px;
+        color: #4a4a4a;
+        font-size: 16px;
+        line-height: normal;
+        box-sizing: border-box;
+        margin-top: 10px;
+        display: flex;
+        position: relative;
+        justify-content: left;
+        background-color: var(--primary-color);
+
+        > a {
+
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -webkit-text-size-adjust: 100%;
+            font-size: 16px;
+            line-height: normal;
+            box-sizing: border-box;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: 400;
+            position: relative;
+            margin: 0;
+            padding: 14px 32px 14px 16px;
+            text-decoration: none;
+            transition: width 200ms linear,padding-right 200ms linear;
+            white-space: nowrap;
+            color: #fff;
+            border: none;
+
+            &::before{
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                content: '';
+                width: 20px;
+                height: 20px;
+                border-radius: 10px;
+                background-color: transparent;
+                -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
+                transition: background-color 0.2s linear;
+            }
+
+            &::after{
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                height: 20px;
+                width: 18px;
+                content: '';
+                display: inline-block;
+                -webkit-transform: translateY(-50%);
+                transform: translateY(-50%);
+                transition: background-image 0.2s linear;
+                background-image: url('/icons/arrow-right-white.svg');
+                background-repeat: no-repeat;
+                background-size: 7px 12px;
+                background-position: center center;
+            }
+        }
+    }
+</style>

@@ -9,5 +9,10 @@ export const componentsConfigListNew: componentsConfig =  {
         'name': 'shared.banner-video',
         'component': ComponentsList.BannerVideo,
         'mapping': MappingList.BannerVideo,
+    },
+    {
+        'name': 'shared.banner-5050',
+        'component': ComponentsList.Banner5050,
+        'mapping': MappingList.Banner5050,
     }]
 }

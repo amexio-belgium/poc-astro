@@ -4,10 +4,10 @@ import type {SuperMappingFactory} from "./mapping.factory.ts";
 
 export type componentsConfig = {
     'defaultFactory': SuperMappingFactory,
-    'components': [{
+    'components': {
         'name': string,
         'component': ComponentsList,
         'mapping': MappingList,
         'factory'?: SuperMappingFactory
-    }]
+    }[]
 }
