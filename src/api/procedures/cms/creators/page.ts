@@ -389,6 +389,9 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
         components: []
     }
 
+    console.log('hide default header:')
+    console.log(page.hideDefaultHeader);
+    
     if(!page.hideDefaultHeader){
         const defaultHeader = createDefaultHeader(page.title, pageNode.body?.value?.replace(/<\/?[^>]+(>|$)/g, ""))
         page.components.push(defaultHeader)

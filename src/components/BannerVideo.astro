@@ -23,10 +23,13 @@ function getId(url:string) {
         </div>
     </div>
     <div class="h-[425px] w-full shadow-2xl">
-        <YouTube
-                title={bannerVideo.title}
-                videoId={getId(bannerVideo.url)}
-        />
+        {getId(bannerVideo.url) !== null &&
+                <YouTube
+                        title={bannerVideo.title}
+                        videoId={getId(bannerVideo.url)!}
+                />
+        }
+
     </div>
 
 </article>
