@@ -1,5 +1,6 @@
 ---
 import type {BannerVideo} from 'src/api/procedures/cms/types';
+import {YouTube} from 'astro-lazy-youtube-embed'
 interface Props {
     bannerVideo: BannerVideo;
 }
@@ -22,11 +23,10 @@ function getId(url:string) {
         </div>
     </div>
     <div class="h-[425px] w-full shadow-2xl">
-        <iframe
+        <YouTube
                 title={bannerVideo.title}
-                src={`//www.youtube.com/embed/${getId(bannerVideo.url)}`}
-                class="h-full w-full">
-        </iframe>
+                videoId={getId(bannerVideo.url)}
+        />
     </div>
 
 </article>
