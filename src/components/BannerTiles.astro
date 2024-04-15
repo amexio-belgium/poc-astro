@@ -1,11 +1,13 @@
 ---
 import {type BannerTiles} from 'src/api/procedures/cms/types';
+import {getUrl} from 'src/api/procedures/cms/helpers/global';
 interface Props {
     bannerTiles: BannerTiles;
 }
 
 const {bannerTiles} = Astro.props;
 
+console.log(Astro.url.pathname);
 
 ---
 
@@ -14,7 +16,7 @@ const {bannerTiles} = Astro.props;
         {bannerTiles.tiles.map((tile)=>{
             return  <div class="teaser teaser--with-title ">
                         <div class="teaser--blog-image-container">
-                            <img src={tile.image?.url} width="900" height="500">
+                            <img alt={tile.image?.name} src={tile.image?.url} width="900" height="500">
                         </div>
                         <div class="teaser--title">
                             <h3>{tile.title}</h3>
@@ -22,7 +24,7 @@ const {bannerTiles} = Astro.props;
                                 <span class="arrow"></span>
                             </div>
                         </div>
-                        <a class="teaser--link no-button" href={tile.url}>
+                        <a aria-label={tile.buttonText} class="teaser--link no-button" href={getUrl(Astro.url.pathname)+tile.url}>
                             <span class="link"></span>
                         </a>
                     </div>

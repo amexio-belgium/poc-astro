@@ -18,10 +18,11 @@ export async function getStaticPaths() {
 const page: Page = Astro.props;
 const breadCrumbs = await getBreadCrumbsStrapi(page.slug, page.lang, false);
 ---
-<html>
+<html lang={page.lang}>
     <head>
         <title>{page.title}</title>
         <meta charset="UTF-8">
+        <link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
     </head>
     <body>
         <MainHeaderStrapi lang={page.lang} ssr={false}></MainHeaderStrapi>

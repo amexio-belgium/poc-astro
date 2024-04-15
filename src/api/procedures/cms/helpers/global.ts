@@ -81,3 +81,27 @@ export async function getBreadCrumbsStrapi(slug: string, lang: string, ssr: bool
     })
     return breadCrumbs;
 }
+
+export function getUrl(url: string){
+    if(url.startsWith('/drupal/ssr/')){
+        return '/drupal/ssr';
+    }
+    else if(url.startsWith('/drupal/')){
+        return '/drupal';
+    }
+    else if(url.startsWith('/strapi/ssr/nl/')){
+        return '/strapi/ssr/nl/';
+    }
+    else if(url.startsWith('/strapi/ssr/en/')){
+        return '/strapi/ssr/en/';
+    }
+    else if(url.startsWith('/strapi/en/')){
+        return '/strapi/en/';
+    }
+    else if(url.startsWith('/strapi/nl/')){
+        return '/strapi/nl/';
+    }
+    else {
+        return '/strapi'
+    }
+}

@@ -23,7 +23,7 @@ const rightImage = `url(${banner5050.buttons[1].image?.url})`;
                         }
                         {button.url &&
                                 <div class="content--paragraph-buttonbanner-button">
-                                    <a href={button.url}>{button.buttonText}</a>
+                                    <a aria-label={button.buttonText} href={button.url}>{button.buttonText}</a>
                                 </div>
                         }
                     </div>

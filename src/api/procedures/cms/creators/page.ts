@@ -76,7 +76,7 @@ export function getComponentFromStringStrapi(pageContentItem: PageContentItem){
 type ComponentMapDrupalFunction = (paragraph: ParagraphUnion) => ComponentsUnion|null;
 const componentMapDrupal: {key: string, function: ComponentMapDrupalFunction}[] = [
     {
-        key: 'ParagraphVideoBanner',
+        key: 'ParagraphVideobanner',
         function: (paragraph) => createBannerVideoDrupal(paragraph as ParagraphVideobanner)
     },
     {
