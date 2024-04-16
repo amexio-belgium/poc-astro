@@ -1,4 +1,4 @@
-import {type ComponentsUnion, NewPage, type Page} from '@trpc-procedures/cms/types.ts';
+import {type ComponentsUnion, type NewPage, type Page} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
     PageContentItem,
@@ -168,7 +168,7 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
     return null
 }
 
-export async function getPageNew({input, lang}: { input: GetPageInput; lang: GetPageLang; }): Promise<Page|null>{
+export async function getPageNew({input, lang}: { input: GetPageInput; lang: GetPageLang; }): Promise<NewPage|null>{
     const params: GetPagesParams = {
         populate:'deep,10',
         filters: {

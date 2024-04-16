@@ -91,7 +91,7 @@ function capitalizeFirstLetter(string: string) {
 </header>
 
 <script define:vars={{header}}>
-    header.data.attributes.items.data.forEach((element,index)=>{
+    header.data.attributes.items.data.forEach((_,index)=>{
         const linkItem = document.getElementById(`linkitem-${index}`);
         const headerEl = document.getElementById(`dropdown-${index}`);
         linkItem.addEventListener("mouseover", ()=>{

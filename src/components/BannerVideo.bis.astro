@@ -1,13 +1,13 @@
 ---
-import {BannerVideoModel} from "../models/components/bannerVideo/bannerVideo.model";
+import {type BannerVideo} from "../models/components/bannerVideo/bannerVideo.interface";
+import {type Component} from "../models/abstract/component.interface";
 interface Props {
-    props: BannerVideoModel;
+    props: BannerVideo;
 }
 
 const {props} = Astro.props;
 
 ---
-
 <article class="banner-video grid grid-cols-2 w-full">
     <div class="flex align-top py-10 px-[90px] top-0">
         <div>

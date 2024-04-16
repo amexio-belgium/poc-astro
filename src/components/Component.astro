@@ -1,18 +1,15 @@
 ---
-import type {ComponentsUnion} from '../api/procedures/cms/types';
-import {Components} from '../api/procedures/cms/types'
 import BannerVideo from './BannerVideo.bis.astro';
-import Banner5050 from './Banner5050.bis.astro';
+import {ComponentsList} from "../models/super/components.type";
 
 interface Props {
-    component: ComponentsUnion;
+    component: any;
 }
 
 const {component} = Astro.props;
 ---
 
-{component.componentName === Components.Banner5050 && <Banner5050 props={component}></Banner5050>}
-{component.componentName === Components.BannerVideo && <BannerVideo props={component}></BannerVideo>}
+{component.componentName === ComponentsList.BannerVideo && <BannerVideo props={component}></BannerVideo>}
 
 <style is:global>
     @font-face {
