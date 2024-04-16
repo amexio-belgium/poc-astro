@@ -54,7 +54,7 @@ export function createBannerFullDrupal(sharedBannerFull: ParagraphBannerFull){
     return {
         componentName: Components.FullWidthBanner,
         title: sharedBannerFull.title,
-        description: sharedBannerFull.description,
+        description: sharedBannerFull.description?.value,
         buttonText: sharedBannerFull.linkKnopTekst,
         link: sharedBannerFull.link?.url,
         image: image.mediaImage.url,
