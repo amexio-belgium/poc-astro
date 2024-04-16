@@ -1,8 +1,8 @@
-/* ---
-import {Banner5050Model} from "../models/components/banner5050/banner5050.model";
+---
+import {type Banner5050} from "../models/components/banner5050/banner5050.interface";
 import Button from "./shared/Button.astro";
 interface Props {
-    props: Banner5050Model
+    props: Banner5050
 }
 
 const {props} = Astro.props;
@@ -139,4 +139,3 @@ const rightImage = `url(${props.cards[1]?.image?.url})`;
       }
     }
 </style>
-*/

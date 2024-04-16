@@ -1,16 +1,19 @@
 import type {SharedBanner5050Component, SharedButtonComponent} from "../../../../types/strapi/generated.schemas.ts";
-import type {Banner5050Mapping, BannerCard} from "../../../../models/components/banner5050/banner5050.mapping.ts";
+import type {
+    Banner5050Mapping,
+    BannerCardMapping
+} from "../../../../models/components/banner5050/banner5050.mapping.ts";
 import {MappingFactory} from "../../../abstract/mapping.factory.ts";
 import type {ButtonMapping} from "../../../../models/components/button/button.mapping.ts";
 
 export class banner5050MappingFactory extends MappingFactory {
     createMapping(component: SharedBanner5050Component): Banner5050Mapping {
 
-        let cards: BannerCard[] = [];
+        let cards: BannerCardMapping[] = [];
         let countCards = 0;
 
         component.buttons?.forEach(button => {
-            const card: BannerCard = {
+            const card: BannerCardMapping = {
                 image: { url: button.image?.data?.attributes?.url || '' },
                 title: button.title || '',
                 description: button.description || '',
@@ -26,10 +29,9 @@ export class banner5050MappingFactory extends MappingFactory {
             }
         });
 
-        return { cards: [cards[0], cards[1]] };
+        return { cards };
     }
 
-    // this mapping should remain over here, since other components might require another mapping for buttons
     createButtonMapping(button: SharedButtonComponent): ButtonMapping {
         return {
             url: button.externalUrl || '',
