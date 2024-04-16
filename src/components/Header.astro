@@ -1,10 +1,13 @@
 ---
 import type {Header} from 'src/api/procedures/cms/types';
+import {getUrl} from 'src/api/procedures/cms/helpers/global';
 interface Props {
     header: Header;
 }
 const {header} = Astro.props;
 const imageUrl = `url(${header.image.url})`
+const prefixUrl = getUrl(Astro.url.pathname);
+
 ---
 
 <article class="!bg-white">
@@ -18,10 +21,13 @@ const imageUrl = `url(${header.image.url})`
     </div>
     <div class="relative flex mx-[90px] gap-[12px] justify-center -top-[81px]">
         {header.buttons.map((button)=>{
-            return  <button data-header-redirect-url={button.url} class="w-[230px] h-[162px] py-0 my-0 rounded-lg bg-[#0a1336] text-white text-[16px]">
-                <img class="w-[60px] mx-auto h-[60px] mb-[16px]" src={button.image?.url}/>
-                <p class="text-center w-full font-semibold">{button.title}</p>
-            </button>
+            return  <button 
+                    data-header-redirect-url={button.url.startsWith('http://')? button.url : (button.url.startsWith('https://')? button.url : prefixUrl+button.url)} 
+                    class="w-[230px] h-[162px] py-0 my-0 rounded-lg bg-[#0a1336] text-white text-[16px]"
+                    >
+                        <img alt={button.image?.name} class="w-[60px] mx-auto h-[60px] mb-[16px]" src={button.image?.url}/>
+                        <p class="text-center w-full font-semibold">{button.title}</p>
+                    </button>
         })}
     </div>
 </article>

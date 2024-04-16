@@ -17,7 +17,7 @@ const { breadCrumbs } = Astro.props;
                             return(
                                 <li>
                                     {index !== breadCrumbs.length-1 &&
-                                            <a href={crumb.href}>
+                                            <a aria-label={crumb.text} href={crumb.href}>
                                                 {crumb.text}
                                             </a>
                                     }

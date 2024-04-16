@@ -78,7 +78,7 @@ export function getComponentFromStringStrapi(pageContentItem: PageContentItem){
 type ComponentMapDrupalFunction = (paragraph: ParagraphUnion) => ComponentsUnion|null;
 const componentMapDrupal: {key: string, function: ComponentMapDrupalFunction}[] = [
     {
-        key: 'ParagraphVideoBanner',
+        key: 'ParagraphVideobanner',
         function: (paragraph) => createBannerVideoDrupal(paragraph as ParagraphVideobanner)
     },
     {
@@ -426,6 +426,9 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
         components: []
     }
 
+    console.log('hide default header:')
+    console.log(page.hideDefaultHeader);
+    
     if(!page.hideDefaultHeader){
         const defaultHeader = createDefaultHeader(page.title, pageNode.body?.value?.replace(/<\/?[^>]+(>|$)/g, ""))
         page.components.push(defaultHeader)

@@ -44,6 +44,9 @@ dependencies:
   astro:
     specifier: ^4.4.1
     version: 4.4.1(sass@1.71.1)(typescript@5.3.3)
+  astro-lazy-youtube-embed:
+    specifier: ^0.4.0
+    version: 0.4.0(astro@4.4.1)
   axios:
     specifier: ^1.6.7
     version: 1.6.7
@@ -3722,6 +3725,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /astro-lazy-youtube-embed@0.4.0(astro@4.4.1):
+    resolution: {integrity: sha512-HR4na8Z5g3wveMTCpvgy2qA+VfHYKSsAeWSO2sIPGJnfbO+YOn7e3mmqNU6f0x/7VBGsqYPg9TOgnvbAen4XTA==}
+    peerDependencies:
+      astro: ^2.0.0 || ^3.0.0-beta || ^4.0.0-beta
+    dependencies:
+      astro: 4.4.1(sass@1.71.1)(typescript@5.3.3)
+    dev: false
 
   /astro@4.4.1(sass@1.71.1)(typescript@5.3.3):
     resolution: {integrity: sha512-nJLgNg8UXKBJYXjWtekgv1TYZES++LAdShgyKL8L5yJMeiqlDSO+/Laq5VfRKoL9hzBdyolJMB0WDE/+bRZytg==}

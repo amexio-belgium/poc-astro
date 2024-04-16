@@ -1,10 +1,12 @@
 ---
+import {getUrl} from 'src/api/procedures/cms/helpers/global';
 import {type BannerCards} from 'src/api/procedures/cms/types';
 interface Props {
     bannerCards: BannerCards;
 }
 
 const {bannerCards} = Astro.props;
+const urlPrefix = getUrl(Astro.url.pathname);
 ---
 
 <article class="flex gap-[20px] flex-row justify-between px-[90px] py-[40px]">
@@ -12,14 +14,14 @@ const {bannerCards} = Astro.props;
         return  <div class="flex flex-col justify-between w-full shadow-sm">
                     <div class="text-[#4A4A4A]">
                         <div class="h-[350px] w-full overflow-hidden">
-                            <img class="h-full object-cover object-left" src={card.image?.url}>
+                            <img alt={card.image?.name} class="h-full object-cover object-left" src={card.image?.url}>
                         </div>
 
                         <h3 class="font-semibold text-[24px] px-[24px] pt-[24px] mb-[10px]">{card.title}</h3>
                         <p class="text-[18px] mb-[16px] px-[24px]">{card.description}</p>
                     </div>
                     <div>
-                        <button data-bannercards-redirect-url={card.url}
+                        <button data-bannercards-redirect-url={urlPrefix+card.url}
                                 class="text-start ml-[24px] h-[92px] text-[var(--primary-color)]"
                         >
                             Lees meer &gt;
@@ -37,8 +39,7 @@ const {bannerCards} = Astro.props;
 
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
-            const url = button.getAttribute("data-bannercards-redirect-url") as string;
-            location.href = url;
+            location.href = button.getAttribute("data-bannercards-redirect-url") as string;
         });
     });
 </script>

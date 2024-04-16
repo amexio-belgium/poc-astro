@@ -33,14 +33,6 @@ function capitalizeFirstLetter(string: string) {
                     <li class="menu-item">
                         <a href="/nl-be/zo-wil-aquafin-riolering-en-waterzuivering-betaalbaar-houden" title="Lees hier onze prioriteiten voor de komende jaren" data-drupal-link-system-path="node/36527">Memorandum</a>
                     </li>
-                    <li class="menu-item">
-                        <div class="dropdown">
-                            <a class="flex items-center" href="#"><span>NL</span> <i class="arrow down mb-1 ml-2"></i></a>
-                            <div class="dropdown-content">
-                                <a href="#">FR</a>
-                            </div>
-                        </div>
-                    </li>
                 </ul>
             </nav>
         </div>
@@ -94,12 +86,15 @@ function capitalizeFirstLetter(string: string) {
     header.data.attributes.items.data.forEach((_,index)=>{
         const linkItem = document.getElementById(`linkitem-${index}`);
         const headerEl = document.getElementById(`dropdown-${index}`);
-        linkItem.addEventListener("mouseover", ()=>{
-            headerEl.classList.remove('hidden');
-        })
-        linkItem.addEventListener("mouseleave", ()=>{
-            headerEl.classList.add('hidden');
-        })
+        if(linkItem){
+            linkItem.addEventListener("mouseover", ()=>{
+                headerEl.classList.remove('hidden');
+            })
+            linkItem.addEventListener("mouseleave", ()=>{
+                headerEl.classList.add('hidden');
+            })
+        }
+
     })
 </script>
 

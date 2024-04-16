@@ -24,10 +24,13 @@ if(!page){
 const breadCrumbs = await getBreadCrumbsDrupal(lang, slug, true);
 ---
 {page &&
-<html>
+<html lang={lang}>
     <head>
         <title>{page.title!}</title>
         <meta charset="UTF-8">
+        <meta name="description" content="Aquafin poc" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" href="/favicon.ico" type="image/vnd.microsoft.icon">
     </head>
     <body>
         <MainHeaderDrupal lang={page.lang} ssr={true}></MainHeaderDrupal>
