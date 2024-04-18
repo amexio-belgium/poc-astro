@@ -10,9 +10,8 @@ export class banner5050MappingFactory extends MappingFactory {
     createMapping(component: SharedBanner5050Component): Banner5050Mapping {
 
         let cards: BannerCardMapping[] = [];
-        let countCards = 0;
 
-        component.buttons?.forEach(button => {
+        component.buttons?.splice(2).forEach(button => {
             const card: BannerCardMapping = {
                 image: { url: button.image?.data?.attributes?.url || '' },
                 title: button.title || '',
@@ -20,13 +19,7 @@ export class banner5050MappingFactory extends MappingFactory {
                 button: this.createButtonMapping(button)
             }
 
-            countCards+=1;
-
-            if (countCards <= 2) {
-                cards.push(card);
-            } else {
-                return;
-            }
+            cards.push(card);
         });
 
         return { cards };
