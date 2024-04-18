@@ -10,8 +10,9 @@ export class banner5050MappingFactory extends MappingFactory {
     createMapping(component: SharedBanner5050Component): Banner5050Mapping {
 
         let cards: BannerCardMapping[] = [];
+        component.buttons?.splice(2);
 
-        component.buttons?.splice(2).forEach(button => {
+        component.buttons?.forEach(button => {
             const card: BannerCardMapping = {
                 image: { url: button.image?.data?.attributes?.url || '' },
                 title: button.title || '',
