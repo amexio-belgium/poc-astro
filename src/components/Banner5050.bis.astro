@@ -1,0 +1,141 @@
+---
+import {type Banner5050} from "../models/components/banner5050/banner5050.interface";
+import Button from "./shared/Button.astro";
+interface Props {
+    props: Banner5050
+}
+
+const {props} = Astro.props;
+
+
+const leftImage = `url(${props.cards[0]?.image?.url})`;
+const rightImage = `url(${props.cards[1]?.image?.url})`;
+---
+
+<article class="content--paragraph-buttonbanner-group">
+    {props.cards.map((card,index)=>{
+        return (
+                <div class="content--paragraph-item-wrapper">
+                    <div class={`content--paragraph-buttonbanner dark left button-banner-group-item content--paragraph-buttonbanner-${index}`} >
+                        <h4>{card?.title}</h4>
+                        {card?.description && card?.description !== '' &&
+                                <div class="content--paragraph-buttonbanner-description">
+                                    <p>{card?.description}</p>
+                                </div>
+                        }
+                        <Button props={card.button}></Button>
+                    </div>
+                </div>
+        )
+    })}
+</article>
+
+<style lang="scss" define:vars={{ leftImage, rightImage }}>
+  
+    .content{
+      
+      &--paragraph{
+        &-item-wrapper{
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+          -webkit-text-size-adjust: 100%;
+          font-family: 'Source Sans Pro',sans-serif;
+          font-weight: 400;
+          color: #4a4a4a;
+          font-size: 16px;
+          line-height: normal;
+          box-sizing: border-box;
+          flex: 50;
+          margin: 0;
+        }
+        
+        &-buttonbanner{
+          -webkit-font-smoothing: antialiased;
+          text-rendering: optimizeLegibility;
+          -webkit-text-size-adjust: 100%;
+          font-family: 'Source Sans Pro',sans-serif;
+          font-weight: 400;
+          color: #4a4a4a;
+          font-size: 16px;
+          line-height: normal;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          padding: 30px;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center center;
+          background-color: #0a1336;
+          align-items: flex-start;
+          margin: 0;
+          height: 100%;
+
+          &-0{
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), var(--leftImage);
+          }
+          
+          &-1{
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), var(--rightImage);
+          }
+          
+          > h4 {
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -webkit-text-size-adjust: 100%;
+            line-height: normal;
+            box-sizing: border-box;
+            margin: 0;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            padding-bottom: 5px;
+            color: #fff;
+            text-align: left;
+          }
+          
+          &-group{
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -webkit-text-size-adjust: 100%;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: 400;
+            color: #4a4a4a;
+            font-size: 16px;
+            line-height: normal;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 30px 90px 30px 90px;
+            flex-direction: row;
+          }
+          
+          &-description{
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -webkit-text-size-adjust: 100%;
+            font-family: 'Source Sans Pro',sans-serif;
+            font-weight: 400;
+            color: #4a4a4a;
+            font-size: 16px;
+            line-height: normal;
+            box-sizing: border-box;
+            justify-content: left;
+            
+            > p {
+              -webkit-font-smoothing: antialiased;
+              text-rendering: optimizeLegibility;
+              -webkit-text-size-adjust: 100%;
+              box-sizing: border-box;
+              font-family: 'Source Sans Pro',sans-serif;
+              line-height: 1.813rem;
+              margin: 0;
+              font-size: 14px;
+              font-weight: 400;
+              color: #fff;
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+</style>

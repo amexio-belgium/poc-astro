@@ -1,4 +1,4 @@
-import {type ComponentsUnion, type Page} from '@trpc-procedures/cms/types.ts';
+import {type ComponentsUnion, type NewPage, type Page} from '@trpc-procedures/cms/types.ts';
 import type {
     GetPagesParams,
     PageContentItem,
@@ -27,6 +27,8 @@ import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/c
 import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
 import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
 import {createJob} from '@trpc-procedures/cms/creators/job.ts';
+import {getComponentFromConfig} from "../../../../mapping/abstract/component.instantiate.ts";
+import {componentsConfigListNew} from "../../../../mapping/new.config.ts";
 import {createIframeDrupal} from '@trpc-procedures/cms/creators/iframe.ts';
 const languages: string[] = ["en","nl"];
 type ComponentMapStrapiFunction = (component: PageContentItem) => ComponentsUnion|null;
@@ -166,6 +168,41 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
     return null
 }
 
+export async function getPageNew({input, lang}: { input: GetPageInput; lang: GetPageLang; }): Promise<NewPage|null>{
+    const params: GetPagesParams = {
+        populate:'deep,10',
+        filters: {
+            slug: {
+                $eq: input
+            }
+        },
+        locale: lang
+    };
+    const response = await getPages(params).catch((err)=>{console.log(err);})
+    if(response && response.data && response.data[0]){
+        const dataObject = response.data[0];
+        const page:NewPage = {
+            title: dataObject.attributes?.title ? dataObject.attributes?.title : '',
+            lang: lang,
+            slug: dataObject.attributes ? dataObject.attributes!.slug : '',
+            hideDefaultHeader: dataObject.attributes?.defaultHeader === 'Hidden',
+            components: []
+        }
+        /* if(!page.hideDefaultHeader){
+            const defaultHeader = createDefaultHeader(page.title, dataObject.attributes!.description)
+            page.components.push(defaultHeader)
+        } */
+        dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
+            // make sure objects are mapped correclty over here
+            const astroComponent = getComponentFromConfig(component, componentsConfigListNew);
+            if(astroComponent){
+                page.components.push(astroComponent);
+            }
+        })
+        return page;
+    }
+    return null
+}
 
 export async function getAllPagesStrapi(): Promise<Page[]> {
     const pages: Page[]  = [];
