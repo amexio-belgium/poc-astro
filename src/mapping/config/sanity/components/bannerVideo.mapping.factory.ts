@@ -8,8 +8,8 @@ export class bannerVideoMappingFactory extends MappingFactory {
     createMapping(component: BannerVideo): BannerVideoMapping {
         const description = toHTML(component.description!);
         return {
-            description,
             title: component.title!,
+            description,
             url: component.video!.id!
         }
     }

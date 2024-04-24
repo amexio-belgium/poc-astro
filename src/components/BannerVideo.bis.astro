@@ -1,7 +1,15 @@
 ---
 import {type BannerVideo} from "../models/components/bannerVideo/bannerVideo.interface";
+import {YouTube} from 'astro-lazy-youtube-embed';
 interface Props {
     props: BannerVideo;
+}
+
+function getId(url:string) {
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    
+    return (match && match[2].length === 11) ? match[2] : url;
 }
 
 const {props} = Astro.props;
@@ -17,11 +25,15 @@ const {props} = Astro.props;
     <div class="h-[425px] w-full shadow-2xl">
         <!-- shouldn't the creation of the url be in the model instead of the component itself? -->
         <!-- should it be possible to also provide a link to another source then youtube? -->
-        <iframe
-                title={props.title}
-                src={`//www.youtube.com/embed/${props.getVideoId()}`}
-                class="h-full w-full">
-        </iframe>
+        <div class="h-[425px] w-full shadow-2xl">
+            {getId(props.url) !== null &&
+                    <YouTube
+                            title={props.title}
+                            videoId={getId(props.url)!}
+                    />
+            }
+
+        </div>
     </div>
 
 </article>

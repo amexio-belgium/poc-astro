@@ -90,8 +90,6 @@ export type BannerVideo = {
     _key: string;
   }>;
   video?: YoutubeVideo;
-  controls?: boolean;
-  autoplay?: boolean;
 };
 
 export type FullWidthBanner = {
@@ -358,4 +356,3 @@ export type YoutubeVideo = {
   thumbnails?: Array<string>;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
-

@@ -28,11 +28,11 @@ import {createBannerFullDrupal, createBannerFullStrapi} from '@trpc-procedures/c
 import {createTextDrupal, createTextStrapi} from '@trpc-procedures/cms/creators/text.ts';
 import {createBanner5050Drupal, createBanner5050Strapi} from '@trpc-procedures/cms/creators/banner5050.ts';
 import {createJob} from '@trpc-procedures/cms/creators/job.ts';
-import {getComponentFromConfig} from "../../../../mapping/abstract/component.instantiate.ts";
-import {componentsConfigListNew} from "../../../../mapping/new.config.ts";
+import {getComponentFromConfig} from "src/mapping/abstract/component.instantiate.ts";
 import {createIframeDrupal} from '@trpc-procedures/cms/creators/iframe.ts';
 import {sanityClient} from 'sanity:client';
 import {componentsConfigSanity} from 'src/mapping/sanity.config.ts';
+import {ComponentTypeFactorySanity} from 'src/mapping/config/sanity/super/componentType.factory.ts';
 const languages: string[] = ["en","nl"];
 type ComponentMapStrapiFunction = (component: PageContentItem) => ComponentsUnion|null;
 const componentMapStrapi: {key: string, function: ComponentMapStrapiFunction}[] = [
@@ -184,8 +184,7 @@ export async function getPageSanity({input}: { input: GetPageInput; }): Promise<
     }
     
     sanityPage.content?.forEach((component)=>{
-        console.log(component._type)
-        const astroComponent = getComponentFromConfig(component, componentsConfigSanity);
+        const astroComponent = getComponentFromConfig(component, componentsConfigSanity, new ComponentTypeFactorySanity);
         if(astroComponent){
             page.components.push(astroComponent);
         }
@@ -220,10 +219,10 @@ export async function getPageNew({input, lang}: { input: GetPageInput; lang: Get
         } */
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
             // make sure objects are mapped correctly over here
-            const astroComponent = getComponentFromConfig(component, componentsConfigListNew);
-            if(astroComponent){
-                page.components.push(astroComponent);
-            }
+            // const astroComponent = getComponentFromConfig(component, componentsConfigListNew);
+            // if(astroComponent){
+            //     page.components.push(astroComponent);
+            // }
         })
         return page;
     }
@@ -451,9 +450,6 @@ export async function getPageDrupal({slug, lang}: { slug: GetPageInput; lang: Ge
         slug: pageNode!.path, 
         components: []
     }
-
-    console.log('hide default header:')
-    console.log(page.hideDefaultHeader);
     
     if(!page.hideDefaultHeader){
         const defaultHeader = createDefaultHeader(page.title, pageNode.body?.value?.replace(/<\/?[^>]+(>|$)/g, ""))

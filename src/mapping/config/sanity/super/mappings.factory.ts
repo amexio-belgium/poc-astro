@@ -6,14 +6,14 @@ import {bannerVideoMappingFactory} from 'src/mapping/config/sanity/components/ba
 
 export class MappingsFactorySanity extends SuperMappingFactory {
     createFactory (factoryName: MappingList): MappingFactory | undefined {
-        console.log(factoryName);
+
         // would it be possible to apply dynamic imports over here?
         // or is it better to make this tree-shakable?
         switch (factoryName) {
             // case MappingList.FullWidthBanner:
             //     return new  banner5050MappingFactory();
             case MappingList.BannerVideo:
-                return new  bannerVideoMappingFactory();
+                return new bannerVideoMappingFactory();
         }
         return undefined;
     }

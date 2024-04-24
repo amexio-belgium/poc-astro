@@ -1,20 +1,20 @@
-import type {PageContentItem} from "../../types/strapi/generated.schemas.ts";
 import {ComponentsFactoryCreator} from "../../models/super/components.factory.ts";
 import type {componentsConfig} from "./config.type.ts";
+import type {ComponentTypeFactory} from 'src/mapping/abstract/componentType.factory.ts';
 
-export function getComponentFromConfig(pageContentItem: PageContentItem, componentsConfigList: componentsConfig) {
+export function getComponentFromConfig(pageContentItem: any, componentsConfigList: componentsConfig, componentTypeCreator: ComponentTypeFactory) {
+    
+    const componentType = componentTypeCreator.createComponent(pageContentItem);
+
     const component = componentsConfigList.components.find((component) =>
-        component.name === pageContentItem.__component);
+        component.name === componentType.type);
+    
 
-    console.log(pageContentItem);
-    console.log('component not found');
     if (!component) return;
     const superFactory = component.factory || componentsConfigList.defaultFactory;
     const mappingFactory = superFactory.createFactory(component.mapping);
     const mapping = mappingFactory?.createMapping(pageContentItem);
-
-    console.log(component);
-    console.log('found')
+    
     if (!mapping) return;
     const superComponentFactory = new ComponentsFactoryCreator();
     const componentFactory = superComponentFactory.createFactory(component.component);
