@@ -10,6 +10,7 @@ import type {
     SharedHeaderComponent,
     SharedTextComponent
 } from 'src/types/strapi/generated.schemas.ts';
+import {type Page as SanityPage} from 'src/types/sanity/sanity.types.ts'
 import {getPages} from 'src/types/strapi/page.ts';
 import {createBannerVideoDrupal, createBannerVideoStrapi} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createDefaultHeader, createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
@@ -30,6 +31,8 @@ import {createJob} from '@trpc-procedures/cms/creators/job.ts';
 import {getComponentFromConfig} from "../../../../mapping/abstract/component.instantiate.ts";
 import {componentsConfigListNew} from "../../../../mapping/new.config.ts";
 import {createIframeDrupal} from '@trpc-procedures/cms/creators/iframe.ts';
+import {sanityClient} from 'sanity:client';
+import {componentsConfigSanity} from 'src/mapping/sanity.config.ts';
 const languages: string[] = ["en","nl"];
 type ComponentMapStrapiFunction = (component: PageContentItem) => ComponentsUnion|null;
 const componentMapStrapi: {key: string, function: ComponentMapStrapiFunction}[] = [
@@ -168,6 +171,29 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
     return null
 }
 
+export async function getPageSanity({input}: { input: GetPageInput; }): Promise<NewPage|null>{
+
+    const sanityPages: SanityPage[] = await sanityClient.fetch(`*[_type == "page" && slug.current == "${input}"]{...}`);
+    const sanityPage = sanityPages[0];
+    const page: NewPage = {
+        title: sanityPage.title!,
+        lang: 'nl',
+        slug: sanityPage.slug?.current!,
+        hideDefaultHeader: true,
+        components: []
+    }
+    
+    sanityPage.content?.forEach((component)=>{
+        console.log(component._type)
+        const astroComponent = getComponentFromConfig(component, componentsConfigSanity);
+        if(astroComponent){
+            page.components.push(astroComponent);
+        }
+    })
+    
+    return page;
+}
+
 export async function getPageNew({input, lang}: { input: GetPageInput; lang: GetPageLang; }): Promise<NewPage|null>{
     const params: GetPagesParams = {
         populate:'deep,10',
@@ -193,7 +219,7 @@ export async function getPageNew({input, lang}: { input: GetPageInput; lang: Get
             page.components.push(defaultHeader)
         } */
         dataObject.attributes?.content?.forEach((component: PageContentItem)=>{
-            // make sure objects are mapped correclty over here
+            // make sure objects are mapped correctly over here
             const astroComponent = getComponentFromConfig(component, componentsConfigListNew);
             if(astroComponent){
                 page.components.push(astroComponent);

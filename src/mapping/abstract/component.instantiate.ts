@@ -6,11 +6,15 @@ export function getComponentFromConfig(pageContentItem: PageContentItem, compone
     const component = componentsConfigList.components.find((component) =>
         component.name === pageContentItem.__component);
 
+    console.log(pageContentItem);
+    console.log('component not found');
     if (!component) return;
     const superFactory = component.factory || componentsConfigList.defaultFactory;
     const mappingFactory = superFactory.createFactory(component.mapping);
     const mapping = mappingFactory?.createMapping(pageContentItem);
 
+    console.log(component);
+    console.log('found')
     if (!mapping) return;
     const superComponentFactory = new ComponentsFactoryCreator();
     const componentFactory = superComponentFactory.createFactory(component.component);

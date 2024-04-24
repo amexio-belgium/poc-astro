@@ -1,4 +1,5 @@
 /// <reference types="astro/client" />
+/// <reference types="@sanity/astro/module" />
 interface ImportMetaEnv {
     readonly STRAPI_URL: string;
     readonly DRUPAL_URL: string;
