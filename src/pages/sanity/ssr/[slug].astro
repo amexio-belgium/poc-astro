@@ -1,24 +1,21 @@
 ---
 import {getPageSanity} from 'src/api/procedures/cms/creators/page';
 const { slug } = Astro.params;
-import {getBreadCrumbsStrapi} from 'src/api/procedures/cms/helpers/global';
-import Breadcrumbs from 'src/components/Breadcrumbs.astro';
-import Footer from 'src/components/Footer.astro';
 import Component from 'src/components/Component.astro';
 
 if(!slug){
     return Astro.redirect('/404')
 }
 const page = await getPageSanity({input: slug!});
-// if(!page){
-//     return Astro.redirect('/404')
-// }
+if(!page){
+    return Astro.redirect('/404')
+}
 
 
 ---
 <html>
 <body>
-{ page.components &&
+{ page && page.components &&
         <Fragment>
             {page.components.map((component)=>{
                 return <Component component={component}></Component>
