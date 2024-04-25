@@ -11,8 +11,8 @@ const sanityPages: SanityPage[] = await sanityClient.fetch(`*[_type == "page"]{t
 {sanityPages.map((page)=>{
         return (
             <li>
-                <a href={`sanity/ssr/${page.slug.current}`}>
-                    {page.title}
+                <a href={`sanity/ssr/${page.slug!.current!}`}>
+                    {page.title!}
                 </a>
             </li>
         )
