@@ -1,0 +1,39 @@
+---
+import type {Page as SanityPage} from 'src/types/sanity/sanity.types';
+import {sanityClient} from 'sanity:client';
+const sanityPages: SanityPage[] = await sanityClient.fetch(`*[_type == "page"]{title, slug}`);
+---
+
+<h1>
+    Beschikbare pagina's:
+</h1>
+<ul>
+{sanityPages.map((page)=>{
+        return (
+            <li>
+                <a href={`sanity/ssr/${page.slug.current}`}>
+                    {page.title}
+                </a>
+            </li>
+        )
+
+})}
+</ul>
+
+<style is:inline>
+    h1 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    li {
+        margin-left: 30px;
+        list-style: circle;
+        padding: 8px;
+    }
+    a {
+        padding: 8px;
+        background: dodgerblue;
+        color: white;
+        border-radius: 8px;
+    }
+</style>

@@ -174,23 +174,27 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
 export async function getPageSanity({input}: { input: GetPageInput; }): Promise<NewPage|null>{
 
     const sanityPages: SanityPage[] = await sanityClient.fetch(`*[_type == "page" && slug.current == "${input}"]{...}`);
-    const sanityPage = sanityPages[0];
-    const page: NewPage = {
-        title: sanityPage.title!,
-        lang: 'nl',
-        slug: sanityPage.slug?.current!,
-        hideDefaultHeader: true,
-        components: []
-    }
-    
-    sanityPage.content?.forEach((component)=>{
-        const astroComponent = getComponentFromConfig(component, componentsConfigSanity, new ComponentTypeFactorySanity);
-        if(astroComponent){
-            page.components.push(astroComponent);
+    if(sanityPages.length > 0){
+        const sanityPage = sanityPages[0];
+        const page: NewPage = {
+            title: sanityPage.title!,
+            lang: 'nl',
+            slug: sanityPage.slug?.current!,
+            hideDefaultHeader: true,
+            components: []
         }
-    })
-    
-    return page;
+
+        sanityPage.content?.forEach((component)=>{
+            const astroComponent = getComponentFromConfig(component, componentsConfigSanity, new ComponentTypeFactorySanity);
+            if(astroComponent){
+                page.components.push(astroComponent);
+            }
+        })
+
+        return page;
+    }
+
+    return null;
 }
 
 export async function getPageNew({input, lang}: { input: GetPageInput; lang: GetPageLang; }): Promise<NewPage|null>{
