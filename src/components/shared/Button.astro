@@ -1,16 +1,15 @@
 ---
-import {type Button} from "../../models/components/button/button.interface";
+import {type Button} from "src/models/components/button/button.interface";
 interface Props {
     props: Button;
 }
 
 const {props} = Astro.props;
-
 ---
 
-{props.url &&
+{props.url && props.buttonText &&
         <div class="button">
-            <a href={props.url}>{props.text}</a>
+            <a href={props.url}>{props.buttonText}</a>
         </div>
 }
 

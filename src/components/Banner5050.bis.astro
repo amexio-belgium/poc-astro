@@ -8,12 +8,18 @@ interface Props {
 const {props} = Astro.props;
 
 
-const leftImage = `url(${props.cards[0]?.image?.url})`;
-const rightImage = `url(${props.cards[1]?.image?.url})`;
+let leftImage = '';
+let rightImage = '';
+if(props.buttons[0].image){
+    leftImage = `url(${props.buttons[0]?.image?.url})`;
+}
+if(props.buttons[1].image){
+    rightImage = `url(${props.buttons[1]?.image?.url})`;
+}
 ---
 
 <article class="content--paragraph-buttonbanner-group">
-    {props.cards.map((card,index)=>{
+    {props.buttons.map((card,index)=>{
         return (
                 <div class="content--paragraph-item-wrapper">
                     <div class={`content--paragraph-buttonbanner dark left button-banner-group-item content--paragraph-buttonbanner-${index}`} >
@@ -23,7 +29,7 @@ const rightImage = `url(${props.cards[1]?.image?.url})`;
                                     <p>{card?.description}</p>
                                 </div>
                         }
-                        <Button props={card.button}></Button>
+                        <Button props={card}></Button>
                     </div>
                 </div>
         )

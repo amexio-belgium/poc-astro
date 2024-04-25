@@ -68,6 +68,134 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type BannerFull = {
+  _type: "bannerFull";
+  title?: string;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  alignment?: "left" | "middle" | "right";
+  buttonText?: string;
+  linkType?: "external" | "internal";
+  external?: string;
+  internal?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "page";
+  };
+};
+
+export type TextCustom = {
+  _type: "textCustom";
+  text?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
+
+export type Jobs = {
+  _type: "jobs";
+  placeholder?: string;
+};
+
+export type Header = {
+  _type: "header";
+  title?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  buttons?: Array<{
+    _key: string;
+  } & Button>;
+};
+
+export type BannerTiles = {
+  _type: "bannerTiles";
+  teasers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "page";
+  }>;
+};
+
+export type BannerCards = {
+  _type: "bannerCards";
+  teasers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "page";
+  }>;
+};
+
+export type Banner5050 = {
+  _type: "banner5050";
+  content?: Array<{
+    _key: string;
+  } & Button>;
+};
+
+export type Button = {
+  _type: "button";
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  linkType?: "external" | "internal";
+  external?: string;
+  internal?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "page";
+  };
+};
+
 export type BannerVideo = {
   _type: "bannerVideo";
   title?: string;
@@ -95,24 +223,7 @@ export type BannerVideo = {
 export type FullWidthBanner = {
   _type: "fullWidthBanner";
   title?: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  description?: string;
 };
 
 export type Page = {
@@ -125,9 +236,23 @@ export type Page = {
   slug?: Slug;
   content?: Array<({
     _key: string;
+  } & Banner5050) | ({
+    _key: string;
+  } & BannerCards) | ({
+    _key: string;
+  } & BannerTiles) | ({
+    _key: string;
+  } & BannerVideo) | ({
+    _key: string;
+  } & BannerFull) | ({
+    _key: string;
   } & FullWidthBanner) | ({
     _key: string;
-  } & BannerVideo)>;
+  } & Header) | ({
+    _key: string;
+  } & Jobs) | ({
+    _key: string;
+  } & TextCustom)>;
   mainImage?: {
     asset?: {
       _ref: string;
@@ -139,80 +264,6 @@ export type Page = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-};
-
-export type Post = {
-  _id: string;
-  _type: "post";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  author?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "author";
-  };
-  mainImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  categories?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "category";
-  }>;
-  publishedAt?: string;
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-    _key: string;
-  }>;
-};
-
-export type Category = {
-  _id: string;
-  _type: "category";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
 };
 
 export type BlockContent = Array<{
@@ -356,3 +407,4 @@ export type YoutubeVideo = {
   thumbnails?: Array<string>;
 };
 export declare const internalGroqTypeReferenceTo: unique symbol;
+

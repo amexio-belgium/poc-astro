@@ -8,7 +8,7 @@ export function getComponentFromConfig(pageContentItem: any, componentsConfigLis
 
     const component = componentsConfigList.components.find((component) =>
         component.name === componentType.type);
-    
+
 
     if (!component) return;
     const superFactory = component.factory || componentsConfigList.defaultFactory;

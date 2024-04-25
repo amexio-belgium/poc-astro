@@ -1,7 +1,8 @@
 import {BannerVideoFactory} from "../components/bannerVideo/bannerVideo.factory.ts";
 import type {ComponentFactory} from "../abstract/component.factory.ts";
 import {ComponentsList} from "./components.type.ts";
-import {Banner5050Factory} from "../components/banner5050/banner5050.factory.ts";
+import {Banner5050Factory} from 'src/models/components/banner5050/baner5050.factory.ts';
+
 
 export class ComponentsFactoryCreator {
     createFactory (factoryName: ComponentsList): ComponentFactory | undefined {

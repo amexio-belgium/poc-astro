@@ -7,9 +7,14 @@ export const componentsConfigSanity: componentsConfig =  {
     'defaultFactory': new MappingsFactorySanity(),
     'components': [
         {
-        'name': 'bannerVideo',
-        'component': ComponentsList.BannerVideo,
-        'mapping': MappingList.BannerVideo,
+            'name': 'bannerVideo',
+            'component': ComponentsList.BannerVideo,
+            'mapping': MappingList.BannerVideo,
+        },
+        {
+            'name': 'banner5050',
+            'component': ComponentsList.Banner5050,
+            'mapping': MappingList.Banner5050,
         },
     ]
 }

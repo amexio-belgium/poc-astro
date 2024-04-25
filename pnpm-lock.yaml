@@ -38,6 +38,9 @@ dependencies:
   '@sanity/client':
     specifier: ^6.15.20
     version: 6.15.20
+  '@sanity/image-url':
+    specifier: ^1.0.2
+    version: 1.0.2
   '@trpc/client':
     specifier: ^10.45.1
     version: 10.45.1(@trpc/server@10.45.1)
