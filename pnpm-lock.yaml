@@ -80,6 +80,9 @@ dependencies:
   graphql:
     specifier: ^16.8.1
     version: 16.8.1
+  groq:
+    specifier: ^3.39.0
+    version: 3.39.0
   jsona:
     specifier: ^1.12.1
     version: 1.12.1
@@ -8940,6 +8943,11 @@ packages:
 
   /groq@3.38.0:
     resolution: {integrity: sha512-d8b2HVgY2ATegkrMDkrfiE73i/+KnKXJ/El2GJtQsYHFYk4wkem4RNcbLaqIsw95OpIUZUwzDTJU8nzbHuXX0A==}
+    engines: {node: '>=18'}
+    dev: false
+
+  /groq@3.39.0:
+    resolution: {integrity: sha512-b3VUixTuNYF51zGPQRUU5qzQVNy98igjJsVq7jm7cHtLX7n8JviZ3OoAnP1NgXqbbu7JJOj4WxZuPxsQkvGQiA==}
     engines: {node: '>=18'}
     dev: false
 

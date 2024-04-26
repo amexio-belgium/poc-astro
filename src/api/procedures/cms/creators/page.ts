@@ -10,7 +10,6 @@ import type {
     SharedHeaderComponent,
     SharedTextComponent
 } from 'src/types/strapi/generated.schemas.ts';
-import {type Page as SanityPage} from 'src/types/sanity/sanity.types.ts'
 import {getPages} from 'src/types/strapi/page.ts';
 import {createBannerVideoDrupal, createBannerVideoStrapi} from '@trpc-procedures/cms/creators/bannerVideo.ts';
 import {createDefaultHeader, createHeaderDrupal, createHeaderStrapi} from '@trpc-procedures/cms/creators/header.ts';
@@ -33,6 +32,8 @@ import {createIframeDrupal} from '@trpc-procedures/cms/creators/iframe.ts';
 import {sanityClient} from 'sanity:client';
 import {componentsConfigSanity} from 'src/mapping/sanity.config.ts';
 import {ComponentTypeFactorySanity} from 'src/mapping/config/sanity/super/componentType.factory.ts';
+import groq from 'groq';
+import type {GetPageSanityQueryResult} from 'sanity.types.ts';
 const languages: string[] = ["en","nl"];
 type ComponentMapStrapiFunction = (component: PageContentItem) => ComponentsUnion|null;
 const componentMapStrapi: {key: string, function: ComponentMapStrapiFunction}[] = [
@@ -171,11 +172,26 @@ export async function getPageStrapi({input, lang}: { input: GetPageInput; lang: 
     return null
 }
 
+export const getPageSanityQuery = groq`
+*[_type == "page" && slug.current == "over-aquafin"]{
+  ...,
+  content[] {
+    ...
+    {
+      ...,
+      teasers[]->{
+        slug,
+        title,
+        mainImage
+      }
+    }
+  }
+}[0]
+`
 export async function getPageSanity({input}: { input: GetPageInput; }): Promise<NewPage|null>{
 
-    const sanityPages: SanityPage[] = await sanityClient.fetch(`*[_type == "page" && slug.current == "${input}"]{...}`);
-    if(sanityPages.length > 0){
-        const sanityPage = sanityPages[0];
+    const sanityPage: GetPageSanityQueryResult = await sanityClient.fetch(getPageSanityQuery, {slug: input});
+    if(sanityPage){
         const page: NewPage = {
             title: sanityPage.title!,
             lang: 'nl',
