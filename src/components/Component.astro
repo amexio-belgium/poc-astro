@@ -1,0 +1,149 @@
+---
+import BannerVideo from './BannerVideo.bis.astro';
+import {ComponentsList} from "../models/super/components.type";
+import Banner5050 from "./Banner5050.bis.astro";
+
+interface Props {
+    component: any;
+}
+
+const {component} = Astro.props;
+---
+
+{component.componentName === ComponentsList.BannerVideo && <BannerVideo props={component}></BannerVideo>}
+{component.componentName === ComponentsList.Banner5050 && <Banner5050 props={component}></Banner5050>}
+
+<style is:global>
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+        font-weight: 200;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+        font-weight: 300;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+        font-weight: 500;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+        font-weight: 600;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+        font-weight: 700;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+        font-weight: 800;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+        font-weight: 900;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+        font-weight: 200;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Source Sans Pro';
+        src: url('/fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    html *
+    {
+        font-family: Source Sans Pro,sans-serif;
+    }
+</style>

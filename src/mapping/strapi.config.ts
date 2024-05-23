@@ -1,0 +1,1 @@
+// Put some strapi specific config over here :-)

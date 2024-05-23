@@ -1,3 +1,5 @@
+import type {Component} from "../../../models/abstract/component.interface.ts";
+
 export type Page = {
     title: string,
     slug: string,
@@ -5,6 +7,15 @@ export type Page = {
     hideDefaultHeader: boolean,
     components: ComponentsUnion[]
 }
+
+export type NewPage = {
+    title: string,
+    slug: string,
+    lang: string,
+    hideDefaultHeader: boolean,
+    components: Component[];
+}
+
 export type ComponentsUnion = Banner5050|BannerCards|BannerTiles|BannerVideo|DefaultHeader|Header|FullWidthBanner|Text|JobType|Iframe;
 
 export type JobType = {
