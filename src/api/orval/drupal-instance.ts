@@ -19,6 +19,7 @@ export const drupalInstance = <T>(
         source.cancel('Query was cancelled');
     };
 
+    console.log('hello')
     return promise;
 };
 
