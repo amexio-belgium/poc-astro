@@ -4,7 +4,30 @@ on:
         types: [opened, synchronize, ready_for_review, reopened]
 
 jobs:
+    delete-old-claude-comments:
+        # Currently, the claude-code-action does not support updating its own comments.
+        # https://github.com/anthropics/claude-code-action/issues/37
+        name: Delete old Claude comments
+        runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
+
+        steps:
+            - name: Clean up old comments
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      const params = { issue_number: context.issue.number, owner: context.repo.owner, repo: context.repo.repo }
+                      const comments = await github.rest.issues.listComments(params);
+
+                      for (const comment of comments.data) {
+                        if (comment.user.login === 'claude[bot]') {
+                          await github.rest.issues.deleteComment({ ...params, comment_id: comment.id });
+                        }
+                      }
+
     review:
+        needs: delete-old-claude-comments
         runs-on: ubuntu-latest
         permissions:
             contents: read
@@ -19,7 +42,7 @@ jobs:
               with:
                   claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
                   track_progress: true # ✨ Enables tracking comments
-                  use_sticky_comment: true # 📌 Uses sticky comment for tracking
+                  
                   prompt: |
                       REPO: ${{ github.repository }}
                       PR NUMBER: ${{ github.event.pull_request.number }}
