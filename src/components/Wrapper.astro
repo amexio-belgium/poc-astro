@@ -17,6 +17,7 @@ interface Props {
 }
 
 const {component} = Astro.props;
+
 ---
 
 {component.componentName === Components.DefaultHeader && <DefaultHeader defaultHeader={component}></DefaultHeader>}
