@@ -31,6 +31,8 @@ jobs:
                       - Performance considerations
 
                       Provide detailed feedback using inline comments for specific issues.
+                      Don't provide comments/feedback when everything is fine. We don't need positive comments. 
+                      Only provide comments when there are issues.
 
                   claude_args: |
                       --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
