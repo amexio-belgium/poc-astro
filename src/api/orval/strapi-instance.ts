@@ -19,8 +19,6 @@ export const strapiInstance = <T>(
         source.cancel('Query was cancelled');
     };
 
-
-
     return promise;
 };
 
