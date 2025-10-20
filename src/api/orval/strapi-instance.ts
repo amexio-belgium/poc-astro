@@ -20,7 +20,7 @@ export const strapiInstance = <T>(
     };
 
 
-        console.log('hello there')
+
     return promise;
 };
 
